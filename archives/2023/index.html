@@ -17,8 +17,8 @@
   <meta name="keywords" content="">
   
     <meta property="og:type" content="website">
-<meta property="og:title" content="ShijieQ&#39;s Blog">
-<meta property="og:url" content="http://shijieq.github.io/index.html">
+<meta property="og:title" content="归档">
+<meta property="og:url" content="http://shijieq.github.io/archives/2023/index.html">
 <meta property="og:site_name" content="ShijieQ&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="ShijieQ">
@@ -26,7 +26,7 @@
   
   
   
-  <title>ShijieQ&#39;s Blog</title>
+  <title>归档 - ShijieQ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -80,7 +80,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 100vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -186,17 +186,13 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Welcome To ShijieQ&#39;s Blog"></span>
+            <span id="subtitle" data-typed-text="归档"></span>
           
         </div>
 
         
       </div>
 
-      
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
       
     </div>
   </div>
@@ -210,216 +206,28 @@
     
       <div class="container nopadding-x-md">
         <div id="board"
-          style="margin-top: 0">
+          >
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-
-  <div class="row mx-auto index-card">
+<div class="list-group">
+  <p class="h4">共计 3 篇文章</p>
+  <hr>
+  
+  
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/17/OpenSSL/%E4%BD%BF%E7%94%A8OpenSSL%E7%94%9F%E6%88%90TLS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_self">
-          使用OpenSSL生成TLS配置文件
-        </a>
-      </h1>
-
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/17/OpenSSL/%E4%BD%BF%E7%94%A8OpenSSL%E7%94%9F%E6%88%90TLS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_self">
-        <div>
-          最近在搭建SDP项目的通信模块时，需要建立控制器和客户端的双向TLS加密，这部分采用OpenSSL生成密钥和证书的方式实现。本篇文章用于记录OpenSSL的简易使用方法，通过本文可以快速地生成Netty可用的密钥证书。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-17 09:00" pubdate>
-              2023-03-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
+      <p class="h5">2023</p>
     
-      <span class="category-chain">
-        
-  <a href="/categories/OpenSSL/" class="category-chain-item">OpenSSL</a>
+    <a href="/2023/03/17/OpenSSL/%E4%BD%BF%E7%94%A8OpenSSL%E7%94%9F%E6%88%90TLS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="list-group-item list-group-item-action">
+      <time>03-17</time>
+      <div class="list-group-item-title">使用OpenSSL生成TLS配置文件</div>
+    </a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/OpenSSL/TLS/" class="category-chain-item">TLS</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/OpenSSL/">#OpenSSL</a>
-            
-              <a href="/tags/TLS/">#TLS</a>
-            
-              <a href="/tags/Netty/">#Netty</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/11/10/Java/Spring%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
-          Spring相关基础知识
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/10/Java/Spring%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
-        <div>
-          Spring 解决的是编译时的依赖  Class.forname()方法的作用，就是初始化给定的类。而我们给定的 MySQL 的 Driver 类中，它在静态代码块中通过 JDBC 的 DriverManager 注册了一下驱动。我们也可以直接使用 JDBC 的驱动管理器注册 mysql 驱动，从而代替使用 Class.forName   Reference《Spring揭秘》《Spring IN
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-10 09:00" pubdate>
-              2022-11-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/Java/Spring/" class="category-chain-item">Spring</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Spring/">#Spring</a>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/15/C++/C-%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
-          C++相关基础知识
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2021/01/15/C++/C-%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
-        <div>
-          C与C++的区别Const与指针    指向常量的指针 常指针 指向常量的常指针    格式 const 类型名* 指针名 类型名* const 指针名 const 类型名* const 指针名   示例 const int* p = &x; int* const p = &x; const int* const p = &x;   可修改的值 p, x *p, x x   不可修改的值 *p p
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-15 09:00" pubdate>
-              2021-01-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/C/" class="category-chain-item">C++</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C/">#C++</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+</div>
 
 
 
