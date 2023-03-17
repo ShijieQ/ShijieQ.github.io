@@ -64,6 +64,35 @@
   
   
   <entry>
+    <title>常见决策算法汇总</title>
+    <link href="/2022/11/01/Laboratory/TrustManagement/%E5%B8%B8%E8%A7%81%E5%86%B3%E7%AD%96%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB/"/>
+    <url>/2022/11/01/Laboratory/TrustManagement/%E5%B8%B8%E8%A7%81%E5%86%B3%E7%AD%96%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB/</url>
+    
+    <content type="html"><![CDATA[<h1 id="TOPSIS"><a href="#TOPSIS" class="headerlink" title="TOPSIS"></a>TOPSIS</h1><p>TOPSIS法根据有限个评价对象与理想化目标的接近程度进行排序的方法，是在现有的对象中进行相对优劣的评价。TOPSIS法是一种逼近于理想解的排序法，该方法只要求各效用函数具有单调递增（或递减）性就行。<br>TOPSIS法是多目标决策分析中一种常用的有效方法，又称为<strong>优劣解距离法</strong>。</p><blockquote><p>1981年，C.L.Hwang和K.Yoon首次提出了Topsis，全称Technique for Order Preference by Similarity to an Ideal Solution，可翻译为逼近理想解排序法，国内常称为优劣解距离法。它是一种常用的综合评价方法。</p></blockquote><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>TOPSIS可以弥补层次分析法的一些缺点:</p><ol><li>优劣解距离法可以充分利用原始数据信息，且其结果能充分反应各评价方案与最优方案的接近程度。</li><li>对样本容量没有严格限制，数据计算简单易行，无需数据检验。（topsis法适用于两个以上）</li></ol><h2 id="基本过程"><a href="#基本过程" class="headerlink" title="基本过程"></a>基本过程</h2><ol><li>原始矩阵正向化，得到正向化矩阵<ul><li>指标类型。指标类型一般分为四种，<strong>极大型指标</strong>、<strong>极小型指标</strong>、<strong>中间型指标</strong>、<strong>区间型指标</strong>。<ul><li>极大型指标越大越好；</li><li>极小型指标越小越好；</li><li>中间型指标越接近中间值越好；</li><li>区间型指标落在区间内最好。</li></ul></li><li>正向化公式。正向化就是将原始数据指标都转化为极大型指标<ul><li>极小型 -&gt; 极大型：$x_i = max - x_i$，当指标值中没有”0”时也可以用 $x_i = \frac{1}{x_i}$</li><li>中间型 -&gt; 极大型：$x_i = 1 - \frac{|x_i - max|}{mid}$，其中 $mid$ 为中间值</li><li>区间型 -&gt; 极大型：其中 $M$ 表示为距离区间最远的距离，即 $max(a - min(x_i), max(x_i) - b)$<br>$$<br>\left{\begin{array}{c}<br>x_i=1-\frac{a-x_i}{M}\left(x^i \leqslant a\right) \<br>x_i=1\left(a \leqslant x_i \leqslant b\right) \<br>x_i=1-\frac{x_i-b}{M}\left(x^i \geqslant b\right)<br>\end{array}\right.<br>$$</li></ul></li></ul> 假设有n个要评价的对象，m个已经正向化的评价指标，构成的正向化矩阵为：<br> $$<br> X=\left[\begin{array}{cccc}<br> x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1 m} \<br> x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2 m} \<br> \vdots &amp; \vdots &amp; \ddots &amp; \vdots \<br> x_{n 1} &amp; x_{n 2} &amp; \cdots &amp; x_{n m}<br> \end{array}\right]<br> $$</li><li>对正向化矩阵标准化<br> $$<br> Z_{i j}=\frac{x_{i j}}{\sqrt{\sum_1^n x_{i j}^2}}<br> $$<br> 得到标准化矩阵为：<br> $$<br> Z=\left[\begin{array}{cccc}<br> z_{11} &amp; z_{12} &amp; \cdots &amp; z_{1 m} \<br> z_{21} &amp; z_{22} &amp; \cdots &amp; z_{2 m} \<br> \vdots &amp; \vdots &amp; \ddots &amp; \vdots \<br> z_{n 1} &amp; z_{n 2} &amp; \cdots &amp; z_{n m}<br> \end{array}\right]<br> $$</li><li>计算得分并归一化<br> 构造评分公式：$S = \frac{x - min}{max - min}$，变形可得 $S = \frac{x - min}{(max - x) + (x - min)}$<br> 计算列最大值 $$ Z^+ = (Z^+<em>1, Z^+<em>2, \cdots, Z^+<em>m) =<br> \left(\max \left{z</em>{11}, z</em>{21}, \cdots, z</em>{n 1}\right}, \max \left{z_{12}, z_{22}, \cdots, z_{n 2}\right}, \cdots, \max \left{z_{1 m}, z_{2 m}, \cdots, z_{n m}\right}\right)<br> $$ 计算列最小值 $$ Z^- = (Z^-<em>1, Z^-<em>2, \cdots, Z^-<em>m) =<br> \left(\min \left{z</em>{11}, z</em>{21}, \cdots, z</em>{n 1}\right}, \min \left{z_{12}, z_{22}, \cdots, z_{n 2}\right}, \cdots, \min \left{z_{1 m}, z_{2 m}, \cdots, z_{n m}\right}\right)<br> $$ 定义第 $i$ 个评价对象与最大值的距离 $D_i^{+}=\sqrt{\sum_{j=1}^m\left(Z_j^{+}-z_{i j}\right)^2}$<br> 定义第 $i$ 个评价对象与最小值的距离 $D_i^{-}=\sqrt{\sum_{j=1}^m\left(Z_j^{-}-z_{i j}\right)^2}$<br> 那么可以计算出第 $i$ 个评价对象未归一化的得分为：$S_i = \frac{D^-_i}{D^+_i + D^-_i}$<br> 将 $S_i$ 归一化后进行数值排名，即可得到最佳方案</li></ol><h1 id="VIKOR"><a href="#VIKOR" class="headerlink" title="VIKOR"></a>VIKOR</h1><h2 id="与TOPSIS的对比"><a href="#与TOPSIS的对比" class="headerlink" title="与TOPSIS的对比"></a>与TOPSIS的对比</h2><ul><li>TOPSIS和VIKOR的区别之一在于<strong>聚合函数</strong>。TOPSIS是基于距离理想解的距离的集合，VIKOR方法在TOPSIS方法的基础上提出了一个具有优势率的折衷方案。在TOPSIS方法中，不仅要考虑到与正理想解的最近距离，而且考虑到与负理想解的最长距离，从而确定最优解，以最大限度地提高效益。但TOPSIS 中的这些距离只是简单地求和，没有考虑它们的相对重要性，而在VIKOR中决策者会根据自身需求确定其重要性。</li><li>VIKOR方法相比TOPSIS方法多了一个<strong>决策机制系数</strong>，它可以使决策者做出更激进或更保守的决策。TOPSIS方法的过程没有纳入任何主观因素，更适合要求结果完全客观的决策环境。</li><li>VIKOR方法的独特优势在于可以得到<strong>带有优先级的折衷方案</strong>，这使得通过VIKOR排序后的最佳方案可能不止一个。而TOPSIS方法只能得到唯一最优解，毕竟它的过程是完全客观的。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Laboratory</category>
+      
+      <category>TrustManagement</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Laboratory</tag>
+      
+      <tag>TrustManagement</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>C++相关基础知识</title>
     <link href="/2021/01/15/C++/C-%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <url>/2021/01/15/C++/C-%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
