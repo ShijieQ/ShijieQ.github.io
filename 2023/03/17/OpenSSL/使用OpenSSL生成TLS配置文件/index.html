@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -22,9 +22,9 @@
 <meta property="og:url" content="http://shijieq.github.io/2023/03/17/OpenSSL/%E4%BD%BF%E7%94%A8OpenSSL%E7%94%9F%E6%88%90TLS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/index.html">
 <meta property="og:site_name" content="ShijieQ&#39;s Blog">
 <meta property="og:description" content="最近在搭建SDP项目的通信模块时，需要建立控制器和客户端的双向TLS加密，这部分采用OpenSSL生成密钥和证书的方式实现。本篇文章用于记录OpenSSL的简易使用方法，通过本文可以快速地生成Netty可用的密钥证书。">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-17T01:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-17T05:07:43.947Z">
+<meta property="article:modified_time" content="2023-03-17T09:04:50.654Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="OpenSSL">
 <meta property="article:tag" content="TLS">
@@ -117,7 +117,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
+                <span>Home</span>
               </a>
             </li>
           
@@ -129,7 +129,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
+                <span>Archives</span>
               </a>
             </li>
           
@@ -141,7 +141,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
+                <span>Categories</span>
               </a>
             </li>
           
@@ -153,7 +153,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
+                <span>Tags</span>
               </a>
             </li>
           
@@ -165,7 +165,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
+                <span>About</span>
               </a>
             </li>
           
@@ -211,7 +211,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2023-03-17 09:00" pubdate>
-          2023年3月17日 上午
+          March 17, 2023 am
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          2.8k words
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          24 分钟
+          24 mins
         
       </span>
     
@@ -276,23 +276,39 @@
             
               <div class="markdown-body">
                 
-                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近在搭建SDP项目的通信模块时，需要建立控制器和客户端的双向TLS加密，这部分采用OpenSSL生成密钥和证书的方式实现。本篇文章用于记录OpenSSL的简易使用方法，通过本文可以快速地生成Netty可用的密钥证书。</p>
-<h2 id="构建步骤"><a href="#构建步骤" class="headerlink" title="构建步骤"></a>构建步骤</h2><p>本文的构建环境为 Ubuntu 22.04，其自带了 OpenSSL，其他平台用户可能需要首先安装 OpenSSL，具体步骤如下：</p>
-<ol>
-<li>生成CA的私钥 <code>ca.key</code> 和自签名证书 <code>ca.crt</code>，用于 SSL/TLS 通信的证书认证，当前自签名证书有效期为 365 天，即一年<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:4096 -keyout ca.key -out ca.crt<br></code></pre></td></tr></table></figure></li>
-<li>生成服务器（即Controller）的私钥 <code>server.key</code>，证书签名请求 <code>server.csr</code> 以及签名证书 <code>server.crt</code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">server.key 为密钥长度为 2048 位的 RSA 私钥，证书有效期为 365 天</span><br>openssl genrsa -out server.key 2048<br>openssl req -new -key server.key -out server.csr<br>openssl x509 -req -days 365 -in server.csr -CA ca.crt -CAkey ca.key -out server.crt<br></code></pre></td></tr></table></figure></li>
-<li>生成客户端（即Client）的私钥 <code>client.key</code>，证书签名请求 <code>client.csr</code> 以及签名证书 <code>client.crt</code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">同上，证书有效期为 31 天</span><br>openssl genrsa -out client.key 2048<br>openssl req -new -key client.key -out client.csr<br>openssl x509 -req -days 31 -in client.csr -CA ca.crt -CAkey ca.key -out client.crt<br></code></pre></td></tr></table></figure></li>
-<li>转换为 netty 可以识别的密钥格式<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">openssl pkcs8 -topk8 -inform PEM -in server.key -outform PEM -nocrypt -out server_pkcs8.key<br>openssl pkcs8 -topk8 -inform PEM -in client.key -outform PEM -nocrypt -out client_pkcs8.key<br></code></pre></td></tr></table></figure></li>
-<li>*CA可以通过以下指令去核实证书<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">openssl verify -purpose sslserver -CAfile ca.crt server.crt<br>openssl verify -purpose sslclient -CAfile ca.crt client.crt<br></code></pre></td></tr></table></figure></li>
+                <h2 id="引言">引言</h2>
+<p>最近在搭建SDP项目的通信模块时，需要建立控制器和客户端的双向TLS加密，这部分采用OpenSSL生成密钥和证书的方式实现。本篇文章用于记录OpenSSL的简易使用方法，通过本文可以快速地生成Netty可用的密钥证书。</p>
+<h2 id="构建步骤">构建步骤</h2>
+<p>本文的构建环境为 Ubuntu 22.04，其自带了
+OpenSSL，其他平台用户可能需要首先安装 OpenSSL，具体步骤如下：</p>
+<ol type="1">
+<li>生成CA的私钥 <code>ca.key</code> 和自签名证书
+<code>ca.crt</code>，用于 SSL/TLS 通信的证书认证，当前自签名证书有效期为
+365 天，即一年 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:4096 -keyout ca.key -out ca.crt<br></code></pre></td></tr></table></figure></li>
+<li>生成服务器（即Controller）的私钥
+<code>server.key</code>，证书签名请求 <code>server.csr</code>
+以及签名证书 <code>server.crt</code> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">server.key 为密钥长度为 2048 位的 RSA 私钥，证书有效期为 365 天</span><br>openssl genrsa -out server.key 2048<br>openssl req -new -key server.key -out server.csr<br>openssl x509 -req -days 365 -in server.csr -CA ca.crt -CAkey ca.key -out server.crt<br></code></pre></td></tr></table></figure></li>
+<li>生成客户端（即Client）的私钥 <code>client.key</code>，证书签名请求
+<code>client.csr</code> 以及签名证书 <code>client.crt</code>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">同上，证书有效期为 31 天</span><br>openssl genrsa -out client.key 2048<br>openssl req -new -key client.key -out client.csr<br>openssl x509 -req -days 31 -in client.csr -CA ca.crt -CAkey ca.key -out client.crt<br></code></pre></td></tr></table></figure></li>
+<li>转换为 netty 可以识别的密钥格式 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">openssl pkcs8 -topk8 -inform PEM -in server.key -outform PEM -nocrypt -out server_pkcs8.key<br>openssl pkcs8 -topk8 -inform PEM -in client.key -outform PEM -nocrypt -out client_pkcs8.key<br></code></pre></td></tr></table></figure></li>
+<li>*CA可以通过以下指令去核实证书 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">openssl verify -purpose sslserver -CAfile ca.crt server.crt<br>openssl verify -purpose sslclient -CAfile ca.crt client.crt<br></code></pre></td></tr></table></figure></li>
 </ol>
 <p>至此我们在当前目录下可以得到以下文件：</p>
 <blockquote>
-<p>ca.key<br>ca.crt<br>ca.srl<br>client.crt<br>client.key<br>client.csr<br>client_pkcs8.key<br>server.crt<br>server.key<br>server.csr<br>server_pkcs8.key</p>
+<p>ca.key ca.crt ca.srl client.crt client.key client.csr
+client_pkcs8.key server.crt server.key server.csr server_pkcs8.key</p>
 </blockquote>
-<p>其中 <code>*_pkcs8.key</code> 文件就是 Netty 配置 TLS 时能够识别的 PKCS8 密钥格式。</p>
-<h2 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h2><ul>
-<li>CA 签发证书时提示如下，是指我们在签发证书时需要指定一个生成证书的序列号，可以在签发前 <code>echo &quot;01&quot; &gt; ca.srl</code> 避免提示<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">openssl x509 -req -days 365 -<span class="hljs-keyword">in</span> server.csr -CA ca.crt -CAkey ca.key -out server.crt</span><br>Signature ok<br>subject=C = CN, ST = JiangSu, L = Nanjing, O = SEU, OU = CyberScience, CN = 6209, emailAddress = ShijieQ@outlook.com<br>Getting CA Private Key<br>ca.srl: No such file or directory<br>139954133366592:error:06067099:digital envelope routines:EVP_PKEY_copy_parameters:different parameters:crypto/evp/p_lib.c:93:<br>139954133366592:error:02001002:system library:fopen:No such file or directory:crypto/bio/bss_file.c:69:fopen(&#x27;ca.srl&#x27;,&#x27;r&#x27;)<br>139954133366592:error:2006D080:BIO routines:BIO_new_file:no such file:crypto/bio/bss_file.c:76:<br></code></pre></td></tr></table></figure></li>
-<li>使用 CA 的自签名证书签发密钥证书后，可能会出现无法 CA 无法认证的情况，需要检查在签发时 Common Name 不能和 CA 相同<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:4096 -keyout ca.key -out ca.crt</span><br>Generating a RSA private key<br>.++++<br>...................................................................++++<br>writing new private key to &#x27;ca.key&#x27;<br>-----<br>You are about to be asked to enter information that will be incorporated<br>into your certificate request.<br>What you are about to enter is what is called a Distinguished Name or a DN.<br>There are quite a few fields but you can leave some blank<br>For some fields there will be a default value,<br>If you enter &#x27;.&#x27;, the field will be left blank.<br>-----<br>Country Name (2 letter code) [AU]:CN<br>State or Province Name (full name) [Some-State]:JiangSu<br>Locality Name (eg, city) []:Nanjing<br>Organization Name (eg, company) [Internet Widgits Pty Ltd]:XXX<br>Organizational Unit Name (eg, section) []:XXXX<br>Common Name (e.g. server FQDN or YOUR name) []:XXXX # 这个不能和控制器以及客户端相同<br>Email Address []:ShijieQ@outlook.com<br></code></pre></td></tr></table></figure></li>
+<p>其中 <code>*_pkcs8.key</code> 文件就是 Netty 配置 TLS 时能够识别的
+PKCS8 密钥格式。</p>
+<h2 id="可能遇到的问题">可能遇到的问题</h2>
+<ul>
+<li>CA
+签发证书时提示如下，是指我们在签发证书时需要指定一个生成证书的序列号，可以在签发前
+<code>echo "01" &gt; ca.srl</code> 避免提示 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">openssl x509 -req -days 365 -<span class="hljs-keyword">in</span> server.csr -CA ca.crt -CAkey ca.key -out server.crt</span><br>Signature ok<br>subject=C = CN, ST = JiangSu, L = Nanjing, O = SEU, OU = CyberScience, CN = 6209, emailAddress = ShijieQ@outlook.com<br>Getting CA Private Key<br>ca.srl: No such file or directory<br>139954133366592:error:06067099:digital envelope routines:EVP_PKEY_copy_parameters:different parameters:crypto/evp/p_lib.c:93:<br>139954133366592:error:02001002:system library:fopen:No such file or directory:crypto/bio/bss_file.c:69:fopen(&#x27;ca.srl&#x27;,&#x27;r&#x27;)<br>139954133366592:error:2006D080:BIO routines:BIO_new_file:no such file:crypto/bio/bss_file.c:76:<br></code></pre></td></tr></table></figure></li>
+<li>使用 CA 的自签名证书签发密钥证书后，可能会出现无法 CA
+无法认证的情况，需要检查在签发时 Common Name 不能和 CA 相同
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:4096 -keyout ca.key -out ca.crt</span><br>Generating a RSA private key<br>.++++<br>...................................................................++++<br>writing new private key to &#x27;ca.key&#x27;<br>-----<br>You are about to be asked to enter information that will be incorporated<br>into your certificate request.<br>What you are about to enter is what is called a Distinguished Name or a DN.<br>There are quite a few fields but you can leave some blank<br>For some fields there will be a default value,<br>If you enter &#x27;.&#x27;, the field will be left blank.<br>-----<br>Country Name (2 letter code) [AU]:CN<br>State or Province Name (full name) [Some-State]:JiangSu<br>Locality Name (eg, city) []:Nanjing<br>Organization Name (eg, company) [Internet Widgits Pty Ltd]:XXX<br>Organizational Unit Name (eg, section) []:XXXX<br>Common Name (e.g. server FQDN or YOUR name) []:XXXX # 这个不能和控制器以及客户端相同<br>Email Address []:ShijieQ@outlook.com<br></code></pre></td></tr></table></figure></li>
 </ul>
 
                 
@@ -356,26 +372,26 @@
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>ShijieQ</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2023年3月17日</div>
+          <div>Posted on</div>
+          <div>March 17, 2023</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -395,13 +411,19 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2023/03/17/DistributedSystem/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="分布式系统基础知识">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">分布式系统基础知识</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/10/Java/Spring%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="Spring相关基础知识">
-                        <span class="hidden-mobile">Spring相关基础知识</span>
-                        <span class="visible-mobile">下一篇</span>
+                      <a href="/2023/03/07/DistributedSystem/MicroService/%E4%B8%8D%E5%90%8C%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82/" title="不同注册中心之间的差异">
+                        <span class="hidden-mobile">不同注册中心之间的差异</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -422,7 +444,7 @@
     <div id="toc">
   <p class="toc-header">
     <i class="iconfont icon-list"></i>
-    <span>目录</span>
+    <span>Table of Contents</span>
   </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
@@ -459,6 +481,12 @@
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -478,7 +506,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -486,7 +514,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -651,6 +679,49 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
   <script  src="/js/local-search.js" ></script>
 
 
@@ -665,7 +736,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>

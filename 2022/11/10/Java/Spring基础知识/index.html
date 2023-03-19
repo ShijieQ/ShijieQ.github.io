@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,13 +16,13 @@
   <meta name="author" content="ShijieQ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spring 解决的是编译时的依赖  Class.forname()方法的作用，就是初始化给定的类。而我们给定的 MySQL 的 Driver 类中，它在静态代码块中通过 JDBC 的 DriverManager 注册了一下驱动。我们也可以直接使用 JDBC 的驱动管理器注册 mysql 驱动，从而代替使用 Class.forName   Reference《Spring揭秘》《Spring IN">
+    <meta name="description" content="Spring  解决的是编译时的依赖 Class.forname()方法的作用，就是初始化给定的类。而我们给定的 MySQL 的 Driver 类中，它在静态代码块中通过 JDBC 的 DriverManager 注册了一下驱动。我们也可以直接使用 JDBC 的驱动管理器注册 mysql 驱动，从而代替使用 Class.forName  Reference 《Spring揭秘》">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring相关基础知识">
 <meta property="og:url" content="http://shijieq.github.io/2022/11/10/Java/Spring%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
 <meta property="og:site_name" content="ShijieQ&#39;s Blog">
-<meta property="og:description" content="Spring 解决的是编译时的依赖  Class.forname()方法的作用，就是初始化给定的类。而我们给定的 MySQL 的 Driver 类中，它在静态代码块中通过 JDBC 的 DriverManager 注册了一下驱动。我们也可以直接使用 JDBC 的驱动管理器注册 mysql 驱动，从而代替使用 Class.forName   Reference《Spring揭秘》《Spring IN">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Spring  解决的是编译时的依赖 Class.forname()方法的作用，就是初始化给定的类。而我们给定的 MySQL 的 Driver 类中，它在静态代码块中通过 JDBC 的 DriverManager 注册了一下驱动。我们也可以直接使用 JDBC 的驱动管理器注册 mysql 驱动，从而代替使用 Class.forName  Reference 《Spring揭秘》">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://shijieq.github.io/2022/11/10/Java/Spring%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/img/基于注解和XML的对比.png">
 <meta property="article:published_time" content="2022-11-10T01:00:00.000Z">
 <meta property="article:modified_time" content="2023-03-17T03:55:04.963Z">
@@ -118,7 +118,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
+                <span>Home</span>
               </a>
             </li>
           
@@ -130,7 +130,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
+                <span>Archives</span>
               </a>
             </li>
           
@@ -142,7 +142,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
+                <span>Categories</span>
               </a>
             </li>
           
@@ -154,7 +154,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
+                <span>Tags</span>
               </a>
             </li>
           
@@ -166,7 +166,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
+                <span>About</span>
               </a>
             </li>
           
@@ -212,7 +212,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2022-11-10 09:00" pubdate>
-          2022年11月10日 上午
+          November 10, 2022 am
         </time>
       </span>
     
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          24k 字
+          24k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          202 分钟
+          201 mins
         
       </span>
     
@@ -277,447 +277,517 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><ul>
-<li><p>解决的是编译时的依赖</p>
-</li>
-<li><p><code>Class.forname()</code>方法的作用，就是初始化给定的类。而我们给定的 MySQL 的 Driver 类中，它在静态代码块中通过 JDBC 的 DriverManager 注册了一下驱动。我们也可以直接使用 JDBC 的驱动管理器注册 mysql 驱动，从而代替使用 <code>Class.forName</code></p>
-</li>
+                <h1 id="spring">Spring</h1>
+<ul>
+<li><p>解决的是编译时的依赖</p></li>
+<li><p><code>Class.forname()</code>方法的作用，就是初始化给定的类。而我们给定的
+MySQL 的 Driver 类中，它在静态代码块中通过 JDBC 的 DriverManager
+注册了一下驱动。我们也可以直接使用 JDBC 的驱动管理器注册 mysql
+驱动，从而代替使用 <code>Class.forName</code></p></li>
 </ul>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>《Spring揭秘》<br>《Spring IN ACTION》</p>
-<h2 id="约定大于配置"><a href="#约定大于配置" class="headerlink" title="约定大于配置"></a>约定大于配置</h2><blockquote>
-<p>约定大于配置，也可以叫做约定优于配置（convention over configuration），也称作按约定编程，是一种软件设计范式，指在减少软件开发人员需做决定的数量，获得简单的好处，而又不失灵活性。</p>
+<h2 id="reference">Reference</h2>
+<p>《Spring揭秘》 《Spring IN ACTION》</p>
+<h2 id="约定大于配置">约定大于配置</h2>
+<blockquote>
+<p>约定大于配置，也可以叫做约定优于配置（convention over
+configuration），也称作按约定编程，是一种软件设计范式，指在减少软件开发人员需做决定的数量，获得简单的好处，而又不失灵活性。</p>
 </blockquote>
-<h2 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h2><blockquote>
-<p>If you use predominantly constructor injection, it is possible to create an unresolvable circular dependency scenario.</p>
-<p>For example: Class A requires an instance of class B through constructor injection, and class B requires an instance of class A through constructor injection. If you configure beans for classes A and B to be injected into each other, the Spring IoC container detects this circular reference at runtime, and throws a <code>BeanCurrentlyInCreationException</code>.</p>
-<p>One possible solution is to edit the source code of some classes to be configured by setters rather than constructors. Alternatively, avoid constructor injection and use setter injection only. In other words, although it is not recommended, you can configure circular dependencies with setter injection.</p>
-<p>Unlike the typical case (with no circular dependencies), a circular dependency between bean A and bean B forces one of the beans to be injected into the other prior to being fully initialized itself (a classic chicken-and-egg scenario).</p>
+<h2 id="循环依赖">循环依赖</h2>
+<blockquote>
+<p>If you use predominantly constructor injection, it is possible to
+create an unresolvable circular dependency scenario.</p>
+<p>For example: Class A requires an instance of class B through
+constructor injection, and class B requires an instance of class A
+through constructor injection. If you configure beans for classes A and
+B to be injected into each other, the Spring IoC container detects this
+circular reference at runtime, and throws a
+<code>BeanCurrentlyInCreationException</code>.</p>
+<p>One possible solution is to edit the source code of some classes to
+be configured by setters rather than constructors. Alternatively, avoid
+constructor injection and use setter injection only. In other words,
+although it is not recommended, you can configure circular dependencies
+with setter injection.</p>
+<p>Unlike the typical case (with no circular dependencies), a circular
+dependency between bean A and bean B forces one of the beans to be
+injected into the other prior to being fully initialized itself (a
+classic chicken-and-egg scenario).</p>
 <p>如果您主要使用构造函数注入，则可能会创建无法解决的循环依赖场景。</p>
-<p>例如：A类通过构造函数注入需要B类的实例，B类通过构造函数注入需要A类的实例。如果为类 A 和 B 配置 bean 以相互注入，Spring IoC 容器会在运行时检测到此循环引用，并抛出 BeanCurrentlyInCreationException。</p>
-<p>一种可能的解决方案是编辑某些类的源代码以由设置器而不是构造器配置。或者，避免构造函数注入并仅使用 setter 注入。也就是说，虽然不推荐，但是可以通过setter注入来配置循环依赖。</p>
-<p>与典型情况（没有循环依赖关系）不同，bean A 和 bean B 之间的循环依赖关系强制其中一个 bean 在完全初始化之前注入另一个 bean（典型的先有鸡还是先有蛋的场景）。</p>
+<p>例如：A类通过构造函数注入需要B类的实例，B类通过构造函数注入需要A类的实例。如果为类
+A 和 B 配置 bean 以相互注入，Spring IoC
+容器会在运行时检测到此循环引用，并抛出
+BeanCurrentlyInCreationException。</p>
+<p>一种可能的解决方案是编辑某些类的源代码以由设置器而不是构造器配置。或者，避免构造函数注入并仅使用
+setter
+注入。也就是说，虽然不推荐，但是可以通过setter注入来配置循环依赖。</p>
+<p>与典型情况（没有循环依赖关系）不同，bean A 和 bean B
+之间的循环依赖关系强制其中一个 bean 在完全初始化之前注入另一个
+bean（典型的先有鸡还是先有蛋的场景）。</p>
 </blockquote>
-<h2 id="延迟加载lazy-init"><a href="#延迟加载lazy-init" class="headerlink" title="延迟加载lazy-init"></a>延迟加载lazy-init</h2><blockquote>
-<p>By default, <code>ApplicationContext</code> implementations eagerly create and configure all singleton beans as part of the initialization process.</p>
+<h2 id="延迟加载lazy-init">延迟加载lazy-init</h2>
+<blockquote>
+<p>By default, <code>ApplicationContext</code> implementations eagerly
+create and configure all singleton beans as part of the initialization
+process.</p>
 </blockquote>
 <p>通过<code>lazy-init</code>属性，可以将部分单例bean延迟加载。</p>
-<h2 id="Method-Inject方法注入"><a href="#Method-Inject方法注入" class="headerlink" title="Method Inject方法注入"></a>Method Inject方法注入</h2><p>在大多数应用场景中，容器中的大多数 bean 都是单例的。 当一个单例 bean 需要与另一个单例 bean 协作或非单例 bean 需要与另一个非单例 bean 协作时，您通常通过将一个 bean 定义为另一个 bean 的属性来处理依赖关系。 当 bean 生命周期不同时，就会出现问题。 假设单例 bean A 需要使用非单例（原型）bean B，可能在 A 上的每个方法调用上。容器只创建一次单例 bean A，因此只有一次设置属性的机会。 容器无法在每次需要时为 bean A 提供一个新的 bean B 实例。<br>一个解决方案是放弃一些控制反转。 您可以通过实现 ApplicationContextAware 接口让 bean A 知道容器，并在每次 bean A 需要时对容器进行 getBean(“B”) 调用来请求（通常是新的）bean B 实例。</p>
+<h2 id="method-inject方法注入">Method Inject方法注入</h2>
+<p>在大多数应用场景中，容器中的大多数 bean 都是单例的。 当一个单例 bean
+需要与另一个单例 bean 协作或非单例 bean 需要与另一个非单例 bean
+协作时，您通常通过将一个 bean 定义为另一个 bean 的属性来处理依赖关系。
+当 bean 生命周期不同时，就会出现问题。 假设单例 bean A
+需要使用非单例（原型）bean B，可能在 A
+上的每个方法调用上。容器只创建一次单例 bean
+A，因此只有一次设置属性的机会。 容器无法在每次需要时为 bean A
+提供一个新的 bean B 实例。 一个解决方案是放弃一些控制反转。
+您可以通过实现 ApplicationContextAware 接口让 bean A 知道容器，并在每次
+bean A 需要时对容器进行 getBean("B") 调用来请求（通常是新的）bean B
+实例。</p>
 <p>//TODO</p>
-<h2 id="Java中的getResourceAsStream"><a href="#Java中的getResourceAsStream" class="headerlink" title="Java中的getResourceAsStream"></a>Java中的getResourceAsStream</h2><p><strong>首先，Java中的getResourceAsStream有以下几种：</strong> </p>
-<ol>
-<li><p>Class.getResourceAsStream(String path) ： path 不以’/‘开头时默认是从此类所在的包下取资源，以’/‘开头则是从ClassPath根下获取。其只是通过path构造一个绝对路径，最终还是由ClassLoader获取资源。 </p>
-</li>
-<li><p>Class.getClassLoader.getResourceAsStream(String path) ：默认则是从ClassPath根下获取，path不能以’/‘开头，最终是由ClassLoader获取资源。 </p>
-</li>
-<li><p>ServletContext. getResourceAsStream(String path)：默认从WebAPP根目录下取资源，Tomcat下path是否以’/‘开头无所谓，当然这和具体的容器实现有关。 </p>
-</li>
-<li><p>Jsp下的application内置对象就是上面的ServletContext的一种实现。 </p>
-</li>
+<h2 id="java中的getresourceasstream">Java中的getResourceAsStream</h2>
+<p><strong>首先，Java中的getResourceAsStream有以下几种：</strong></p>
+<ol type="1">
+<li><p>Class.getResourceAsStream(String path) ： path
+不以’/'开头时默认是从此类所在的包下取资源，以’/'开头则是从ClassPath根下获取。其只是通过path构造一个绝对路径，最终还是由ClassLoader获取资源。</p></li>
+<li><p>Class.getClassLoader.getResourceAsStream(String path)
+：默认则是从ClassPath根下获取，path不能以’/'开头，最终是由ClassLoader获取资源。</p></li>
+<li><p>ServletContext. getResourceAsStream(String
+path)：默认从WebAPP根目录下取资源，Tomcat下path是否以’/'开头无所谓，当然这和具体的容器实现有关。</p></li>
+<li><p>Jsp下的application内置对象就是上面的ServletContext的一种实现。</p></li>
 </ol>
-<p><strong>其次，getResourceAsStream 用法大致有以下几种：</strong> </p>
-<p>第一： 要加载的文件和.class文件在同一目录下，例如：com.x.y 下有类me.class ,同时有资源文件myfile.xml </p>
-<p>那么，应该有如下代码： </p>
+<p><strong>其次，getResourceAsStream 用法大致有以下几种：</strong></p>
+<p>第一： 要加载的文件和.class文件在同一目录下，例如：com.x.y
+下有类me.class ,同时有资源文件myfile.xml</p>
+<p>那么，应该有如下代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">me.class.getResourceAsStream(<span class="hljs-string">&quot;myfile.xml&quot;</span>); <br></code></pre></td></tr></table></figure>
-
-<p>第二：在me.class目录的子目录下，例如：com.x.y 下有类me.class ,同时在 com.x.y.file 目录下有资源文件myfile.xml </p>
-<p>那么，应该有如下代码： </p>
+<p>第二：在me.class目录的子目录下，例如：com.x.y 下有类me.class ,同时在
+com.x.y.file 目录下有资源文件myfile.xml</p>
+<p>那么，应该有如下代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">me.class.getResourceAsStream(<span class="hljs-string">&quot;file/myfile.xml&quot;</span>); <br></code></pre></td></tr></table></figure>
-
-<p>第三：不在me.class目录下，也不在子目录下，例如：com.x.y 下有类me.class ,同时在 com.x.file 目录下有资源文件myfile.xml </p>
-<p>那么，应该有如下代码： </p>
+<p>第三：不在me.class目录下，也不在子目录下，例如：com.x.y
+下有类me.class ,同时在 com.x.file 目录下有资源文件myfile.xml</p>
+<p>那么，应该有如下代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">me.class.getResourceAsStream(<span class="hljs-string">&quot;/com/x/file/myfile.xml&quot;</span>); <br></code></pre></td></tr></table></figure>
-
-<p>总结一下，可能只是两种写法 </p>
-<p>第一：前面有 “  / ” </p>
-<p>“ / ”代表了工程的根目录，例如工程名叫做myproject，“ / ”代表了myproject </p>
+<p>总结一下，可能只是两种写法</p>
+<p>第一：前面有 “ / ”</p>
+<p>“ / ”代表了工程的根目录，例如工程名叫做myproject，“ /
+”代表了myproject</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">me.class.getResourceAsStream(<span class="hljs-string">&quot;/com/x/file/myfile.xml&quot;</span>); <br></code></pre></td></tr></table></figure>
-
-<p>第二：前面没有 “  / ” </p>
-<p>代表当前类的目录 </p>
+<p>第二：前面没有 “ / ”</p>
+<p>代表当前类的目录</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">me.class.getResourceAsStream(<span class="hljs-string">&quot;myfile.xml&quot;</span>); <br>me.class.getResourceAsStream(<span class="hljs-string">&quot;file/myfile.xml&quot;</span>); <br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="Spring中的IOC"><a href="#Spring中的IOC" class="headerlink" title="Spring中的IOC"></a>Spring中的IOC</h2><p>通过工厂模式和单例模式可以实现解耦的作用，但是Spring框架简化了我们的开发过程。通过使用Spring的IOC可以解决程序耦合。</p>
+<h2 id="spring中的ioc">Spring中的IOC</h2>
+<p>通过工厂模式和单例模式可以实现解耦的作用，但是Spring框架简化了我们的开发过程。通过使用Spring的IOC可以解决程序耦合。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.shijieq.ui;<br><br><span class="hljs-keyword">import</span> com.shijieq.dao.IAccountDao;<br><span class="hljs-keyword">import</span> com.shijieq.service.IAccountService;<br><span class="hljs-keyword">import</span> org.springframework.context.ApplicationContext;<br><span class="hljs-keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 模拟一个表现层，用于调用业务层</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Client</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取spring的Ioc核心容器，并根据id获取对象</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * ApplicationContext的三个常用实现类：</span><br><span class="hljs-comment">     *      ClassPathXmlApplicationContext：它可以加载类路径下的配置文件，要求配置文件必须在类路径下。不在的话，加载不了。(更常用)</span><br><span class="hljs-comment">     *      FileSystemXmlApplicationContext：它可以加载磁盘任意路径下的配置文件(必须有访问权限）</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     *      AnnotationConfigApplicationContext：它是用于读取注解创建容器的，是明天的内容。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * 核心容器的两个接口引发出的问题：</span><br><span class="hljs-comment">     *  ApplicationContext:     单例对象适用              采用此接口</span><br><span class="hljs-comment">     *      它在构建核心容器时，创建对象采取的策略是采用立即加载的方式。也就是说，只要一读取完配置文件马上就创建配置文件中配置的对象。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     *  BeanFactory:            多例对象使用</span><br><span class="hljs-comment">     *      它在构建核心容器时，创建对象采取的策略是采用延迟加载的方式。也就是说，什么时候根据id获取对象了，什么时候才真正的创建对象。</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> args</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">//1.获取核心容器对象</span><br>        <span class="hljs-type">ApplicationContext</span> <span class="hljs-variable">ac</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathXmlApplicationContext</span>(<span class="hljs-string">&quot;bean.xml&quot;</span>);<br><span class="hljs-comment">//        ApplicationContext ac = new FileSystemXmlApplicationContext(&quot;C:\\Users\\zhy\\Desktop\\bean.xml&quot;);</span><br>        <span class="hljs-comment">//2.根据id获取Bean对象</span><br>        <span class="hljs-type">IAccountService</span> <span class="hljs-variable">as</span>  <span class="hljs-operator">=</span> (IAccountService)ac.getBean(<span class="hljs-string">&quot;accountService&quot;</span>);<br>        <span class="hljs-type">IAccountDao</span> <span class="hljs-variable">adao</span> <span class="hljs-operator">=</span> ac.getBean(<span class="hljs-string">&quot;accountDao&quot;</span>,IAccountDao.class);<br><br>        System.out.println(as);<br>        System.out.println(adao);<br>        as.saveAccount();<br><br><br>        <span class="hljs-comment">//--------BeanFactory----------</span><br><span class="hljs-comment">//        Resource resource = new ClassPathResource(&quot;bean.xml&quot;);</span><br><span class="hljs-comment">//        BeanFactory factory = new XmlBeanFactory(resource);</span><br><span class="hljs-comment">//        IAccountService as  = (IAccountService)factory.getBean(&quot;accountService&quot;);</span><br><span class="hljs-comment">//        System.out.println(as);</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="基于XML的IOC配置"><a href="#基于XML的IOC配置" class="headerlink" title="基于XML的IOC配置"></a>基于XML的IOC配置</h2><h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br> 	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br> 	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans <br>					 	   http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;<br>	&lt;!-- bean 标签：用于配置让 spring 创建对象，并且存入 ioc 容器之中<br> 			id 属性：对象的唯一标识。<br> 			class 属性：指定要创建对象的全限定类名<br>	--&gt;<br>	&lt;!-- 配置 service --&gt; <br>	&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;&gt;&lt;/bean&gt;<br>	&lt;!-- 配置 dao --&gt;<br>	&lt;bean id=&quot;accountDao&quot; class=&quot;com.shijieq.dao.impl.AccountDaoImpl&quot;&gt;&lt;/bean&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
-
-<h3 id="bean标签"><a href="#bean标签" class="headerlink" title="bean标签"></a>bean标签</h3><ul>
-<li><p>作用： </p>
-<p>用于配置对象让 spring 来创建的。 默认情况下它调用的是类中的无参构造函数。如果没有无参构造函数则不能创建成功。</p>
-</li>
-<li><p>属性： </p>
+<h2 id="基于xml的ioc配置">基于XML的IOC配置</h2>
+<h3 id="模板">模板</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br> 	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br> 	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans <br>					 	   http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;<br>	&lt;!-- bean 标签：用于配置让 spring 创建对象，并且存入 ioc 容器之中<br> 			id 属性：对象的唯一标识。<br> 			class 属性：指定要创建对象的全限定类名<br>	--&gt;<br>	&lt;!-- 配置 service --&gt; <br>	&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;&gt;&lt;/bean&gt;<br>	&lt;!-- 配置 dao --&gt;<br>	&lt;bean id=&quot;accountDao&quot; class=&quot;com.shijieq.dao.impl.AccountDaoImpl&quot;&gt;&lt;/bean&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="bean标签">bean标签</h3>
 <ul>
-<li><code>id</code>：给对象在容器中提供一个唯一标识。用于获取对象。 </li>
-<li><code>class</code>：指定类的全限定类名。用于反射创建对象。默认情况下调用无参构造函数。 </li>
-<li><code>scope</code>：指定对象的作用范围。 <ul>
-<li><code>singleton</code>: 默认值，单例的. <ul>
-<li>一个应用只有一个对象的实例。它的作用范围就是整个引用。 </li>
-<li>生命周期： <ul>
-<li>对象出生：当应用加载，创建容器时，对象就被创建了。 </li>
-<li>对象活着：只要容器在，对象一直活着。 </li>
+<li><p>作用：</p>
+<p>用于配置对象让 spring 来创建的。
+默认情况下它调用的是类中的无参构造函数。如果没有无参构造函数则不能创建成功。</p></li>
+<li><p>属性：</p>
+<ul>
+<li><code>id</code>：给对象在容器中提供一个唯一标识。用于获取对象。</li>
+<li><code>class</code>：指定类的全限定类名。用于反射创建对象。默认情况下调用无参构造函数。</li>
+<li><code>scope</code>：指定对象的作用范围。
+<ul>
+<li><code>singleton</code>: 默认值，单例的.
+<ul>
+<li>一个应用只有一个对象的实例。它的作用范围就是整个引用。</li>
+<li>生命周期：
+<ul>
+<li>对象出生：当应用加载，创建容器时，对象就被创建了。</li>
+<li>对象活着：只要容器在，对象一直活着。</li>
 <li>对象死亡：当应用卸载，销毁容器时，对象就被销毁了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>prototype</code>: 多例的. <ul>
-<li>每次访问对象时，都会重新创建对象实例。</li>
-<li>生命周期： <ul>
-<li>对象出生：当使用对象时，创建新的对象实例。 </li>
-<li>对象活着：只要对象在使用中，就一直活着。 </li>
-<li>对象死亡：当对象长时间不用时，被 java 的垃圾回收器回收了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>request</code>: WEB 项目中, Spring 创建一个 Bean 的对象,将对象存入到 request 域中. </li>
-<li><code>session</code>: WEB 项目中, Spring 创建一个 Bean 的对象,将对象存入到 session 域中. </li>
-<li><code>global session</code>: WEB 项目中, 应用在 Portlet 环境. 如果没有 Portlet 环境那么 globalSession 相当于 session. </li>
-</ul>
-</li>
-<li><code>init-method</code>：指定类中的初始化方法名称。 </li>
-<li><code>destroy-method</code>：指定类中销毁方法名称。</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h4 id="实例化bean的三种方式"><a href="#实例化bean的三种方式" class="headerlink" title="实例化bean的三种方式"></a>实例化bean的三种方式</h4><h5 id="默认无参构造函数"><a href="#默认无参构造函数" class="headerlink" title="默认无参构造函数"></a>默认无参构造函数</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!--在默认情况下：<br>		它会根据默认无参构造函数来创建类对象。如果 bean 中没有默认无参构造函数，将会创建失败。<br>--&gt;<br>&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;/&gt;<br></code></pre></td></tr></table></figure>
-
-<h5 id="静态工厂创建对象"><a href="#静态工厂创建对象" class="headerlink" title="静态工厂创建对象"></a>静态工厂创建对象</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">/**<br>* 模拟一个静态工厂，创建业务层实现类<br>*/<br>public class StaticFactory &#123;<br>	public static IAccountService createAccountService()&#123;<br>		return new AccountServiceImpl();<br>	&#125;<br>&#125;<br>&lt;!-- 此种方式是:<br>	使用 StaticFactory 类中的静态方法 createAccountService 创建对象，并存入 spring 容器<br>	id 属性：指定 bean 的 id，用于从容器中获取<br>	class 属性：指定静态工厂的全限定类名<br>	factory-method 属性：指定生产对象的静态方法<br>--&gt;<br>&lt;bean id=&quot;accountService&quot;<br>	  class=&quot;com.shijieq.factory.StaticFactory&quot;<br>	  factory-method=&quot;createAccountService&quot;&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
-
-<h5 id="实例工厂创建对象"><a href="#实例工厂创建对象" class="headerlink" title="实例工厂创建对象"></a>实例工厂创建对象</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">/**<br>* 模拟一个实例工厂，创建业务层实现类<br>* 此工厂创建对象，必须现有工厂实例对象，再调用方法<br>*/<br>public class InstanceFactory &#123;<br>	public IAccountService createAccountService()&#123;<br>		return new AccountServiceImpl();<br>	&#125;<br>&#125;<br>&lt;!-- 此种方式是：<br>	先把工厂的创建交给 spring 来管理。<br>	然后在使用工厂的 bean 来调用里面的方法<br>	factory-bean 属性：用于指定实例工厂 bean 的 id。<br>	factory-method 属性：用于指定实例工厂中创建对象的方法。<br>--&gt;<br>&lt;bean id=&quot;instancFactory&quot; class=&quot;com.shijieq.factory.InstanceFactory&quot;&gt;&lt;/bean&gt;<br>&lt;bean id=&quot;accountService&quot;<br>	  factory-bean=&quot;instancFactory&quot;<br>	  factory-method=&quot;createAccountService&quot;&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
-
-<h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><h4 id="构造方法注入"><a href="#构造方法注入" class="headerlink" title="构造方法注入"></a>构造方法注入</h4><p>采用构造函数的方式，给bean属性传值，要求<strong>类中存在一个对应参数列表的构造函数</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AccountServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IAccountService</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> Integer age;<br>    <span class="hljs-keyword">private</span> Date birthday;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">AccountServiceImpl</span><span class="hljs-params">(String name, Integer age, Date birthday)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.age = age;<br>        <span class="hljs-built_in">this</span>.birthday = birthday;<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">saveAccount</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(name+<span class="hljs-string">&quot;,&quot;</span>+age+<span class="hljs-string">&quot;,&quot;</span>+birthday);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!-- 使用构造函数的方式，给 service 中的属性传值<br>	要求：<br>		类中需要提供一个对应参数列表的构造函数。<br>	涉及的标签：<br>		constructor-arg<br>			属性：<br>				index:指定参数在构造函数参数列表的索引位置<br>				type:指定参数在构造函数中的数据类型<br>				name:指定参数在构造函数中的名称 用这个找给谁赋值<br>				=======上面三个都是找给谁赋值，下面两个指的是赋什么值的==============<br>				value:它能赋的值是基本数据类型和 String 类型<br>				ref:它能赋的值是其他 bean 类型，也就是说，必须得是在配置文件中配置过的 bean<br>--&gt;<br>&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;&gt;<br>	&lt;constructor-arg name=&quot;name&quot; value=&quot;张三&quot;&gt;&lt;/constructor-arg&gt;<br>	&lt;constructor-arg name=&quot;age&quot; value=&quot;18&quot;&gt;&lt;/constructor-arg&gt;<br>	&lt;constructor-arg name=&quot;birthday&quot; ref=&quot;now&quot;&gt;&lt;/constructor-arg&gt;<br>&lt;/bean&gt;<br>&lt;bean id=&quot;now&quot; class=&quot;java.util.Date&quot;&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
-
-<h4 id="set方法注入"><a href="#set方法注入" class="headerlink" title="set方法注入"></a>set方法注入</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AccountServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IAccountService</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> Integer age;<br>    <span class="hljs-keyword">private</span> Date birthday;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setName</span><span class="hljs-params">(String name)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setAge</span><span class="hljs-params">(Integer age)</span> &#123;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setBirthday</span><span class="hljs-params">(Date birthday)</span> &#123;<br>        <span class="hljs-built_in">this</span>.birthday = birthday;<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">saveAccount</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(name+<span class="hljs-string">&quot;,&quot;</span>+age+<span class="hljs-string">&quot;,&quot;</span>+birthday);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!-- 通过配置文件给 bean 中的属性传值：使用 set 方法的方式<br>	涉及的标签：<br>		property<br>	属性：<br>		name：找的是类中 set 方法后面的部分<br>		ref：给属性赋值是其他 bean 类型的<br>		value：给属性赋值是基本数据类型和 string 类型的<br>实际开发中，此种方式用的较多。<br>--&gt;<br>&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;&gt;<br>	&lt;property name=&quot;name&quot; value=&quot;test&quot;&gt;&lt;/property&gt;<br>	&lt;property name=&quot;age&quot; value=&quot;21&quot;&gt;&lt;/property&gt;<br>	&lt;property name=&quot;birthday&quot; ref=&quot;now&quot;&gt;&lt;/property&gt;<br>&lt;/bean&gt;<br>&lt;bean id=&quot;now&quot; class=&quot;java.util.Date&quot;&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
-
-<h4 id="p-名称空间注入数据"><a href="#p-名称空间注入数据" class="headerlink" title="p 名称空间注入数据"></a>p 名称空间注入数据</h4><p>p 名称空间注入本质上还是调用set方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br>	   xmlns:p=&quot;http://www.springframework.org/schema/p&quot;<br>	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br>	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans <br>						   http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;<br>    &lt;bean id=&quot;accountService&quot; <br>     	  class=&quot;com.shijieq.service.impl.AccountServiceImpl4&quot;<br>		  p:name=&quot;test&quot; p:age=&quot;21&quot; p:birthday-ref=&quot;now&quot;/&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
-
-<h4 id="注入集合属性"><a href="#注入集合属性" class="headerlink" title="注入集合属性"></a>注入集合属性</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!-- 注入集合数据<br>	List 结构的: array,list,set<br>	Map 结构的: map,entry,props,prop<br>--&gt;<br>&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;&gt;<br>	&lt;!-- 在注入集合数据时，只要结构相同，标签可以互换 --&gt;<br>	&lt;!-- 给数组注入数据 --&gt;<br>	&lt;property name=&quot;myStrs&quot;&gt;<br>		&lt;set&gt;<br>			&lt;value&gt;AAA&lt;/value&gt;<br>			&lt;value&gt;BBB&lt;/value&gt;<br>            &lt;value&gt;CCC&lt;/value&gt;<br>		&lt;/set&gt;<br>	&lt;/property&gt;<br>	&lt;!-- 注入 list 集合数据 --&gt;<br>	&lt;property name=&quot;myList&quot;&gt;<br>		&lt;array&gt;<br>			&lt;value&gt;AAA&lt;/value&gt;<br>            &lt;value&gt;BBB&lt;/value&gt;<br>            &lt;value&gt;CCC&lt;/value&gt;<br>		&lt;/array&gt;<br>	&lt;/property&gt;<br>	&lt;!-- 注入 set 集合数据 --&gt;<br>	&lt;property name=&quot;mySet&quot;&gt;<br>		&lt;list&gt;<br>			&lt;value&gt;AAA&lt;/value&gt;<br>            &lt;value&gt;BBB&lt;/value&gt;<br>            &lt;value&gt;CCC&lt;/value&gt;<br>		&lt;/list&gt;<br>	&lt;/property&gt;<br>	&lt;!-- 注入 Map 数据 --&gt;<br>	&lt;property name=&quot;myMap&quot;&gt;<br>		&lt;props&gt;<br>            &lt;prop key=&quot;testA&quot;&gt;aaa&lt;/prop&gt;<br>            &lt;prop key=&quot;testB&quot;&gt;bbb&lt;/prop&gt;<br>		&lt;/props&gt;<br>	&lt;/property&gt;<br>	&lt;!-- 注入 properties 数据 --&gt;<br>	&lt;property name=&quot;myProps&quot;&gt;<br>		&lt;map&gt;<br>			&lt;entry key=&quot;testA&quot; value=&quot;aaa&quot;&gt;&lt;/entry&gt;<br>			&lt;entry key=&quot;testB&quot;&gt;<br>				&lt;value&gt;bbb&lt;/value&gt;<br>			&lt;/entry&gt;<br>		&lt;/map&gt;<br>	&lt;/property&gt;<br>&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="基于注解的IOC配置"><a href="#基于注解的IOC配置" class="headerlink" title="基于注解的IOC配置"></a>基于注解的IOC配置</h2><h3 id="模板-1"><a href="#模板-1" class="headerlink" title="模板"></a>模板</h3><p>相较于”基于XML的IOC配置“模板，导入约束时需要多导入一个 <strong>context</strong> 名称空间下的约束</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br>	   xmlns:context=&quot;http://www.springframework.org/schema/context&quot;<br> 	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br> 	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans <br>					 	   http://www.springframework.org/schema/beans/spring-beans.xsd<br>    					   http://www.springframework.org/schema/context<br>						   http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;<br>	<br>	&lt;!-- 告知 spring 创建容器时要扫描的包 --&gt;<br>	&lt;context:component-scan base-package=&quot;com.shijieq&quot;&gt;&lt;/context:component-scan&gt;<br>	<br>	&lt;!-- 配置 dbAssit --&gt;<br>	&lt;bean id=&quot;dbAssit&quot; class=&quot;com.shijieq.dbassit.DBAssit&quot;&gt;<br>		&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;<br>	&lt;/bean&gt;<br><br>	&lt;!-- 配置数据源 --&gt;<br>	&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;<br>		&lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;<br>		&lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql:///spring_day02&quot;&gt;&lt;/property&gt;<br>        &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;<br>        &lt;property name=&quot;password&quot; value=&quot;1234&quot;&gt;&lt;/property&gt;<br>	&lt;/bean&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
-
-<h3 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h3><p><strong>细节</strong>：如果注解中有且只有一个属性要赋值时，且名称是 value，value 在赋值是可以不写</p>
-<h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><p>相当于：<code>&lt;bean id=&quot;&quot; class=&quot;&quot;&gt;</code></p>
+</ul></li>
+</ul></li>
+<li><code>prototype</code>: 多例的.
 <ul>
-<li><p><code>@Component</code></p>
+<li>每次访问对象时，都会重新创建对象实例。</li>
+<li>生命周期：
+<ul>
+<li>对象出生：当使用对象时，创建新的对象实例。</li>
+<li>对象活着：只要对象在使用中，就一直活着。</li>
+<li>对象死亡：当对象长时间不用时，被 java 的垃圾回收器回收了。</li>
+</ul></li>
+</ul></li>
+<li><code>request</code>: WEB 项目中, Spring 创建一个 Bean
+的对象,将对象存入到 request 域中.</li>
+<li><code>session</code>: WEB 项目中, Spring 创建一个 Bean
+的对象,将对象存入到 session 域中.</li>
+<li><code>global session</code>: WEB 项目中, 应用在 Portlet 环境.
+如果没有 Portlet 环境那么 globalSession 相当于 session.</li>
+</ul></li>
+<li><code>init-method</code>：指定类中的初始化方法名称。</li>
+<li><code>destroy-method</code>：指定类中销毁方法名称。</li>
+<li>...</li>
+</ul></li>
+</ul>
+<h4 id="实例化bean的三种方式">实例化bean的三种方式</h4>
+<h5 id="默认无参构造函数">默认无参构造函数</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!--在默认情况下：<br>		它会根据默认无参构造函数来创建类对象。如果 bean 中没有默认无参构造函数，将会创建失败。<br>--&gt;<br>&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;/&gt;<br></code></pre></td></tr></table></figure>
+<h5 id="静态工厂创建对象">静态工厂创建对象</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">/**<br>* 模拟一个静态工厂，创建业务层实现类<br>*/<br>public class StaticFactory &#123;<br>	public static IAccountService createAccountService()&#123;<br>		return new AccountServiceImpl();<br>	&#125;<br>&#125;<br>&lt;!-- 此种方式是:<br>	使用 StaticFactory 类中的静态方法 createAccountService 创建对象，并存入 spring 容器<br>	id 属性：指定 bean 的 id，用于从容器中获取<br>	class 属性：指定静态工厂的全限定类名<br>	factory-method 属性：指定生产对象的静态方法<br>--&gt;<br>&lt;bean id=&quot;accountService&quot;<br>	  class=&quot;com.shijieq.factory.StaticFactory&quot;<br>	  factory-method=&quot;createAccountService&quot;&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
+<h5 id="实例工厂创建对象">实例工厂创建对象</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">/**<br>* 模拟一个实例工厂，创建业务层实现类<br>* 此工厂创建对象，必须现有工厂实例对象，再调用方法<br>*/<br>public class InstanceFactory &#123;<br>	public IAccountService createAccountService()&#123;<br>		return new AccountServiceImpl();<br>	&#125;<br>&#125;<br>&lt;!-- 此种方式是：<br>	先把工厂的创建交给 spring 来管理。<br>	然后在使用工厂的 bean 来调用里面的方法<br>	factory-bean 属性：用于指定实例工厂 bean 的 id。<br>	factory-method 属性：用于指定实例工厂中创建对象的方法。<br>--&gt;<br>&lt;bean id=&quot;instancFactory&quot; class=&quot;com.shijieq.factory.InstanceFactory&quot;&gt;&lt;/bean&gt;<br>&lt;bean id=&quot;accountService&quot;<br>	  factory-bean=&quot;instancFactory&quot;<br>	  factory-method=&quot;createAccountService&quot;&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="依赖注入">依赖注入</h3>
+<h4 id="构造方法注入">构造方法注入</h4>
+<p>采用构造函数的方式，给bean属性传值，要求<strong>类中存在一个对应参数列表的构造函数</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AccountServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IAccountService</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> Integer age;<br>    <span class="hljs-keyword">private</span> Date birthday;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">AccountServiceImpl</span><span class="hljs-params">(String name, Integer age, Date birthday)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.age = age;<br>        <span class="hljs-built_in">this</span>.birthday = birthday;<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">saveAccount</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(name+<span class="hljs-string">&quot;,&quot;</span>+age+<span class="hljs-string">&quot;,&quot;</span>+birthday);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!-- 使用构造函数的方式，给 service 中的属性传值<br>	要求：<br>		类中需要提供一个对应参数列表的构造函数。<br>	涉及的标签：<br>		constructor-arg<br>			属性：<br>				index:指定参数在构造函数参数列表的索引位置<br>				type:指定参数在构造函数中的数据类型<br>				name:指定参数在构造函数中的名称 用这个找给谁赋值<br>				=======上面三个都是找给谁赋值，下面两个指的是赋什么值的==============<br>				value:它能赋的值是基本数据类型和 String 类型<br>				ref:它能赋的值是其他 bean 类型，也就是说，必须得是在配置文件中配置过的 bean<br>--&gt;<br>&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;&gt;<br>	&lt;constructor-arg name=&quot;name&quot; value=&quot;张三&quot;&gt;&lt;/constructor-arg&gt;<br>	&lt;constructor-arg name=&quot;age&quot; value=&quot;18&quot;&gt;&lt;/constructor-arg&gt;<br>	&lt;constructor-arg name=&quot;birthday&quot; ref=&quot;now&quot;&gt;&lt;/constructor-arg&gt;<br>&lt;/bean&gt;<br>&lt;bean id=&quot;now&quot; class=&quot;java.util.Date&quot;&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="set方法注入">set方法注入</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AccountServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IAccountService</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> Integer age;<br>    <span class="hljs-keyword">private</span> Date birthday;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setName</span><span class="hljs-params">(String name)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setAge</span><span class="hljs-params">(Integer age)</span> &#123;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setBirthday</span><span class="hljs-params">(Date birthday)</span> &#123;<br>        <span class="hljs-built_in">this</span>.birthday = birthday;<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">saveAccount</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(name+<span class="hljs-string">&quot;,&quot;</span>+age+<span class="hljs-string">&quot;,&quot;</span>+birthday);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!-- 通过配置文件给 bean 中的属性传值：使用 set 方法的方式<br>	涉及的标签：<br>		property<br>	属性：<br>		name：找的是类中 set 方法后面的部分<br>		ref：给属性赋值是其他 bean 类型的<br>		value：给属性赋值是基本数据类型和 string 类型的<br>实际开发中，此种方式用的较多。<br>--&gt;<br>&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;&gt;<br>	&lt;property name=&quot;name&quot; value=&quot;test&quot;&gt;&lt;/property&gt;<br>	&lt;property name=&quot;age&quot; value=&quot;21&quot;&gt;&lt;/property&gt;<br>	&lt;property name=&quot;birthday&quot; ref=&quot;now&quot;&gt;&lt;/property&gt;<br>&lt;/bean&gt;<br>&lt;bean id=&quot;now&quot; class=&quot;java.util.Date&quot;&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="p-名称空间注入数据">p 名称空间注入数据</h4>
+<p>p 名称空间注入本质上还是调用set方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br>	   xmlns:p=&quot;http://www.springframework.org/schema/p&quot;<br>	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br>	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans <br>						   http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;<br>    &lt;bean id=&quot;accountService&quot; <br>     	  class=&quot;com.shijieq.service.impl.AccountServiceImpl4&quot;<br>		  p:name=&quot;test&quot; p:age=&quot;21&quot; p:birthday-ref=&quot;now&quot;/&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="注入集合属性">注入集合属性</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!-- 注入集合数据<br>	List 结构的: array,list,set<br>	Map 结构的: map,entry,props,prop<br>--&gt;<br>&lt;bean id=&quot;accountService&quot; class=&quot;com.shijieq.service.impl.AccountServiceImpl&quot;&gt;<br>	&lt;!-- 在注入集合数据时，只要结构相同，标签可以互换 --&gt;<br>	&lt;!-- 给数组注入数据 --&gt;<br>	&lt;property name=&quot;myStrs&quot;&gt;<br>		&lt;set&gt;<br>			&lt;value&gt;AAA&lt;/value&gt;<br>			&lt;value&gt;BBB&lt;/value&gt;<br>            &lt;value&gt;CCC&lt;/value&gt;<br>		&lt;/set&gt;<br>	&lt;/property&gt;<br>	&lt;!-- 注入 list 集合数据 --&gt;<br>	&lt;property name=&quot;myList&quot;&gt;<br>		&lt;array&gt;<br>			&lt;value&gt;AAA&lt;/value&gt;<br>            &lt;value&gt;BBB&lt;/value&gt;<br>            &lt;value&gt;CCC&lt;/value&gt;<br>		&lt;/array&gt;<br>	&lt;/property&gt;<br>	&lt;!-- 注入 set 集合数据 --&gt;<br>	&lt;property name=&quot;mySet&quot;&gt;<br>		&lt;list&gt;<br>			&lt;value&gt;AAA&lt;/value&gt;<br>            &lt;value&gt;BBB&lt;/value&gt;<br>            &lt;value&gt;CCC&lt;/value&gt;<br>		&lt;/list&gt;<br>	&lt;/property&gt;<br>	&lt;!-- 注入 Map 数据 --&gt;<br>	&lt;property name=&quot;myMap&quot;&gt;<br>		&lt;props&gt;<br>            &lt;prop key=&quot;testA&quot;&gt;aaa&lt;/prop&gt;<br>            &lt;prop key=&quot;testB&quot;&gt;bbb&lt;/prop&gt;<br>		&lt;/props&gt;<br>	&lt;/property&gt;<br>	&lt;!-- 注入 properties 数据 --&gt;<br>	&lt;property name=&quot;myProps&quot;&gt;<br>		&lt;map&gt;<br>			&lt;entry key=&quot;testA&quot; value=&quot;aaa&quot;&gt;&lt;/entry&gt;<br>			&lt;entry key=&quot;testB&quot;&gt;<br>				&lt;value&gt;bbb&lt;/value&gt;<br>			&lt;/entry&gt;<br>		&lt;/map&gt;<br>	&lt;/property&gt;<br>&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="基于注解的ioc配置">基于注解的IOC配置</h2>
+<h3 id="模板-1">模板</h3>
+<p>相较于”基于XML的IOC配置“模板，导入约束时需要多导入一个
+<strong>context</strong> 名称空间下的约束</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br>	   xmlns:context=&quot;http://www.springframework.org/schema/context&quot;<br> 	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br> 	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans <br>					 	   http://www.springframework.org/schema/beans/spring-beans.xsd<br>    					   http://www.springframework.org/schema/context<br>						   http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;<br>	<br>	&lt;!-- 告知 spring 创建容器时要扫描的包 --&gt;<br>	&lt;context:component-scan base-package=&quot;com.shijieq&quot;&gt;&lt;/context:component-scan&gt;<br>	<br>	&lt;!-- 配置 dbAssit --&gt;<br>	&lt;bean id=&quot;dbAssit&quot; class=&quot;com.shijieq.dbassit.DBAssit&quot;&gt;<br>		&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;<br>	&lt;/bean&gt;<br><br>	&lt;!-- 配置数据源 --&gt;<br>	&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;<br>		&lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;<br>		&lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql:///spring_day02&quot;&gt;&lt;/property&gt;<br>        &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;<br>        &lt;property name=&quot;password&quot; value=&quot;1234&quot;&gt;&lt;/property&gt;<br>	&lt;/bean&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="常用注解">常用注解</h3>
+<p><strong>细节</strong>：如果注解中有且只有一个属性要赋值时，且名称是
+value，value 在赋值是可以不写</p>
+<h4 id="创建对象">创建对象</h4>
+<p>相当于：<code>&lt;bean id="" class=""&gt;</code></p>
+<ul>
+<li><code>@Component</code>
 <ul>
 <li>把资源让 spring 来管理。相当于在 xml 中配置一个 bean</li>
-<li>属性： <ul>
-<li><code>value</code>：指定 bean 的 id。如果不指定 value 属性，默认 bean 的 id 是当前类的类名。<strong>首字母小写</strong> </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>@Controller, @Service, @Repository</code>：</p>
+<li>属性：
+<ul>
+<li><code>value</code>：指定 bean 的 id。如果不指定 value 属性，默认
+bean 的 id 是当前类的类名。<strong>首字母小写</strong></li>
+</ul></li>
+</ul></li>
+<li><code>@Controller, @Service, @Repository</code>：
 <ul>
 <li><code>@Controller</code>：一般用于<strong>表现层</strong>的注解</li>
 <li><code>@Service</code>：一般用于<strong>业务层</strong>的注解</li>
 <li><code>@Repository</code>：一般用于<strong>持久层</strong>的注解</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h4 id="注入数据"><a href="#注入数据" class="headerlink" title="注入数据"></a>注入数据</h4><p>相当于： <code>&lt;property name=&quot;&quot; ref=&quot;&quot;&gt;</code>、<code>&lt;property name=&quot;&quot; value=&quot;&quot;&gt;</code></p>
+<h4 id="注入数据">注入数据</h4>
+<p>相当于：
+<code>&lt;property name="" ref=""&gt;</code>、<code>&lt;property name="" value=""&gt;</code></p>
 <ul>
-<li><code>@Autowired</code><ul>
-<li>自动按照类型注入。当使用注解注入属性时，set 方法可以省略。它只能注入其他 bean 类型。当有多个类型匹配时，使用要注入的对象变量名称作为 bean 的 id，在 spring 容器查找，找到了也可以注入成功。找不到就报错。</li>
-</ul>
-</li>
-<li><code>@Qualifier</code><ul>
-<li>在自动按照类型注入的基础之上，再按照 Bean 的 id 注入。它在给字段注入时不能独立使用，必须和 @Autowire 一起使用；但是给方法参数注入时，可以独立使用。</li>
-<li>属性：<ul>
-<li><code>value</code>：指定 bean 的 id </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>@Resource</code><ul>
+<li><code>@Autowired</code>
+<ul>
+<li>自动按照类型注入。当使用注解注入属性时，set
+方法可以省略。它只能注入其他 bean
+类型。当有多个类型匹配时，使用要注入的对象变量名称作为 bean 的 id，在
+spring 容器查找，找到了也可以注入成功。找不到就报错。</li>
+</ul></li>
+<li><code>@Qualifier</code>
+<ul>
+<li>在自动按照类型注入的基础之上，再按照 Bean 的 id
+注入。它在给字段注入时不能独立使用，必须和 <span class="citation"
+data-cites="Autowire">@Autowire</span>
+一起使用；但是给方法参数注入时，可以独立使用。</li>
+<li>属性：
+<ul>
+<li><code>value</code>：指定 bean 的 id</li>
+</ul></li>
+</ul></li>
+<li><code>@Resource</code>
+<ul>
 <li>直接按照 Bean 的 id 注入。它也只能注入其他 bean 类型。</li>
-<li>属性：<ul>
-<li><code>name</code>：指定 bean 的 id</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>@Value</code><ul>
-<li>注入基本数据类型和 String 类型数据</li>
-<li>属性：<ul>
-<li><code>value</code>：用于指定值</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="改变作用范围"><a href="#改变作用范围" class="headerlink" title="改变作用范围"></a>改变作用范围</h4><p>相当于： <code>&lt;bean id=&quot;&quot; class=&quot;&quot; scope=&quot;&quot;&gt;</code></p>
+<li>属性：
 <ul>
-<li><code>@Scope</code><ul>
+<li><code>name</code>：指定 bean 的 id</li>
+</ul></li>
+</ul></li>
+<li><code>@Value</code>
+<ul>
+<li>注入基本数据类型和 String 类型数据</li>
+<li>属性：
+<ul>
+<li><code>value</code>：用于指定值</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="改变作用范围">改变作用范围</h4>
+<p>相当于： <code>&lt;bean id="" class="" scope=""&gt;</code></p>
+<ul>
+<li><code>@Scope</code>
+<ul>
 <li>指定 bean 的作用范围</li>
-<li>属性：<ul>
+<li>属性：
+<ul>
 <li><code>value</code>：指定范围的值，取值为：<code>singleton, prototype, request, session, global session</code></li>
+</ul></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="生命周期相关"><a href="#生命周期相关" class="headerlink" title="生命周期相关*"></a>生命周期相关*</h4><p>相当于： <code>&lt;bean id=&quot;&quot; class=&quot;&quot; init-method=&quot;&quot; destroy-method=&quot;&quot; /&gt;</code></p>
+<h4 id="生命周期相关">生命周期相关*</h4>
+<p>相当于：
+<code>&lt;bean id="" class="" init-method="" destroy-method="" /&gt;</code></p>
 <ul>
 <li><code>@PostConstruct</code>：用于指定初始化方法</li>
 <li><code>@PreDestroy</code>：用于指定销毁方法</li>
 </ul>
-<h2 id="基于注解和XML的IOC对比"><a href="#基于注解和XML的IOC对比" class="headerlink" title="基于注解和XML的IOC对比"></a>基于注解和XML的IOC对比</h2><img src=".\img\基于注解和XML的对比.png" srcset="/img/loading.gif" lazyload alt="image-20220318235631736" style="zoom:67%;" />
-
-<h3 id="相关替代"><a href="#相关替代" class="headerlink" title="相关替代"></a>相关替代</h3><h4 id="替代bean-xml"><a href="#替代bean-xml" class="headerlink" title="替代bean.xml"></a>替代bean.xml</h4><p>如何用注解完全替代<code>bean.xml</code>？</p>
+<h2 id="基于注解和xml的ioc对比">基于注解和XML的IOC对比</h2>
+<p><img src=".\img\基于注解和XML的对比.png" srcset="/img/loading.gif" lazyload alt="image-20220318235631736" style="zoom:67%;" /></p>
+<h3 id="相关替代">相关替代</h3>
+<h4 id="替代bean.xml">替代bean.xml</h4>
+<p>如何用注解完全替代<code>bean.xml</code>？</p>
 <ul>
-<li><code>@Configuration</code><ul>
-<li>用于<strong>指定当前类是一个 spring 配置类</strong>，当创建容器时会从该类上加载注解。</li>
-<li>获取容器时需要使用 AnnotationApplicationContext(有@Configuration 注解的类.class)</li>
-<li>属性：<ul>
+<li><code>@Configuration</code>
+<ul>
+<li>用于<strong>指定当前类是一个 spring
+配置类</strong>，当创建容器时会从该类上加载注解。</li>
+<li>获取容器时需要使用 AnnotationApplicationContext(有@Configuration
+注解的类.class)</li>
+<li>属性：
+<ul>
 <li><code>value</code>：用于指定配置类的字节码</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>@ComponentScan</code><ul>
+</ul></li>
+</ul></li>
+<li><code>@ComponentScan</code>
+<ul>
 <li>用于<strong>指定 spring 在初始化容器时要扫描的包</strong>。</li>
-<li>作用和在 spring 的 xml 配置文件中的：<code>&lt;context:component-scan base-package=&quot;com.shijieq&quot;/&gt;</code> 是一样的</li>
-<li>属性：<ul>
-<li><code>basePackages</code>：用于指定要扫描的包。和<strong>该注解中的 value 属性作用一样</strong>。</li>
+<li>作用和在 spring 的 xml
+配置文件中的：<code>&lt;context:component-scan base-package="com.shijieq"/&gt;</code>
+是一样的</li>
+<li>属性：
+<ul>
+<li><code>basePackages</code>：用于指定要扫描的包。和<strong>该注解中的
+value 属性作用一样</strong>。</li>
+</ul></li>
+</ul></li>
+<li><code>@Bean</code>
+<ul>
+<li>该注解<strong>只能写在方法</strong>上，表明使用<strong>此方法创建一个对象</strong>，并且放入
+spring 容器</li>
+<li>属性：
+<ul>
+<li><code>name</code>：给当前@Bean
+注解方法创建的对象指定一个名称(<strong>即 bean 的 id</strong>）。</li>
+</ul></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-</li>
-<li><code>@Bean</code><ul>
-<li>该注解<strong>只能写在方法</strong>上，表明使用<strong>此方法创建一个对象</strong>，并且放入 spring 容器</li>
-<li>属性：<ul>
-<li><code>name</code>：给当前@Bean 注解方法创建的对象指定一个名称(<strong>即 bean 的 id</strong>）。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="提取配置"><a href="#提取配置" class="headerlink" title="提取配置"></a>提取配置</h4><p>此时<code>bean.xml</code>文件已经可以删除，对于一些数据源或者其他如何将他们配置出来？</p>
+<h4 id="提取配置">提取配置</h4>
+<p>此时<code>bean.xml</code>文件已经可以删除，对于一些数据源或者其他如何将他们配置出来？</p>
 <ul>
 <li><p><code>@PropertySource</code></p>
 <ul>
 <li><strong>用于加载<code>.properties</code>文件中的配置</strong>。</li>
-<li>例如我们配置数据源时，可以把连接数据库的信息写到 properties 配置文件中，就可以使用此注解指定 properties 配置文件的位置。</li>
-<li>属性：<ul>
-<li><code>value[]</code>：用于指定 properties 文件位置，如果是在<a href="./Java.md">类路径</a>下，需要写上<code>classpath:</code></li>
-</ul>
-</li>
+<li>例如我们配置数据源时，可以把连接数据库的信息写到 properties
+配置文件中，就可以使用此注解指定 properties 配置文件的位置。</li>
+<li>属性：
+<ul>
+<li><code>value[]</code>：用于指定 properties 文件位置，如果是在<a
+href="./Java.md">类路径</a>下，需要写上<code>classpath:</code></li>
+</ul></li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 连接数据库的配置类</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@PropertySource(&quot;classpath:jdbc.properties&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JdbcConfig</span> &#123;<br>	<span class="hljs-meta">@Value(&quot;$&#123;jdbc.driver&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String driver;<br>    <span class="hljs-meta">@Value(&quot;$&#123;jdbc.url&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String url;<br>    <span class="hljs-meta">@Value(&quot;$&#123;jdbc.username&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String username;<br>    <span class="hljs-meta">@Value(&quot;$&#123;jdbc.password&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String password;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 创建一个数据源，并存入 spring 容器中</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">    */</span><br>	<span class="hljs-meta">@Bean(name=&quot;dataSource&quot;)</span><br>    <span class="hljs-keyword">public</span> DataSource <span class="hljs-title function_">createDataSource</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>        	<span class="hljs-type">ComboPooledDataSource</span> <span class="hljs-variable">ds</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ComboPooledDataSource</span>();<br>        	ds.setDriverClass(driver);<br>            ds.setJdbcUrl(url);<br>            ds.setUser(username);<br>            ds.setPassword(password);<br>            <span class="hljs-keyword">return</span> ds;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        	<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">jdbc.properties 文件：</span><br><span class="hljs-comment">jdbc.driver=com.mysql.jdbc.Driver</span><br><span class="hljs-comment">jdbc.url=jdbc:mysql://localhost:3306/day44_ee247_spring</span><br><span class="hljs-comment">jdbc.username=root</span><br><span class="hljs-comment">jdbc.password=1234</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="导入其他配置"><a href="#导入其他配置" class="headerlink" title="导入其他配置"></a>导入其他配置</h4><ul>
+<h4 id="导入其他配置">导入其他配置</h4>
+<ul>
 <li><p><code>@Import</code></p>
 <ul>
-<li>用于导入其他配置类，在引入其他配置类时，可以不用再写@Configuration 注解（写上也没事）。</li>
-<li> 属性：</li>
+<li>用于导入其他配置类，在引入其他配置类时，可以不用再写@Configuration
+注解（写上也没事）。</li>
+<li>属性：</li>
 <li><code>value[]</code>：用于指定其他配置类的字节码</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ComponentScan(basePackages = &quot;com.shijieq.spring&quot;)</span><br><span class="hljs-meta">@Import(&#123; JdbcConfig.class&#125;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringConfiguration</span> &#123;<br>&#125;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@PropertySource(&quot;classpath:jdbc.properties&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JdbcConfig</span>&#123;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="获取容器"><a href="#获取容器" class="headerlink" title="获取容器"></a>获取容器</h4><p>当配置文件被完全替代后，如何通过注解获取容器？</p>
+<h4 id="获取容器">获取容器</h4>
+<p>当配置文件被完全替代后，如何通过注解获取容器？</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">ApplicationContext</span> <span class="hljs-variable">ac</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AnnotationConfigApplicationContext</span>(SpringConfiguration.class);<br></code></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Spring整合Junit"><a href="#Spring整合Junit" class="headerlink" title="Spring整合Junit"></a>Spring整合Junit</h2><p>以下主要介绍在Spring中如何整合单元测试，这部分在Springboot中有更好更为简洁的方式。</p>
-<h3 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h3><ol>
+<h2 id="spring整合junit">Spring整合Junit</h2>
+<p>以下主要介绍在Spring中如何整合单元测试，这部分在Springboot中有更好更为简洁的方式。</p>
+<h3 id="配置步骤">配置步骤</h3>
+<ol type="1">
 <li>拷贝整合 junit 的必备 jar 包到 lib 目录，或通过maven导入依赖</li>
 <li>使用<code>@RunWith</code>注解替换原有运行器</li>
-<li>使用<code>@ContextConfiguration</code>指定 spring 配置文件的位置</li>
+<li>使用<code>@ContextConfiguration</code>指定 spring
+配置文件的位置</li>
 <li>使用<code>@Autowired</code>给测试类中的变量注入数据</li>
 </ol>
-<h3 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 测试类</span><br><span class="hljs-comment">* <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="hljs-meta">@ContextConfiguration(locations= &#123;&quot;classpath:bean.xml&quot;&#125;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AccountServiceTest</span> &#123;<br>	<span class="hljs-meta">@Autowired</span><br>	<span class="hljs-keyword">private</span> IAccountService as ;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="Spring中的AOP"><a href="#Spring中的AOP" class="headerlink" title="Spring中的AOP"></a>Spring中的AOP</h2><p>AOP全称是”面向切面编程“，简单来说就是<strong>把我们程序重复的代码抽取出来</strong>，在需要执行的时候，使用<strong>动态代理技术</strong>，在不修改源码的基础上，对我们的已有方法进行增强。</p>
+<h3 id="举个例子">举个例子</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 测试类</span><br><span class="hljs-comment">* <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="hljs-meta">@ContextConfiguration(locations= &#123;&quot;classpath:bean.xml&quot;&#125;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AccountServiceTest</span> &#123;<br>	<span class="hljs-meta">@Autowired</span><br>	<span class="hljs-keyword">private</span> IAccountService as ;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="spring中的aop">Spring中的AOP</h2>
+<p>AOP全称是”面向切面编程“，简单来说就是<strong>把我们程序重复的代码抽取出来</strong>，在需要执行的时候，使用<strong>动态代理技术</strong>，在不修改源码的基础上，对我们的已有方法进行增强。</p>
 <p>例如转账系统中对持久层的操作都是独立事务，导致无法实现事务控制，不符合事务的一致性。我们通过让业务层来控制事务的提交和回滚，而这个过程中存在一些重复的代码，此时就可以采用动态代理技术进行增强。</p>
-<h3 id="动态代理与静态代理"><a href="#动态代理与静态代理" class="headerlink" title="动态代理与静态代理"></a>动态代理与静态代理</h3><p><strong>动态代理的特点是字节码随用随创建，随用随加载</strong>。它与静态代理的区别也在于此。因为<strong>静态代理是字节码一上来就创建好，并完成加载。</strong></p>
+<h3 id="动态代理与静态代理">动态代理与静态代理</h3>
+<p><strong>动态代理的特点是字节码随用随创建，随用随加载</strong>。它与静态代理的区别也在于此。因为<strong>静态代理是字节码一上来就创建好，并完成加载。</strong></p>
 <p>装饰者模式就是静态代理的一种体现。</p>
 <p>动态代理常用的有两种方式：<strong>基于接口的动态代理</strong>和<strong>基于子类的动态代理</strong>。</p>
-<h4 id="基于接口的动态代理"><a href="#基于接口的动态代理" class="headerlink" title="基于接口的动态代理"></a>基于接口的动态代理</h4><p>使用JDK官方提供的Proxy类，<strong>要求被代理类最少实现一个接口</strong>。</p>
-<h4 id="基于子类的动态代理"><a href="#基于子类的动态代理" class="headerlink" title="基于子类的动态代理"></a>基于子类的动态代理</h4><p>使用第三方的CGLib，<strong>要求被代理类不能用final修饰，即不能为最终类</strong></p>
-<h3 id="相关术语"><a href="#相关术语" class="headerlink" title="相关术语"></a>相关术语</h3><ul>
-<li><code>Joinpoint(连接点)</code>: 所谓连接点是指那些被拦截到的点。<strong>在 spring 中,这些点指的是方法</strong>，因为 spring 只支持方法类型的连接点。</li>
-<li><code>Pointcut(切入点)</code>: 所谓切入点是指我们要对哪些 Joinpoint 进行拦截的定义。</li>
-<li><code>Advice(通知/增强)</code>: <ul>
+<h4 id="基于接口的动态代理">基于接口的动态代理</h4>
+<p>使用JDK官方提供的Proxy类，<strong>要求被代理类最少实现一个接口</strong>。</p>
+<h4 id="基于子类的动态代理">基于子类的动态代理</h4>
+<p>使用第三方的CGLib，<strong>要求被代理类不能用final修饰，即不能为最终类</strong></p>
+<h3 id="相关术语">相关术语</h3>
+<ul>
+<li><code>Joinpoint(连接点)</code>:
+所谓连接点是指那些被拦截到的点。<strong>在 spring
+中,这些点指的是方法</strong>，因为 spring 只支持方法类型的连接点。</li>
+<li><code>Pointcut(切入点)</code>: 所谓切入点是指我们要对哪些 Joinpoint
+进行拦截的定义。</li>
+<li><code>Advice(通知/增强)</code>:
+<ul>
 <li>所谓通知是指拦截到 Joinpoint 之后所要做的事情就是通知。</li>
-<li>通知类型<ul>
+<li>通知类型
+<ul>
 <li>前置通知</li>
 <li>后置通知</li>
 <li>异常通知</li>
 <li>最终通知</li>
 <li>环绕通知</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>Introduction(引介)</code>: 引介是一种特殊的通知在不修改类代码的前提下，Introduction 可以在运行期为类动态地添加一些方法或 Field。</li>
+</ul></li>
+</ul></li>
+<li><code>Introduction(引介)</code>:
+引介是一种特殊的通知在不修改类代码的前提下，Introduction
+可以在运行期为类动态地添加一些方法或 Field。</li>
 <li><code>Target(目标对象)</code>: 代理的目标对象。</li>
-<li><code>Weaving(织入)</code>: <ul>
+<li><code>Weaving(织入)</code>:
+<ul>
 <li>是指把增强应用到目标对象来创建新的代理对象的过程。</li>
-<li>spring 采用动态代理织入，而 AspectJ 采用编译期织入和类装载期织入。</li>
-</ul>
-</li>
-<li><code>Proxy（代理）</code>: 一个类被 AOP 织入增强后，就产生一个结果代理类。</li>
+<li>spring 采用动态代理织入，而 AspectJ
+采用编译期织入和类装载期织入。</li>
+</ul></li>
+<li><code>Proxy（代理）</code>: 一个类被 AOP
+织入增强后，就产生一个结果代理类。</li>
 <li><code>Aspect(切面)</code>: 是切入点和通知（引介）的结合。</li>
 </ul>
-<h3 id="要明确的事"><a href="#要明确的事" class="headerlink" title="要明确的事"></a>要明确的事</h3><h4 id="开发阶段"><a href="#开发阶段" class="headerlink" title="开发阶段"></a>开发阶段</h4><p>这部分工作由开发人员完成：</p>
-<ol>
+<h3 id="要明确的事">要明确的事</h3>
+<h4 id="开发阶段">开发阶段</h4>
+<p>这部分工作由开发人员完成：</p>
+<ol type="1">
 <li>编写核心业务代码（开发主线）：大部分程序员来做，要求熟悉业务需求。</li>
-<li>把公用代码抽取出来，制作成通知。（开发阶段最后再做）：AOP 编程人员来做。</li>
-<li>在配置文件中，声明切入点与通知间的关系，即切面。：AOP 编程人员来做。</li>
+<li>把公用代码抽取出来，制作成通知。（开发阶段最后再做）：AOP
+编程人员来做。</li>
+<li>在配置文件中，声明切入点与通知间的关系，即切面。：AOP
+编程人员来做。</li>
 </ol>
-<h4 id="运行阶段"><a href="#运行阶段" class="headerlink" title="运行阶段"></a>运行阶段</h4><p>这部分工作由Spring框架完成：</p>
-<p>Spring 框架监控切入点方法的执行。一旦监控到切入点方法被运行，使用代理机制，动态创建目标对 象的代理对象，根据通知类别，在代理对象的对应位置，将通知对应的功能织入，完成完整的代码逻辑运行。</p>
-<p><strong>在 spring 中，框架会根据目标类是否实现了接口来决定采用哪种动态代理的方式。</strong></p>
-<h2 id="基于XML的AOP配置"><a href="#基于XML的AOP配置" class="headerlink" title="基于XML的AOP配置"></a>基于XML的AOP配置</h2><h3 id="模板-2"><a href="#模板-2" class="headerlink" title="模板"></a>模板</h3><p>在IOC模板的基础上还需要导入aop的约束</p>
+<h4 id="运行阶段">运行阶段</h4>
+<p>这部分工作由Spring框架完成：</p>
+<p>Spring
+框架监控切入点方法的执行。一旦监控到切入点方法被运行，使用代理机制，动态创建目标对
+象的代理对象，根据通知类别，在代理对象的对应位置，将通知对应的功能织入，完成完整的代码逻辑运行。</p>
+<p><strong>在 spring
+中，框架会根据目标类是否实现了接口来决定采用哪种动态代理的方式。</strong></p>
+<h2 id="基于xml的aop配置">基于XML的AOP配置</h2>
+<h3 id="模板-2">模板</h3>
+<p>在IOC模板的基础上还需要导入aop的约束</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br>	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br>	   xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;<br>	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans<br>						   http://www.springframework.org/schema/beans/spring-beans.xsd<br>						   http://www.springframework.org/schema/aop<br>						   http://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
-
-<h3 id="配置步骤-1"><a href="#配置步骤-1" class="headerlink" title="配置步骤"></a>配置步骤</h3><ol>
-<li><p>把通知类用 bean 标签配置起来</p>
-</li>
-<li><p>使用 <code>aop:config</code> 声明 aop 配置</p>
-</li>
-<li><p>使用 <code>aop:aspect</code> 配置切面</p>
-</li>
-<li><p>使用 <code>aop:pointcut</code> 配置切入点表达式<code>expression</code></p>
-</li>
+<h3 id="配置步骤-1">配置步骤</h3>
+<ol type="1">
+<li><p>把通知类用 bean 标签配置起来</p></li>
+<li><p>使用 <code>aop:config</code> 声明 aop 配置</p></li>
+<li><p>使用 <code>aop:aspect</code> 配置切面</p></li>
+<li><p>使用 <code>aop:pointcut</code>
+配置切入点表达式<code>expression</code></p></li>
 <li><p>使用 <code>aop:xxx</code> 配置对应的通知类型</p>
 <ul>
-<li><p>aop:xxx都拥有的共同属性：</p>
+<li>aop:xxx都拥有的共同属性：
 <ul>
 <li><code>method</code>: 用于指定通知类中的增强方法名称</li>
 <li><code>pointcut</code>: 用于指定切入点表达式</li>
 <li><code>pointcut-ref</code>: 用于指定切入点的表达式的引用</li>
-</ul>
-</li>
-<li><p><code>aop:before</code></p>
+</ul></li>
+<li><code>aop:before</code>
 <ul>
 <li>用于配置<strong>前置通知</strong>。指定增强的方法在切入点方法之前执行。</li>
-</ul>
-</li>
-<li><p><code>aop:after-returning</code></p>
+</ul></li>
+<li><code>aop:after-returning</code>
 <ul>
 <li>用于配置<strong>后置通知</strong></li>
 <li>执行时间点：<strong>切入点方法正常执行之后。它和异常通知只能有一个执行。</strong></li>
-</ul>
-</li>
-<li><p><code>aop:after-throwing</code></p>
+</ul></li>
+<li><code>aop:after-throwing</code>
 <ul>
 <li>用于配置<strong>异常通知</strong></li>
 <li>执行时间点：<strong>切入点方法执行产生异常后执行。它和后置通知只能执行一个。</strong></li>
-</ul>
-</li>
-<li><p><code>aop:after</code></p>
+</ul></li>
+<li><code>aop:after</code>
 <ul>
 <li>用于配置<strong>最终通知</strong></li>
 <li>执行时间点：<strong>无论切入点方法执行时是否有异常，它都会在其后面执行。</strong></li>
-</ul>
-</li>
-<li><p><code>aop:around</code></p>
+</ul></li>
+<li><code>aop:around</code>
 <ul>
 <li>用于配置<strong>环绕通知</strong></li>
 <li>它是spring框架为我们提供的一种可以在代码中手动控制增强代码什么时候执行的方式。</li>
 <li><strong>通常情况下环绕通知都是单独使用的。</strong></li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
 </ol>
-<h3 id="切入点表达式expression"><a href="#切入点表达式expression" class="headerlink" title="切入点表达式expression"></a>切入点表达式expression</h3><blockquote>
+<h3 id="切入点表达式expression">切入点表达式expression</h3>
+<blockquote>
 <p>execution(表达式)</p>
 </blockquote>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">execution([修饰符] 返回值类型 包名.类名.方法名(参数))<br></code></pre></td></tr></table></figure>
-
-<h4 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h4><h5 id="全匹配模式"><a href="#全匹配模式" class="headerlink" title="全匹配模式"></a>全匹配模式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> com.shijieq.service.impl.AccountServiceImpl.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
-
-<h5 id="访问修饰符省略"><a href="#访问修饰符省略" class="headerlink" title="访问修饰符省略"></a>访问修饰符省略</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(<span class="hljs-keyword">void</span> com.shijieq.service.impl.AccountServiceImpl.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
-
-<h5 id="返回值用-表示"><a href="#返回值用-表示" class="headerlink" title="返回值用*表示"></a>返回值用*表示</h5><p>返回值*表示任意返回值</p>
+<h4 id="语法">语法</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">execution([修饰符] 返回值类型 包名.类名.方法名(参数))<br></code></pre></td></tr></table></figure>
+<h4 id="写法">写法</h4>
+<h5 id="全匹配模式">全匹配模式</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> com.shijieq.service.impl.AccountServiceImpl.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
+<h5 id="访问修饰符省略">访问修饰符省略</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(<span class="hljs-keyword">void</span> com.shijieq.service.impl.AccountServiceImpl.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
+<h5 id="返回值用表示">返回值用*表示</h5>
+<p>返回值*表示任意返回值</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* com.shijieq.service.impl.AccountServiceImpl.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
-
-<h5 id="包名用-表示"><a href="#包名用-表示" class="headerlink" title="包名用*表示"></a>包名用*表示</h5><p>包名*表示任意包名，但是有几级包，就要写几个*</p>
+<h5 id="包名用表示">包名用*表示</h5>
+<p>包名*表示任意包名，但是有几级包，就要写几个*</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* *.*.*.*.AccountServiceImpl.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
-
-<h5 id="用-表示当前包"><a href="#用-表示当前包" class="headerlink" title="用..表示当前包"></a>用..表示当前包</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* com..AccountServiceImpl.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
-
-<h5 id="类名使用-号"><a href="#类名使用-号" class="headerlink" title="类名使用*号"></a>类名使用*号</h5><p>类名*表示任意类</p>
+<h5 id="用..表示当前包">用..表示当前包</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* com..AccountServiceImpl.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
+<h5 id="类名使用号">类名使用*号</h5>
+<p>类名*表示任意类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* com..*.saveAccount(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
-
-<h5 id="方法名使用-号"><a href="#方法名使用-号" class="headerlink" title="方法名使用*号"></a>方法名使用*号</h5><p>方法名*表示任意方法</p>
+<h5 id="方法名使用号">方法名使用*号</h5>
+<p>方法名*表示任意方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* com..*.*(com.shijieq.domain.Account))<br></code></pre></td></tr></table></figure>
-
-<h5 id="参数列表使用-号"><a href="#参数列表使用-号" class="headerlink" title="参数列表使用*号"></a>参数列表使用*号</h5><p>参数列表*表示可以是任意数据类型，但是必须有参数</p>
+<h5 id="参数列表使用号">参数列表使用*号</h5>
+<p>参数列表*表示可以是任意数据类型，但是必须有参数</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* com..*.*(*))<br></code></pre></td></tr></table></figure>
-
-<h5 id="参数列表使用-号-1"><a href="#参数列表使用-号-1" class="headerlink" title="参数列表使用..号"></a>参数列表使用..号</h5><p>参数列表..表示有无参数均可，如有参数可为任意数据类型</p>
+<h5 id="参数列表使用..号">参数列表使用..号</h5>
+<p>参数列表..表示有无参数均可，如有参数可为任意数据类型</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* com..*.*(..))<br></code></pre></td></tr></table></figure>
-
-<h5 id="全通配模式"><a href="#全通配模式" class="headerlink" title="全通配模式"></a>全通配模式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* *..*.*(..))<br></code></pre></td></tr></table></figure>
-
-<h3 id="举个例子-1"><a href="#举个例子-1" class="headerlink" title="举个例子"></a>举个例子</h3><p>假设我们要对业务层代码切入事务控制，首先定义一个事务控制类，如下：</p>
+<h5 id="全通配模式">全通配模式</h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution(* *..*.*(..))<br></code></pre></td></tr></table></figure>
+<h3 id="举个例子-1">举个例子</h3>
+<p>假设我们要对业务层代码切入事务控制，首先定义一个事务控制类，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 事务控制类</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TransactionManager</span> &#123;<br>	<span class="hljs-comment">//定义一个 DBAssit</span><br>    <span class="hljs-keyword">private</span> DBAssit dbAssit ;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setDbAssit</span><span class="hljs-params">(DBAssit dbAssit)</span> &#123;<br>        <span class="hljs-built_in">this</span>.dbAssit = dbAssit;<br>	&#125;<br>	<span class="hljs-comment">//开启事务</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beginTransaction</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>        	dbAssit.getCurrentConnection().setAutoCommit(<span class="hljs-literal">false</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>        	e.printStackTrace();<br>    	&#125;<br>    &#125;<br>    <br>    <span class="hljs-comment">//提交事务</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">commit</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.getCurrentConnection().commit();<br>		&#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>	<br>    <span class="hljs-comment">//回滚事务</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">rollback</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.getCurrentConnection().rollback();<br>		&#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br><br>    <span class="hljs-comment">//释放资源</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">release</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.releaseConnection();<br>		&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
 <p>对应的配置文件，如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br>	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br>	   xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;<br>	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans<br>						   http://www.springframework.org/schema/beans/spring-beans.xsd<br>						   http://www.springframework.org/schema/aop<br>						   http://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;<br>	&lt;!-- 配置通知 --&gt;<br>	&lt;bean id=&quot;txManager&quot; class=&quot;com.shijieq.utils.TransactionManager&quot;&gt;<br>		&lt;property name=&quot;dbAssit&quot; ref=&quot;dbAssit&quot;&gt;&lt;/property&gt;<br>	&lt;/bean&gt;<br><br>	&lt;!--配置AOP--&gt;<br>	&lt;aop:config&gt;<br>		&lt;!--配置切面--&gt;<br>		&lt;aop:aspect id=&quot;txAdvice&quot; ref=&quot;txManager&quot;&gt;<br>			&lt;!--声明一个切入点pt1--&gt;<br>			&lt;aop:pointcut id=&quot;pt1&quot; expression=&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;/&gt;<br>			&lt;!--配置前置通知--&gt;<br>			&lt;aop:before method=&quot;beginTransaction&quot; pointcut-ref=&quot;pt1&quot;/&gt;<br>			&lt;!--配置后置通知--&gt;			<br>			&lt;aop:after-returning method=&quot;commit&quot; pointcut-ref=&quot;pt1&quot;/&gt;<br>			&lt;!--配置异常通知--&gt;<br>			&lt;aop:after-throwing method=&quot;rollback&quot; pointcut-ref=&quot;pt1&quot;/&gt;<br>			&lt;!--配置最终通知--&gt;<br>			&lt;aop:after method=&quot;release&quot; pointcut-ref=&quot;pt1&quot;/&gt;<br>		&lt;/aop:aspect&gt;<br>	&lt;/aop:config&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
-
-<h4 id="环绕通知"><a href="#环绕通知" class="headerlink" title="环绕通知"></a>环绕通知</h4><p>//TODO</p>
-<h2 id="基于注解的AOP配置"><a href="#基于注解的AOP配置" class="headerlink" title="基于注解的AOP配置"></a>基于注解的AOP配置</h2><h3 id="模板-3"><a href="#模板-3" class="headerlink" title="模板"></a>模板</h3><p>相较于”基于XML的AOP配置“模板，导入约束时需要多导入一个 <strong>context</strong> 名称空间下的约束</p>
+<h4 id="环绕通知">环绕通知</h4>
+<p>//TODO</p>
+<h2 id="基于注解的aop配置">基于注解的AOP配置</h2>
+<h3 id="模板-3">模板</h3>
+<p>相较于”基于XML的AOP配置“模板，导入约束时需要多导入一个
+<strong>context</strong> 名称空间下的约束</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br>	   xmlns:context=&quot;http://www.springframework.org/schema/context&quot;<br>	   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br>	   xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;<br>	   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans<br>						   http://www.springframework.org/schema/beans/spring-beans.xsd<br>						   http://www.springframework.org/schema/aop<br>						   http://www.springframework.org/schema/aop/spring-aop.xsd<br>						   http://www.springframework.org/schema/context<br>						   http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;<br>&lt;/beans&gt;<br></code></pre></td></tr></table></figure>
-
-<h3 id="配置步骤-2"><a href="#配置步骤-2" class="headerlink" title="配置步骤"></a>配置步骤</h3><ol>
-<li><p>把通知类也使用注解配置</p>
-</li>
-<li><p>在通知类上使用@Aspect 注解声明为切面</p>
-</li>
-<li><p>在增强的方法上使用注解配置通知</p>
-</li>
+<h3 id="配置步骤-2">配置步骤</h3>
+<ol type="1">
+<li><p>把通知类也使用注解配置</p></li>
+<li><p>在通知类上使用@Aspect 注解声明为切面</p></li>
+<li><p>在增强的方法上使用注解配置通知</p></li>
 <li><p>在 spring 配置文件中开启 spring 对注解 AOP 的支持</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!-- 开启 spring 对注解 AOP 的支持 --&gt;<br>&lt;aop:aspectj-autoproxy/&gt;<br></code></pre></td></tr></table></figure>
-
 <p>或者通过注解开启</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ComponentScan(basePackages=&quot;com.shijie&quot;)</span><br><span class="hljs-meta">@EnableAspectJAutoProxy</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringConfiguration</span> &#123;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="相关注解"><a href="#相关注解" class="headerlink" title="相关注解"></a>相关注解</h3><ul>
-<li><p><code>@Aspect</code>: 表明当前类是一个切面类</p>
-</li>
-<li><p><code>@Before</code>: 把当前方法看成是前置通知</p>
-</li>
-<li><p><code>@AfterReturning</code>: 把当前方法看成是后置通知</p>
-</li>
-<li><p><code>@AfterThrowing</code>: 把当前方法看成是异常通知</p>
-</li>
-<li><p><code>@After</code>: 把当前方法看成是最终通知</p>
-</li>
-<li><p><code>@Around</code>: 把当前方法看成是环绕通知</p>
-</li>
+<h3 id="相关注解">相关注解</h3>
+<ul>
+<li><p><code>@Aspect</code>: 表明当前类是一个切面类</p></li>
+<li><p><code>@Before</code>: 把当前方法看成是前置通知</p></li>
+<li><p><code>@AfterReturning</code>: 把当前方法看成是后置通知</p></li>
+<li><p><code>@AfterThrowing</code>: 把当前方法看成是异常通知</p></li>
+<li><p><code>@After</code>: 把当前方法看成是最终通知</p></li>
+<li><p><code>@Around</code>: 把当前方法看成是环绕通知</p></li>
 <li><p><code>@Pointcut</code>: 指定切入点表达式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Pointcut(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pt1</span><span class="hljs-params">()</span> &#123;&#125;<br><br><span class="hljs-meta">@After(&quot;pt1()&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">release</span><span class="hljs-params">()</span> &#123;<br>	<span class="hljs-keyword">try</span> &#123;<br>		dbAssit.releaseConnection();<br>	&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>		e.printStackTrace();<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="举个例子-2"><a href="#举个例子-2" class="headerlink" title="举个例子"></a>举个例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 事务控制类</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Component(&quot;txManager&quot;)</span><br><span class="hljs-meta">@Aspect</span><span class="hljs-comment">//表明当前类是一个切面类</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TransactionManager</span> &#123;<br>	<span class="hljs-comment">//定义一个 DBAssit</span><br>	<span class="hljs-meta">@Autowired</span><br>	<span class="hljs-keyword">private</span> DBAssit dbAssit;<br>    <br>    <span class="hljs-comment">//开启事务</span><br>	<span class="hljs-meta">@Before(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beginTransaction</span><span class="hljs-params">()</span> &#123;<br>    	<span class="hljs-keyword">try</span> &#123;<br>    		dbAssit.getCurrentConnection().setAutoCommit(<span class="hljs-literal">false</span>);<br>    	&#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>    		e.printStackTrace();<br>    	&#125;<br>    &#125;<br>    <br>    <span class="hljs-comment">//提交事务</span><br>    <span class="hljs-meta">@AfterReturning(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">commit</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.getCurrentConnection().commit();<br>		&#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>	<br>    <span class="hljs-comment">//回滚事务</span><br>    <span class="hljs-meta">@AfterThrowing(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">rollback</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.getCurrentConnection().rollback();<br>		&#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br><br>    <span class="hljs-comment">//释放资源</span><br>    <span class="hljs-meta">@After(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">release</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.releaseConnection();<br>		&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="Spring中的事务控制"><a href="#Spring中的事务控制" class="headerlink" title="Spring中的事务控制"></a>Spring中的事务控制</h2><p>//TODO</p>
+<h3 id="举个例子-2">举个例子</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 事务控制类</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@Component(&quot;txManager&quot;)</span><br><span class="hljs-meta">@Aspect</span><span class="hljs-comment">//表明当前类是一个切面类</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TransactionManager</span> &#123;<br>	<span class="hljs-comment">//定义一个 DBAssit</span><br>	<span class="hljs-meta">@Autowired</span><br>	<span class="hljs-keyword">private</span> DBAssit dbAssit;<br>    <br>    <span class="hljs-comment">//开启事务</span><br>	<span class="hljs-meta">@Before(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beginTransaction</span><span class="hljs-params">()</span> &#123;<br>    	<span class="hljs-keyword">try</span> &#123;<br>    		dbAssit.getCurrentConnection().setAutoCommit(<span class="hljs-literal">false</span>);<br>    	&#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>    		e.printStackTrace();<br>    	&#125;<br>    &#125;<br>    <br>    <span class="hljs-comment">//提交事务</span><br>    <span class="hljs-meta">@AfterReturning(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">commit</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.getCurrentConnection().commit();<br>		&#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>	<br>    <span class="hljs-comment">//回滚事务</span><br>    <span class="hljs-meta">@AfterThrowing(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">rollback</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.getCurrentConnection().rollback();<br>		&#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br><br>    <span class="hljs-comment">//释放资源</span><br>    <span class="hljs-meta">@After(&quot;execution(* com.shijieq.service.impl.*.*(..))&quot;)</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">release</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			dbAssit.releaseConnection();<br>		&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="spring中的事务控制">Spring中的事务控制</h2>
+<p>//TODO</p>
 
                 
               </div>
@@ -778,26 +848,26 @@
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>ShijieQ</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年11月10日</div>
+          <div>Posted on</div>
+          <div>November 10, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -817,10 +887,10 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/17/OpenSSL/%E4%BD%BF%E7%94%A8OpenSSL%E7%94%9F%E6%88%90TLS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="使用OpenSSL生成TLS配置文件">
+                      <a href="/2023/01/01/Algorithm/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E5%B8%B8%E7%94%A8%E6%A8%A1%E6%9D%BF/" title="算法练习常用模板">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">使用OpenSSL生成TLS配置文件</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="hidden-mobile">算法练习常用模板</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
@@ -829,7 +899,7 @@
                     
                       <a href="/2022/11/01/Laboratory/TrustManagement/%E5%B8%B8%E8%A7%81%E5%86%B3%E7%AD%96%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB/" title="常见决策算法汇总">
                         <span class="hidden-mobile">常见决策算法汇总</span>
-                        <span class="visible-mobile">下一篇</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -850,7 +920,7 @@
     <div id="toc">
   <p class="toc-header">
     <i class="iconfont icon-list"></i>
-    <span>目录</span>
+    <span>Table of Contents</span>
   </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
@@ -887,6 +957,12 @@
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -906,7 +982,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -914,7 +990,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -1079,6 +1155,49 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
   <script  src="/js/local-search.js" ></script>
 
 
@@ -1093,7 +1212,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>
