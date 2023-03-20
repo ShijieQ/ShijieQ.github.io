@@ -24,7 +24,7 @@
 <meta property="og:description" content="本文用于记录 Kernel 学习中的一些笔记。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-17T01:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-19T11:43:23.488Z">
+<meta property="article:modified_time" content="2023-03-20T11:30:16.174Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="OS">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.2k words
+          7.9k words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          44 mins
+          67 mins
         
       </span>
     
@@ -276,6 +276,70 @@
               <div class="markdown-body">
                 
                 <h1 id="linux-kernel">Linux Kernel</h1>
+<h2 id="c-相关知识">C 相关知识</h2>
+<h3 id="链接link">链接(Link)</h3>
+<p>C语言代码经过编译以后，并没有生成最终的可执行文件（.exe
+文件），而是生成了一种叫做目标文件（Object
+File）的中间文件（或者说临时文件）。目标文件也是二进制形式的，它和可执行文件的格式是一样的</p>
+<p>对于 Visual C++，目标文件的后缀是<code>.obj</code>；对于
+GCC，目标文件的后缀是<code>.o</code></p>
+<p>目标文件并不能直接执行，首先需要载入到链接器中，链接器确认main函数为初始进入点，把符号引用绑定到内存地址，把所有的目标文件集中在一起，在加上库文件，从而产生可执行文件</p>
+<h4 id="静态链接">静态链接</h4>
+<p>函数库的一份拷贝是可执行文件的物理组成部分</p>
+<p>静态链接的模块被<strong>链接-编辑</strong>并<strong>载入</strong>以便运行</p>
+<h4 id="动态链接">动态链接</h4>
+<p>可执行文件只是包含了文件名，载入器在运行时寻找程序所需的函数库</p>
+<p>动态链接的模块被<strong>链接-编辑</strong>后<strong>载入</strong>，并在<strong>运行时链接</strong>以便运行</p>
+<h3 id="回调函数">回调函数</h3>
+<p>回调函数的好处和作用就是<strong>解耦</strong></p>
+<blockquote>
+<p><strong>来自维基百科的对回调（Callback）的解析：</strong>In computer
+programming, a callback is any executable code that is passed as an
+argument to other code, which is expected to call back (execute) the
+argument at a given time. This execution may be immediate as in a
+synchronous callback, or it might happen at a later time as in an
+asynchronous callback.
+也就是说，把一段可执行的代码像参数传递那样传给其他代码，而这段代码会在某个时刻被调用执行，这就叫做回调。如果代码立即被执行就称为同步回调，如果在之后晚点的某个时间再执行，则称之为异步回调。</p>
+<p><strong>来自Stack Overflow某位大神简洁明了的表述：</strong>A
+"callback" is any function that is called by another function which
+takes the first function as a parameter。 也就是说，函数 F1 调用函数 F2
+的时候，函数 F1 通过参数给 函数 F2 传递了另外一个函数 F3 的指针，在函数
+F2 执行的过程中，函数F2 调用了函数
+F3，这个动作就叫做回调（Callback），而先被当做指针传入、后面又被回调的函数
+F3 就是回调函数。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;softwareLib.h&gt;</span> <span class="hljs-comment">// 包含Library Function所在读得Software library库的头文件</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">Callback</span><span class="hljs-params">()</span> <span class="hljs-comment">// Callback Function</span><br>&#123;<br>    <span class="hljs-comment">// TODO</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> <span class="hljs-comment">// Main program</span><br>&#123;<br>    <span class="hljs-comment">// TODO</span><br>    Library(Callback);<br>    <span class="hljs-comment">// TODO</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>只要我们改变传进库函数的参数，就可以实现不同的功能，这样是很灵活的，并且丝毫不需要修改库函数的实现，这就是解耦。</p>
+<h4 id="带参的回调函数">带参的回调函数</h4>
+<p>示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">Callback_1</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> <span class="hljs-comment">// Callback Function 1</span><br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, this is Callback_1: x = %d &quot;</span>, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">Callback_2</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> <span class="hljs-comment">// Callback Function 2</span><br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, this is Callback_2: x = %d &quot;</span>, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">Callback_3</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> <span class="hljs-comment">// Callback Function 3</span><br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, this is Callback_3: x = %d &quot;</span>, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">Handle</span><span class="hljs-params">(<span class="hljs-type">int</span> y, <span class="hljs-type">int</span> (*Callback)(<span class="hljs-type">int</span>))</span><br>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Entering Handle Function. &quot;</span>);<br>    Callback(y);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Leaving Handle Function. &quot;</span>);<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">2</span>;<br>    <span class="hljs-type">int</span> b = <span class="hljs-number">4</span>;<br>    <span class="hljs-type">int</span> c = <span class="hljs-number">6</span>;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Entering Main Function. &quot;</span>);<br>    Handle(a, Callback_1);<br>    Handle(b, Callback_2);<br>    Handle(c, Callback_3);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Leaving Main Function. &quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以看出是通过增加一个参数来保存回调函数的参数值。</p>
+<h3 id="预处理指令">预处理指令</h3>
+<p>常见的预处理指令：</p>
+<ul>
+<li><code>#define</code> 宏定义</li>
+<li><code>#undef</code> 未定义宏</li>
+<li><code>#include</code> 文本包含</li>
+<li><code>#ifdef</code> 如果宏被定义就进行编译</li>
+<li><code>#ifndef</code> 如果宏未被定义就进行编译</li>
+<li><code>#endif</code> 结束编译块的控制</li>
+<li><code>#if</code> 表达式非零就对代码进行编译</li>
+<li><code>#else</code> 作为其他预处理的剩余选项进行编译</li>
+<li><code>#elif</code> 这是一种#else和#if的组合选项</li>
+<li><code>#line</code> 改变当前的行数和文件名称</li>
+<li><code>#error</code> 输出一个错误信息</li>
+<li><code>#pragma</code> 为编译程序提供非常规的控制流信息</li>
+</ul>
+<h4 id="include">#include</h4>
+<p>对于<code>#include &lt;io.h&gt;</code> ，编译器从标准库路径开始搜索
+对于<code>#include "io.h"</code>，编译器从用户的工作路径开始搜索</p>
+<h4 id="error">#error</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> UNIX</span><br><span class="hljs-meta">#<span class="hljs-keyword">error</span> This software requires the UNIX OS.</span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<h4 id="progma">#progma</h4>
+<p><code>#progma</code>主要功能是为编译程序提供非常规的控制流信息</p>
+<h4 id="预定义标识符">预定义标识符</h4>
+<p>为了处理一些有用的信息，预处理定义了一些预处理标识符，虽然各种编译器的预处理标识符不尽相同，但是他们都会处理下面这4种：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">__FILE__ 正在编译的文件的名字<br><br>__LINE__ 正在编译的文件的行号<br><br>__DATE__ 编译时刻的日期字符串，例如： <span class="hljs-string">&quot;25 Dec 2000&quot;</span><br><br>__TIME__ 编译时刻的时间字符串，例如： <span class="hljs-string">&quot;12:30:55&quot;</span><br>    <br> eg. <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;The file is :&quot;</span>&lt;&lt;__FILE__<span class="hljs-string">&quot;&lt;&lt;&quot;</span>! The lines is:<span class="hljs-string">&quot;&lt;&lt;__LINE__&lt;&lt;endl;</span><br></code></pre></td></tr></table></figure>
 <h2 id="posix标准">POSIX标准</h2>
 <ul>
 <li><p>POSIX，Portable Operating System
@@ -603,9 +667,9 @@ install：安装已经编译好的程序。复制文件树中到文件到指定�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/17/C++/Makefile%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" title="Makefile 基本知识">
+                      <a href="/2022/04/13/Java/Mybatis%E7%94%9F%E6%88%90%E5%99%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="Mybatis 生成器配置文件详解">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Makefile 基本知识</span>
+                        <span class="hidden-mobile">Mybatis 生成器配置文件详解</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -613,7 +677,7 @@ install：安装已经编译好的程序。复制文件树中到文件到指定�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/15/C++/C-%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="C++相关基础知识">
+                      <a href="/2021/03/15/C++/C++%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="C++相关基础知识">
                         <span class="hidden-mobile">C++相关基础知识</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>

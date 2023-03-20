@@ -16,23 +16,22 @@
   <meta name="author" content="ShijieQ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本篇文章用于汇总已经了解过的信任管理算法，其中包括相近的算法（例如多目标决策）。">
+    <meta name="description" content="在动手写代码之前有一些事情很重要，比如调研一下是否有人实现了。私以为当你在开发过程中思考一个模块的设计方法时，停下你的思考，然后去github上找，一定有一个开源项目是存在的且比你的构思更为缜密。这一点尤其是在java项目中体现突出。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常见决策算法汇总">
-<meta property="og:url" content="http://shijieq.github.io/2022/11/01/Laboratory/TrustManagement/%E5%B8%B8%E8%A7%81%E5%86%B3%E7%AD%96%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:title" content="一些有意思的 Java 项目">
+<meta property="og:url" content="http://shijieq.github.io/2022/06/08/Java/%E4%B8%80%E4%BA%9B%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84Java%E9%A1%B9%E7%9B%AE/index.html">
 <meta property="og:site_name" content="ShijieQ&#39;s Blog">
-<meta property="og:description" content="本篇文章用于汇总已经了解过的信任管理算法，其中包括相近的算法（例如多目标决策）。">
+<meta property="og:description" content="在动手写代码之前有一些事情很重要，比如调研一下是否有人实现了。私以为当你在开发过程中思考一个模块的设计方法时，停下你的思考，然后去github上找，一定有一个开源项目是存在的且比你的构思更为缜密。这一点尤其是在java项目中体现突出。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-11-01T01:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-17T05:22:29.293Z">
+<meta property="article:published_time" content="2022-06-08T03:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-20T10:56:57.524Z">
 <meta property="article:author" content="ShijieQ">
-<meta property="article:tag" content="Laboratory">
-<meta property="article:tag" content="TrustManagement">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>常见决策算法汇总 - ShijieQ&#39;s Blog</title>
+  <title>一些有意思的 Java 项目 - ShijieQ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="常见决策算法汇总"></span>
+            <span id="subtitle" data-typed-text="一些有意思的 Java 项目"></span>
           
         </div>
 
@@ -209,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-01 09:00" pubdate>
-          November 1, 2022 am
+        <time datetime="2022-06-08 11:00" pubdate>
+          June 8, 2022 am
         </time>
       </span>
     
@@ -221,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k words
+          2.3k words
         
       </span>
     
@@ -232,7 +231,7 @@
         
         
         
-          22 mins
+          20 mins
         
       </span>
     
@@ -270,104 +269,105 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">常见决策算法汇总</h1>
+            <h1 style="display: none">一些有意思的 Java 项目</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="topsis">TOPSIS</h1>
-<p>TOPSIS法根据有限个评价对象与理想化目标的接近程度进行排序的方法，是在现有的对象中进行相对优劣的评价。TOPSIS法是一种逼近于理想解的排序法，该方法只要求各效用函数具有单调递增（或递减）性就行。
-TOPSIS法是多目标决策分析中一种常用的有效方法，又称为<strong>优劣解距离法</strong>。
-&gt; 1981年，C.L.Hwang和K.Yoon首次提出了Topsis，全称Technique for Order
-Preference by Similarity to an Ideal
-Solution，可翻译为逼近理想解排序法，国内常称为优劣解距离法。它是一种常用的综合评价方法。</p>
-<h2 id="优点">优点</h2>
-<p>TOPSIS可以弥补层次分析法的一些缺点: 1.
-优劣解距离法可以充分利用原始数据信息，且其结果能充分反应各评价方案与最优方案的接近程度。
-2.
-对样本容量没有严格限制，数据计算简单易行，无需数据检验。（topsis法适用于两个以上）</p>
-<h2 id="基本过程">基本过程</h2>
-<ol type="1">
-<li>原始矩阵正向化，得到正向化矩阵
+                <h2 id="goodforu">GoodForU</h2>
+<p>在动手写代码之前有一些事情很重要，比如调研一下是否有人实现了。私以为当你在开发过程中思考一个模块的设计方法时，停下你的思考，然后去github上找，一定有一个开源项目是存在的且比你的构思更为缜密。这一点尤其是在java项目中体现突出。</p>
+<p>故本文档收集一些项目帮助加快甚至完成开发。</p>
+<h3 id="hutool">hutool</h3>
+<blockquote>
+<p>A set of tools that keep Java sweet.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/dromara/hutool">项目地址</a> <a
+target="_blank" rel="noopener" href="https://www.hutool.cn/docs/#/">中文文档</a></p>
+<h3 id="hertzbeat">HertzBeat</h3>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/dromara/hertzbeat">HertzBeat赫兹跳动</a>
+是由<a target="_blank" rel="noopener" href="https://dromara.org/">Dromara</a>孵化，<a
+target="_blank" rel="noopener" href="https://tancloud.cn/">TanCloud</a>开源的一个支持网站，API，PING，端口，数据库，操作系统等监控类型，拥有易用友好的可视化操作界面的开源监控告警项目。
+我们也提供了对应的 <strong><a
+target="_blank" rel="noopener" href="https://console.tancloud.cn/">SAAS版本监控云</a></strong>，中小团队和个人无需再为了监控自己的网站资源，而去部署一套繁琐的监控系统，<strong><a
+target="_blank" rel="noopener" href="https://console.tancloud.cn/">登录即可免费开始</a></strong>。
+HertzBeat 支持<a
+target="_blank" rel="noopener" href="https://hertzbeat.com/docs/advanced/extend-point">自定义监控</a>
+,只用通过配置YML文件我们就可以自定义需要的监控类型和指标，来满足常见的个性化需求。
+HertzBeat
+模块化，<code>manager, collector, scheduler, warehouse, alerter</code>
+各个模块解耦合，方便理解与定制开发。 HertzBeat
+支持更自由化的告警配置(计算表达式)，支持告警通知，告警模版，邮件钉钉微信飞书等及时通知送达
+欢迎登录 HertzBeat 的 <a
+target="_blank" rel="noopener" href="https://console.tancloud.cn/">云环境TanCloud</a> 试用发现更多。
+我们正在快速迭代中，欢迎参与加入一起共建项目开源生态。</p>
+</blockquote>
+<blockquote>
+<p><code>HertzBeat</code>的多类型支持，易扩展，低耦合，希望能帮助开发者和中小团队快速搭建自有监控系统。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/dromara/hertzbeat">项目地址</a> <a
+target="_blank" rel="noopener" href="https://hertzbeat.com/">官网地址</a></p>
+<h3 id="sa-token">Sa-Token</h3>
+<blockquote>
+<p><strong>Sa-Token</strong> 是一个轻量级 Java
+权限认证框架，主要解决：<strong><code>登录认证</code></strong>、<strong><code>权限认证</code></strong>、<strong><code>Session会话</code></strong>、<strong><code>单点登录</code></strong>、<strong><code>OAuth2.0</code></strong>、<strong><code>微服务网关鉴权</code></strong>
+等一系列权限相关问题</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/dromara/Sa-Token">项目地址</a> <a
+target="_blank" rel="noopener" href="https://sa-token.dev33.cn/index.html">官网地址</a></p>
+<h3 id="okhttps">okhttps</h3>
+<blockquote>
+<p>OkHttps 是近期开源的对 OkHttp3
+轻量封装的框架，它独创的异步预处理器，特色的标签，灵活的上传下载进度监听与过程控制功能，在轻松解决很多问题的同时，设计上也力求纯粹与优雅。</p>
 <ul>
-<li>指标类型。指标类型一般分为四种，<strong>极大型指标</strong>、<strong>极小型指标</strong>、<strong>中间型指标</strong>、<strong>区间型指标</strong>。
-<ul>
-<li>极大型指标越大越好；</li>
-<li>极小型指标越小越好；</li>
-<li>中间型指标越接近中间值越好；</li>
-<li>区间型指标落在区间内最好。</li>
-</ul></li>
-<li>正向化公式。正向化就是将原始数据指标都转化为极大型指标
-<ul>
-<li>极小型 -&gt; 极大型：<span class="math inline">\(x_i = max -
-x_i\)</span>，当指标值中没有"0"时也可以用 <span
-class="math inline">\(x_i = \frac{1}{x_i}\)</span></li>
-<li>中间型 -&gt; 极大型：<span class="math inline">\(x_i = 1 -
-\frac{|x_i - max|}{mid}\)</span>，其中 <span
-class="math inline">\(mid\)</span> 为中间值</li>
-<li>区间型 -&gt; 极大型：其中 <span class="math inline">\(M\)</span>
-表示为距离区间最远的距离，即 <span class="math inline">\(max(a -
-min(x_i), max(x_i) - b)\)</span> <span class="math display">\[
-\left\{\begin{array}{c}
-x_i=1-\frac{a-x_i}{M}\left(x^i \leqslant a\right) \\
-x_i=1\left(a \leqslant x_i \leqslant b\right) \\
-x_i=1-\frac{x_i-b}{M}\left(x^i \geqslant b\right)
-\end{array}\right.
-\]</span></li>
-</ul></li>
+<li>超级优雅的 API 设计，且链式调用，让你顺滑到底！</li>
+<li>BaseURL、URL占位符、HTTP 同步
+异步、WebSocket，让你想干啥就干啥！</li>
+<li>JSON、Xml
+等自动封装与解析，且支持与任意格式的数据解析框架集成，想用啥就用啥！</li>
+<li>同步拦截器、异步预处理器、回调执行器、全局监听、回调阻断
+等等，让你扩展无限功能！</li>
+<li>文件上传下载（过程控制、进度监听），上传下载如此简单！</li>
+<li>单方法回调，充分利用 Lambda 表达式，让你代码超级简洁！</li>
+<li>超级轻量，但性能卓越！</li>
 </ul>
-假设有n个要评价的对象，m个已经正向化的评价指标，构成的正向化矩阵为：
-<span class="math display">\[
-X=\left[\begin{array}{cccc}
-x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1 m} \\
-x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2 m} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-x_{n 1} &amp; x_{n 2} &amp; \cdots &amp; x_{n m}
-\end{array}\right]
-\]</span></li>
-<li>对正向化矩阵标准化 <span class="math display">\[
-Z_{i j}=\frac{x_{i j}}{\sqrt{\sum_1^n x_{i j}^2}}
-\]</span> 得到标准化矩阵为： <span class="math display">\[
-Z=\left[\begin{array}{cccc}
-z_{11} &amp; z_{12} &amp; \cdots &amp; z_{1 m} \\
-z_{21} &amp; z_{22} &amp; \cdots &amp; z_{2 m} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-z_{n 1} &amp; z_{n 2} &amp; \cdots &amp; z_{n m}
-\end{array}\right]
-\]</span></li>
-<li>计算得分并归一化 构造评分公式：<span class="math inline">\(S =
-\frac{x - min}{max - min}\)</span>，变形可得 <span
-class="math inline">\(S = \frac{x - min}{(max - x) + (x - min)}\)</span>
-计算列最大值 <span class="math display">\[ Z^+ = (Z^+_1, Z^+_2, \cdots,
-Z^+_m) =
-\left(\max \left\{z_{11}, z_{21}, \cdots, z_{n 1}\right\}, \max
-\left\{z_{12}, z_{22}, \cdots, z_{n 2}\right\}, \cdots, \max \left\{z_{1
-m}, z_{2 m}, \cdots, z_{n m}\right\}\right)
-\]</span> 计算列最小值 <span class="math display">\[ Z^- = (Z^-_1,
-Z^-_2, \cdots, Z^-_m) =
-\left(\min \left\{z_{11}, z_{21}, \cdots, z_{n 1}\right\}, \min
-\left\{z_{12}, z_{22}, \cdots, z_{n 2}\right\}, \cdots, \min \left\{z_{1
-m}, z_{2 m}, \cdots, z_{n m}\right\}\right)
-\]</span> 定义第 <span class="math inline">\(i\)</span>
-个评价对象与最大值的距离 <span
-class="math inline">\(D_i^{+}=\sqrt{\sum_{j=1}^m\left(Z_j^{+}-z_{i
-j}\right)^2}\)</span> 定义第 <span class="math inline">\(i\)</span>
-个评价对象与最小值的距离 <span
-class="math inline">\(D_i^{-}=\sqrt{\sum_{j=1}^m\left(Z_j^{-}-z_{i
-j}\right)^2}\)</span> 那么可以计算出第 <span
-class="math inline">\(i\)</span> 个评价对象未归一化的得分为：<span
-class="math inline">\(S_i = \frac{D^-_i}{D^+_i + D^-_i}\)</span> 将
-<span class="math inline">\(S_i\)</span>
-归一化后进行数值排名，即可得到最佳方案</li>
-</ol>
-<h1 id="vikor">VIKOR</h1>
-<h2 id="与topsis的对比">与TOPSIS的对比</h2>
-<ul>
-<li>TOPSIS和VIKOR的区别之一在于<strong>聚合函数</strong>。TOPSIS是基于距离理想解的距离的集合，VIKOR方法在TOPSIS方法的基础上提出了一个具有优势率的折衷方案。在TOPSIS方法中，不仅要考虑到与正理想解的最近距离，而且考虑到与负理想解的最长距离，从而确定最优解，以最大限度地提高效益。但TOPSIS
-中的这些距离只是简单地求和，没有考虑它们的相对重要性，而在VIKOR中决策者会根据自身需求确定其重要性。</li>
-<li>VIKOR方法相比TOPSIS方法多了一个<strong>决策机制系数</strong>，它可以使决策者做出更激进或更保守的决策。TOPSIS方法的过程没有纳入任何主观因素，更适合要求结果完全客观的决策环境。</li>
-<li>VIKOR方法的独特优势在于可以得到<strong>带有优先级的折衷方案</strong>，这使得通过VIKOR排序后的最佳方案可能不止一个。而TOPSIS方法只能得到唯一最优解，毕竟它的过程是完全客观的。</li>
-</ul>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/ejlchina/okhttps">项目地址</a> <a
+target="_blank" rel="noopener" href="https://okhttps.ejlchina.com/">官网地址</a></p>
+<h3 id="java-native-access-jna">Java Native Access (JNA)</h3>
+<blockquote>
+<p>The definitive JNA reference (including an overview and usage
+details) is in the <a
+target="_blank" rel="noopener" href="http://java-native-access.github.io/jna/5.11.0/javadoc/">JavaDoc</a>.
+Please read the <a
+target="_blank" rel="noopener" href="http://java-native-access.github.io/jna/5.11.0/javadoc/overview-summary.html#overview_description">overview</a>.
+Questions, comments, or exploratory conversations should begin on the <a
+target="_blank" rel="noopener" href="http://groups.google.com/group/jna-users">mailing list</a>,
+although you may find it easier to find answers to already-solved
+problems on <a
+target="_blank" rel="noopener" href="http://stackoverflow.com/questions/tagged/jna">StackOverflow</a>.</p>
+<p>JNA provides Java programs easy access to native shared libraries
+without writing anything but Java code - no JNI or native code is
+required. This functionality is comparable to Windows' Platform/Invoke
+and Python's ctypes.</p>
+<p>JNA allows you to call directly into native functions using natural
+Java method invocation. The Java call looks just like the call does in
+native code. Most calls require no special handling or configuration; no
+boilerplate or generated code is required.</p>
+<p>JNA uses a small JNI library stub to dynamically invoke native code.
+The developer uses a Java interface to describe functions and structures
+in the target native library. This makes it quite easy to take advantage
+of native platform features without incurring the high overhead of
+configuring and building JNI code for multiple platforms. Read this <a
+target="_blank" rel="noopener" href="https://github.com/java-native-access/jna/blob/master/www/FunctionalDescription.md">more
+in-depth description</a>.</p>
+<p>While significant attention has been paid to performance, correctness
+and ease of use take priority.</p>
+<p>In addition, JNA includes a platform library with many native
+functions already mapped as well as a set of utility interfaces that
+simplify native access.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/java-native-access/jna">项目地址</a></p>
 
                 
               </div>
@@ -386,15 +386,8 @@ class="math inline">\(S_i = \frac{D^-_i}{D^+_i + D^-_i}\)</span> 将
     
       <span class="category-chain">
         
-  <a href="/categories/Laboratory/" class="category-chain-item">Laboratory</a>
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/Laboratory/TrustManagement/" class="category-chain-item">TrustManagement</a>
-  
-  
-
   
 
       </span>
@@ -408,9 +401,7 @@ class="math inline">\(S_i = \frac{D^-_i}{D^+_i + D^-_i}\)</span> 将
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Laboratory/">#Laboratory</a>
-      
-        <a href="/tags/TrustManagement/">#TrustManagement</a>
+        <a href="/tags/Java/">#Java</a>
       
     </div>
   
@@ -422,8 +413,8 @@ class="math inline">\(S_i = \frac{D^-_i}{D^+_i + D^-_i}\)</span> 将
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>常见决策算法汇总</div>
-      <div>http://shijieq.github.io/2022/11/01/Laboratory/TrustManagement/常见决策算法汇总/</div>
+      <div>一些有意思的 Java 项目</div>
+      <div>http://shijieq.github.io/2022/06/08/Java/一些有意思的Java项目/</div>
     </div>
     <div class="license-meta">
       
@@ -435,7 +426,7 @@ class="math inline">\(S_i = \frac{D^-_i}{D^+_i + D^-_i}\)</span> 将
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>November 1, 2022</div>
+          <div>June 8, 2022</div>
         </div>
       
       
@@ -467,9 +458,9 @@ class="math inline">\(S_i = \frac{D^-_i}{D^+_i + D^-_i}\)</span> 将
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/10/Java/Spring/Spring%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="Spring相关基础知识">
+                      <a href="/2022/09/17/C++/Makefile%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" title="Makefile 基本知识">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spring相关基础知识</span>
+                        <span class="hidden-mobile">Makefile 基本知识</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -477,8 +468,8 @@ class="math inline">\(S_i = \frac{D^-_i}{D^+_i + D^-_i}\)</span> 将
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/10/C++/C++%E4%B8%AD%E7%9A%84Socket/" title="C++ 中的 Socket">
-                        <span class="hidden-mobile">C++ 中的 Socket</span>
+                      <a href="/2022/06/08/Java/Spring/SpringMVC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="SpringMVC 学习笔记">
+                        <span class="hidden-mobile">SpringMVC 学习笔记</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
