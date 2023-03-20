@@ -1,0 +1,934 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ShijieQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文用于记录 Kernel 学习中的一些笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kernel 学习">
+<meta property="og:url" content="http://shijieq.github.io/2021/12/17/OS/Kernel/index.html">
+<meta property="og:site_name" content="ShijieQ&#39;s Blog">
+<meta property="og:description" content="本文用于记录 Kernel 学习中的一些笔记。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-17T01:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-19T11:43:23.488Z">
+<meta property="article:author" content="ShijieQ">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Kernel 学习 - ShijieQ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"shijieq.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ShijieQ&#39; Page</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Kernel 学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-17 09:00" pubdate>
+          December 17, 2021 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Kernel 学习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="linux-kernel">Linux Kernel</h1>
+<h2 id="posix标准">POSIX标准</h2>
+<ul>
+<li><p>POSIX，Portable Operating System
+Interface，是UNIX系统的一个设计标准，很多类UNIX系统也在支持兼容这个标准，如Linux</p></li>
+<li><p>POSIX是IEEE为要在各种UNIX操作系统上运行软件，而定义API的一系列互相关联的标准的总称</p></li>
+<li><p>Linux基本上逐步实现了POSIX兼容，但并没有参加正式的POSIX认证</p></li>
+<li><p>当前的POSIX主要分为四个部分：Base Definitions、System
+Interfaces、Shell and Utilities和Rationale</p></li>
+</ul>
+<p>POSIX大约有100个过程调用，其中最主要的过程调用如下被分为四类：</p>
+<ul>
+<li>进程管理
+<ul>
+<li><code>pid = fork</code>：创建与父进程相同的子进程</li>
+<li><code>pid = waitpid(pid, &amp;statloc, options)</code>：等待一个子进程终止</li>
+<li><code>s = execve(name, argv, environp)</code>：替换一个进程的核心映像</li>
+<li><code>exit(status)</code>：终止进程执行并返回状态</li>
+</ul></li>
+<li>文件管理
+<ul>
+<li><code>fd = open(file, how, ...)</code>：打开一个文件供读、写或两者</li>
+<li><code>s = close(fd)</code>：关闭一个打开的文件</li>
+<li><code>n = read(fd, buffer, nbytes)</code>：把数据从一个文件读到缓冲区中</li>
+<li><code>n = write(fd, buffer, nbytes)</code>：把数据从缓冲区写到一个文件中</li>
+<li><code>position = lseek(fd, offset, whence)</code>：移动文件指针</li>
+<li><code>s = stat(name, &amp;buf)</code>：取得文件的状态信息</li>
+</ul></li>
+<li>目录和文件系统管理
+<ul>
+<li><code>s = mkdir(name, mode)</code>：创建一个新目录</li>
+<li><code>s = rmdir(name)</code>：删除一个空目录</li>
+<li><code>s = link(name1, name2)</code>：创建一个新目录项name2，并指向name1</li>
+<li><code>s = unlink(name)</code>：删去一个目录项</li>
+<li><code>s = mount(special, name, flag)</code>：安装一个文件系统</li>
+<li><code>s = umount(special)</code>：卸载一个文件系统</li>
+</ul></li>
+<li>杂项
+<ul>
+<li><code>s = chdir(dirname)</code>：改变工作目录</li>
+<li><code>s = chmod(name, mode)</code>：修改一个文件的保护位</li>
+<li><code>s = kill(pid, signal)</code>：发送信号给一个进程</li>
+<li><code>seconds = time(&amp;seconds)</code>：自1970年1月1日起的流逝时间</li>
+</ul></li>
+</ul>
+<h2 id="头文件">头文件</h2>
+<ul>
+<li>unistd.h
+<ul>
+<li>Linux/Unix系统内置的头文件，包含了许多系统服务的函数原型，例如read函数、write函数和getpid函数等</li>
+<li>其作用相当于windows操作系统的"windows.h"，是操作系统为用户提供的统一API接口，方便调用系统提供的一些服务</li>
+</ul></li>
+</ul>
+<h2 id="makefile-grammar">Makefile Grammar</h2>
+<p>Makefile文件里描述的是编译的时候依赖关系，宏定义，编译参数，链接生成的程序名字等等</p>
+<h3 id="文件包含">文件包含</h3>
+<ul>
+<li>include 文件名
+<ul>
+<li>将其他makefile文件包含进来，形成更大的makefile文件</li>
+</ul></li>
+</ul>
+<h3 id="变量定义">变量定义</h3>
+<ul>
+<li>变量名 := 变量值
+<ul>
+<li>变量定义</li>
+</ul></li>
+<li>变量名 += 变量值1 [变量值2] [...]
+<ul>
+<li>追加新的变量值</li>
+</ul></li>
+<li>自动变量
+<ul>
+<li>自动变量的值会依据规则中的target 和
+prerequisites自动计算其值，以$开始</li>
+<li>**$<span class="citation" data-cites="*">@*</span>*
+为规则中的target名称</li>
+<li><strong>$&lt;</strong> 为规则中第一个prerequisite名称</li>
+</ul></li>
+</ul>
+<h3 id="内置命令">内置命令</h3>
+<ul>
+<li><p>字符串处理函数：subst、patsubst、strip、findstring、filter、filter-out、sort、word、wordlist、words、firstword、lastword</p></li>
+<li><p>文件名处理函数：dir、notdir、suffix、basename、addsuffix、addprefix、join、wildcard、realpath、abspath</p>
+<ul>
+<li><p>dir</p>
+<ul>
+<li><p>$(dir name1 [name2] […])</p></li>
+<li><p>获取name中文件对应的路径</p></li>
+<li><p><strong>E.g.</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-variable">$(<span class="hljs-built_in">dir</span> src/foo.c hacks)</span> <span class="hljs-comment"># 获取src/ ./两个路径</span><br></code></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>nodir</p>
+<ul>
+<li><p>$(dir name1 [name2] […])</p></li>
+<li><p>获取name中除去路径的信息</p></li>
+<li><p><strong>E.g.</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-variable">$(<span class="hljs-built_in">dir</span> src/foo.c hacks)</span> <span class="hljs-comment"># 获取foo.c hacks两个文件信息</span><br></code></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>basename</p>
+<ul>
+<li><p>$(basename name1 [name2] […])</p></li>
+<li><p>获取names中除去后缀信息</p></li>
+<li><p><strong>E.g.</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-variable">$(<span class="hljs-built_in">basename</span> src/foo.c src/bar.b hacks.c)</span> <span class="hljs-comment"># 获得信息src/foo src/bar hacks</span><br></code></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>addsuffix</p>
+<ul>
+<li>$(addsuffix suffix,name1 [name2] […])</li>
+</ul></li>
+<li><p>wildcard</p>
+<ul>
+<li><p>$(wildcard pattern)</p></li>
+<li><p>pattern为匹配的模式</p></li>
+<li><p><strong>E.g.</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-variable">$(<span class="hljs-built_in">wildcard</span> %.c)</span> 查找当前目录下文件名以.c结尾的文件<br></code></pre></td></tr></table></figure></li>
+</ul></li>
+</ul></li>
+<li><p>条件循环函数：if</p></li>
+<li><p>循环处理函数：foreach</p>
+<ul>
+<li><p>foreach</p>
+<ul>
+<li><p>$(foreach var, list, text)</p></li>
+<li><p>每循环一次var从list中按顺序取值一个</p></li>
+<li><p><strong>E.g.</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs makefile">dirs := C_DIR S_DIR<br>file := <span class="hljs-variable">$(<span class="hljs-built_in">foreach</span> <span class="hljs-built_in">dir</span>,<span class="hljs-variable">$(dirs)</span>,$(<span class="hljs-built_in">wildcard</span> <span class="hljs-variable">$(dir)</span>/*)</span>) <span class="hljs-comment"># 将C_DIR和S_DIR文件夹下面的所有文件添加到file变量中</span><br></code></pre></td></tr></table></figure></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="源码编译">源码编译</h2>
+<p>源码的安装一般由3个步骤组成：配置(configure)、编译(make)、安装(make
+install)、卸载(make uninstall)</p>
+<h3 id="configure">configure</h3>
+<p><code>configure</code>通常检查环境，配置编译条件，一般是一个可执行脚本，有很多选项，在待安装的源码路径下使用命令./configure
+–help输出详细的选项列表。一般用来生成
+Makefile，为下一步的编译做准备。</p>
+<ol type="1">
+<li><p>./configure --prefix</p>
+<p>它的作用是配置安装路径，如：<code>./configure --prefix=/usr</code>，意思是将该软件安装在/usr下面，执行文件就会安装在/usr/bin，资源文件就会安装在/usr/share，--prefix选项还有一个好处：卸载的时候，直接删除一个文件夹(安装目录)即可；移植软件也只需拷贝整个目录到另外一个机器即可(相同的操作系统)。</p></li>
+<li><p>./configure</p>
+<p>不配置--prefix选项，安装后可执行文件默认放在/usr/local/bin，库文件默认放在/usr/local/lib，配置文件默认放在/usr/local/etc，其它的资源文件放在/usr/local/share</p></li>
+</ol>
+<h3 id="make">make</h3>
+<p><code>make</code>命令从Makefile中读取指令，然后进行编译。</p>
+<p>大多数的源代码包都经过这一步进行编译(当然有些<strong>perl</strong>或<strong>python</strong>编写的软件需要调用perl或python来进行编译)。如果在make过程中出现error,你就要记下错误代码(注意不仅仅是最后一行),然后你可以向开发者提交,bugreport(一般install里有提交地址)，或者你的系统少了一些依赖库等,这些需要自己仔细研究错误代码。</p>
+<h3 id="make-install">make install</h3>
+<p><code>make install</code>指令用来安装，从Makefile中读取指令，安装到指定的位置。<strong>安装的时候一般都需要root权限。</strong></p>
+<p>在<code>make install</code>之前有些软件需要先运行<code>make check</code>或<code>make test</code>来进行一些测试。</p>
+<h3 id="make-uninstall">make uninstall</h3>
+<p><code>make uninstall</code>指令用来卸载，在原先make的目录下运行，但前提是makefile文件指定过uninstall，如果没有指定则需要手动删除。</p>
+<h3 id="其他">其他</h3>
+<p>当我们在使用make命令时，常常会在make后面加上其他单词，比如check，install，installcheck…这些单词都是make的参数，我们称之为“目标（targets）”。</p>
+<p>最常见的几个target：</p>
+<ul>
+<li>make all：编译程序、库、文档等（等同于make）</li>
+<li>make
+install：安装已经编译好的程序。复制文件树中到文件到指定的位置</li>
+<li>make unistall：卸载已经安装的程序。</li>
+<li>make clean：删除由make命令产生的文件</li>
+<li>make distclean：同时删除./configure和make产生的临时文件</li>
+<li>make check/make test：测试刚刚编译的软件（某些程序可能不支持）</li>
+<li>make installcheck：检查安装的库和程序（某些程序可能不支持）</li>
+<li>make dist：重新打包成packname-version.tar.gz</li>
+</ul>
+<h2 id="gcc">GCC</h2>
+<h3 id="几种常见的gcc参数">几种常见的gcc参数</h3>
+<ul>
+<li><code>gcc -I /home/hello/include</code>
+<ul>
+<li>表示将/home/hello/include作为第一个寻找头文件的目录</li>
+<li>寻找顺序依次是：/home/hello/include --&gt; /usr/include --&gt;
+/usr/local/include</li>
+</ul></li>
+<li><code>gcc -L /home/hello/lib</code>
+<ul>
+<li>表示将/home/hello/lib作为第一个寻找库文件的目录</li>
+<li>寻找顺序依次是：/home/hello/lib --&gt; /usr/lib --&gt;
+/usr/local/lib</li>
+</ul></li>
+<li><code>gcc -lworld</code>
+<ul>
+<li>在上面的lib的路径中寻找libworld.so动态库文件，如果gcc编译选项中加入了“-static”表示寻找libworld.a静态库文件，程序链接的库名是world</li>
+</ul></li>
+<li><code>gcc -shared hello.c -o libhello.so</code>
+<ul>
+<li>将hello.c编译成动态链接库</li>
+</ul></li>
+<li><code>gcc -E hello.c -o test.i</code>
+<ul>
+<li>将test.c预处理输出test.i文件</li>
+</ul></li>
+<li><code>gcc -S test.i</code>
+<ul>
+<li>将预处理输出文件test.i汇编成test.s文件</li>
+</ul></li>
+<li><code>gcc -c hello.c</code>
+<ul>
+<li>仅执行编译操作，不进行连接操作。将hello.c编译成hello.o</li>
+</ul></li>
+<li><code>gcc hello.c</code>
+<ul>
+<li>将hello.c编译成一个a.out的可执行文件</li>
+</ul></li>
+<li><code>gcc hello.c -o hello</code>
+<ul>
+<li>将hello.c编译出一个名为test的可执行文件，-o用作指定输出文件的文件名</li>
+</ul></li>
+<li><code>gcc hello.c -O2</code>
+<ul>
+<li>默认进行O0优化，-O1进行O1优化，-O2进行O2优化，-O3进行O3优化</li>
+</ul></li>
+</ul>
+<h3 id="常见的错误">常见的错误</h3>
+<ul>
+<li><code>xxxx.h: No such file or directory</code>：引用出错，使用参数<code>-I</code>
+<ul>
+<li><code>-I</code>参数可以用相对路径，比如头文件在当前目录，可以用<code>-I.</code>来指定</li>
+</ul></li>
+<li><code>undefined reference to 'xxxxx'</code>：链接错误，应该指定链接程序要用到的库，使用参数<code>-l</code>指定</li>
+<li><code>/usr/bin/ld: cannot find -lxxx</code>：表明链接程序ld在那3个库文件目录里找不到libxxx.so，使用参数<code>-L</code>指定
+<ul>
+<li>大部分libxxxx.so只是一个链接，以RH9为例，比如libm.so它链接到/lib/libm.so.x，/lib/libm.so.6又链接到/lib/libm<strong>-</strong>2.3.2.so，如果没有这样的链接，还是会出错，因为ld只会找libxxxx.so，所以如果你要用到xxxx库，而只有libxxxx.so.x或者libxxxx-x.x.x.so，做一个链接就可以了<code>ln -s libxxxx-x.x.x.so libxxxx.so</code></li>
+</ul></li>
+</ul>
+<h2 id="pthread--lpthread">-pthread &amp; -lpthread</h2>
+<p>一般情况下我们在链接一个（文件名为libxxx.so或libxxx.a等）库时，会使用<code>-lxxx</code>的方式；在Linux中要用到多线程时，需要链接pthread库，按照惯例，我们应该使用<code>-lpthread</code>的方式来进行链接；但很多开源代码都是使用了<code>-pthread</code>参数，而非使用<code>-lpthread</code>，这是因为：</p>
+<ol type="1">
+<li><strong>为了可移植性：</strong>在Linux中，pthread是作为一个单独的库存在的（libpthread.so），但是在其他Unix变种中却不一定，比如在FreeBSD中是没有单独的pthread库的，因此在FreeBSD中不能使用<code>-lpthread</code>来链接pthread，而使用<code>-pthread</code>则不会出现这个问题，因为FreeBSD的编译器能正确地将<code>-pthread</code>展开为该系统下的依赖参数。同样的，其他不同的变种也会存在差异。为了保持较高的可移植性，我们最好使用<code>-pthread</code>，即使它目前不是C标准，但基本上是事实标准</li>
+<li><strong>添加额外的标志：</strong>在多数系统中，<code>-pthread</code>会被展开为<code>-D_REENTRANT -lpthread</code>，即除了链接pthread库外，还先定义了宏_REENTRANT。定义这个宏的目的，是为了打开系统头文件中的各种多线程支持分支。比如我们常常使用的错误码标志errno，如果没有定义_REENTRANT，则实现为一个全局变量；反之则会为每个线程所独有，从而避免线程竞争错误</li>
+</ol>
+<p>目前gcc 4.5.2中已经没有了关于
+-lpthread的介绍了。所以以后的多线程编译应该用<code>-pthread</code>，而不是<code>-lpthread</code>。</p>
+<h2 id="tips">Tips</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">export PATH=./:$PATH #（将当前路径加入PATH，运行执行文件的时候不必再采用./file的形式，二是直接file即可）<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OS/" class="category-chain-item">OS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C++</a>
+      
+        <a href="/tags/OS/">#OS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Kernel 学习</div>
+      <div>http://shijieq.github.io/2021/12/17/OS/Kernel/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>ShijieQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>December 17, 2021</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/17/C++/Makefile%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" title="Makefile 基本知识">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Makefile 基本知识</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/15/C++/C-%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="C++相关基础知识">
+                        <span class="hidden-mobile">C++相关基础知识</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
