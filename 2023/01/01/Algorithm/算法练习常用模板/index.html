@@ -24,7 +24,7 @@
 <meta property="og:description" content="本篇文章收录了大部分本人在算法练习过程中出现过的模板。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-01T06:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-20T10:47:19.971Z">
+<meta property="article:modified_time" content="2023-03-24T04:43:51.081Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="C++">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k words
+          4.4k words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          33 mins
+          37 mins
         
       </span>
     
@@ -293,10 +293,12 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">arrayRankTransform</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;<br>    vector&lt;<span class="hljs-type">int</span>&gt; tmp = arr;<br>    <span class="hljs-built_in">sort</span>(tmp.<span class="hljs-built_in">begin</span>(), tmp.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-comment">// 去重</span><br>    tmp.<span class="hljs-built_in">erase</span>(<span class="hljs-built_in">unique</span>(tmp.<span class="hljs-built_in">begin</span>(), tmp.<span class="hljs-built_in">end</span>()), tmp.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;x : arr) &#123;<br>        x = <span class="hljs-built_in">upper_bound</span>(tmp.<span class="hljs-built_in">begin</span>(), tmp.<span class="hljs-built_in">end</span>(), x) - tmp.<span class="hljs-built_in">begin</span>();<br>    &#125;<br>    <span class="hljs-keyword">return</span> arr;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="数位-dp">数位 DP</h3>
 <blockquote>
-<p>视频讲解，从 19:30 开始 https://www.bilibili.com/video/BV1rS4y1s721
-其他资料： https://zhuanlan.zhihu.com/p/348851463
-https://www.bilibili.com/video/BV1MT4y1376C
-https://www.bilibili.com/video/BV1yT4y1u7jW</p>
+<p>视频讲解，从 19:30 开始
+https://www.bilibili.com/video/BV1rS4y1s721</p>
+<p>其他资料：</p>
+<p>https://zhuanlan.zhihu.com/p/348851463</p>
+<p>https://www.bilibili.com/video/BV1MT4y1376C</p>
+<p>https://www.bilibili.com/video/BV1yT4y1u7jW</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">countSpecialNumbers</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">auto</span> s = <span class="hljs-built_in">to_string</span>(n);<br>        <span class="hljs-type">int</span> m = s.<span class="hljs-built_in">length</span>(), dp[m][<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">10</span>];<br>        <span class="hljs-built_in">memset</span>(dp, <span class="hljs-number">-1</span>, <span class="hljs-built_in">sizeof</span>(dp));<br>        function&lt;<span class="hljs-type">int</span>(<span class="hljs-type">int</span>, <span class="hljs-type">int</span>, <span class="hljs-type">bool</span>, <span class="hljs-type">bool</span>)&gt; f = [&amp;](<span class="hljs-type">int</span> i, <span class="hljs-type">int</span> mask, <span class="hljs-type">bool</span> is_limit, <span class="hljs-type">bool</span> is_num) -&gt; <span class="hljs-type">int</span> &#123;<br>            <span class="hljs-keyword">if</span> (i == m) <span class="hljs-keyword">return</span> is_num;<br>            <span class="hljs-keyword">if</span> (!is_limit &amp;&amp; is_num &amp;&amp; dp[i][mask] &gt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> dp[i][mask];<br>            <span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">if</span> (!is_num) res = <span class="hljs-built_in">f</span>(i + <span class="hljs-number">1</span>, mask, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>); <span class="hljs-comment">// 可以跳过当前数位</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> d = <span class="hljs-number">1</span> - is_num, up = is_limit ? s[i] - <span class="hljs-string">&#x27;0&#x27;</span> : <span class="hljs-number">9</span>; d &lt;= up; ++d) <span class="hljs-comment">// 枚举要填入的数字 d</span><br>                <span class="hljs-keyword">if</span> ((mask &gt;&gt; d &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>) <span class="hljs-comment">// d 不在 mask 中</span><br>                    res += <span class="hljs-built_in">f</span>(i + <span class="hljs-number">1</span>, mask | (<span class="hljs-number">1</span> &lt;&lt; d), is_limit &amp;&amp; d == up, <span class="hljs-literal">true</span>);<br>            <span class="hljs-keyword">if</span> (!is_limit &amp;&amp; is_num) dp[i][mask] = res;<br>            <span class="hljs-keyword">return</span> res;<br>        &#125;;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">f</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <h2 id="二进制">二进制</h2>
@@ -307,6 +309,12 @@ https://www.bilibili.com/video/BV1yT4y1u7jW</p>
 <p>用于遍历数字 k 的二进制所有子集</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// version 1:</span><br><span class="hljs-type">int</span> sub = k;<br><span class="hljs-keyword">do</span> &#123;<br>    <span class="hljs-comment">// code...</span><br>    sub = (sub - <span class="hljs-number">1</span>) &amp; k;<br>&#125; <span class="hljs-keyword">while</span>(sub != k);<br><br><span class="hljs-comment">// version 2:</span><br><span class="hljs-type">int</span> sub = k;<br><span class="hljs-keyword">while</span> (sub &gt; <span class="hljs-number">0</span>) &#123;<br>  <span class="hljs-comment">//code...</span><br>  sub = (sub - <span class="hljs-number">1</span>) &amp; k;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="区间询问">区间询问</h2>
+<h3 id="区间数字出现频率">区间数字出现频率</h3>
+<blockquote>
+<p>leetcode: 2080. 区间内查询数字的频率</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">RangeFreqQuery</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    unordered_map&lt;<span class="hljs-type">int</span>, vector&lt;<span class="hljs-type">int</span>&gt;&gt; um;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">RangeFreqQuery</span>(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.<span class="hljs-built_in">size</span>(); i++) &#123;<br>            um[arr[i]].<span class="hljs-built_in">emplace_back</span>(i);<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right, <span class="hljs-type">int</span> value)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (um.<span class="hljs-built_in">find</span>(value) == um.<span class="hljs-built_in">end</span>()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-keyword">auto</span> l = <span class="hljs-built_in">lower_bound</span>(um[value].<span class="hljs-built_in">begin</span>(), um[value].<span class="hljs-built_in">end</span>(), left);<br>        <span class="hljs-keyword">auto</span> r = <span class="hljs-built_in">upper_bound</span>(um[value].<span class="hljs-built_in">begin</span>(), um[value].<span class="hljs-built_in">end</span>(), right);<br>        <span class="hljs-keyword">return</span> r - l;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
                 
               </div>

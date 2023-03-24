@@ -16,15 +16,15 @@
   <meta name="author" content="ShijieQ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本篇文章记录百度2023年03月13日开发岗笔试的题目题解。">
+    <meta name="description" content="本篇文章记录阿里巴巴2023年03月22日开发岗笔试的题目题解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="百度0313笔试总结">
-<meta property="og:url" content="http://shijieq.github.io/2023/03/13/Algorithm/InternJob/Baidu0313/index.html">
+<meta property="og:url" content="http://shijieq.github.io/2023/03/22/Algorithm/InternJob/Alibaba0322Dev/index.html">
 <meta property="og:site_name" content="ShijieQ&#39;s Blog">
-<meta property="og:description" content="本篇文章记录百度2023年03月13日开发岗笔试的题目题解。">
+<meta property="og:description" content="本篇文章记录阿里巴巴2023年03月22日开发岗笔试的题目题解。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-13T14:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-22T13:36:18.826Z">
+<meta property="article:published_time" content="2023-03-22T14:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-22T13:52:06.137Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="C++">
@@ -209,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-13 22:00" pubdate>
-          March 13, 2023 pm
+        <time datetime="2023-03-22 22:00" pubdate>
+          March 22, 2023 pm
         </time>
       </span>
     
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k words
+          1.6k words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          23 mins
+          14 mins
         
       </span>
     
@@ -277,67 +277,36 @@
                 
                 <blockquote>
 <p>写在前面：</p>
-<p>百度还是很温和的，第一道纯送分，第二道考了一个构造的脑筋急转弯，第三道难度也没有想象中的大，但我没做出来，算法之路任重而道远。</p>
+<p>本周的阿里笔试感觉比上周的要简单，可惜阿里每人只给一次笔试机会，这次算是场外写题当练习了。</p>
 <p>本篇文章仅分享本人解答代码做学习交流，若涉密或侵权可联系我删除。</p>
 </blockquote>
 <h2 id="题目-1">题目 1</h2>
 <h3 id="题目描述">题目描述</h3>
-<p>若干次询问，每次询问给出一个字符串，需要输出该字符串是否能够重新排列成
-"Baidu"，要求大小写一致。</p>
+<p>给你一个字符串，里面仅包含'A', 'a', 'L', 'l', 'I',
+'i'四种字母，询问你是否整体上是ALI这样的排列，不区分大小写。</p>
+<p>例如 <code>AaAaallLLlLiIiIiI</code> 这样就是满足要求的，而
+<code>AL</code> 这种就输出 No。</p>
 <h3 id="解题方法">解题方法</h3>
-<p>水题。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> t;<br>    cin&gt;&gt;t;<br>    string target = <span class="hljs-string">&quot;Baidu&quot;</span>;<br>    <span class="hljs-built_in">sort</span>(target.<span class="hljs-built_in">begin</span>(), target.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-keyword">while</span> (t--) &#123;<br>        string q;<br>        cin&gt;&gt;q;<br>        <span class="hljs-built_in">sort</span>(q.<span class="hljs-built_in">begin</span>(), q.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-keyword">if</span> (q == target) &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Yes&quot;</span> &lt;&lt; endl;<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;No&quot;</span> &lt;&lt; endl;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>直接进行模拟即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> t;<br>    cin&gt;&gt;t;<br>    <span class="hljs-keyword">while</span> (t--) &#123;<br>        string s;<br>        cin&gt;&gt;s;<br>        <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, len = s.<span class="hljs-built_in">length</span>();<br>        <span class="hljs-type">bool</span> one = <span class="hljs-literal">false</span>, two = <span class="hljs-literal">false</span>, three = <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">while</span> (i &lt; len &amp;&amp; <span class="hljs-built_in">tolower</span>(s[i++]) == <span class="hljs-string">&#x27;a&#x27;</span>) &#123;<br>            one = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">while</span> (i &lt; len &amp;&amp; <span class="hljs-built_in">tolower</span>(s[i++]) == <span class="hljs-string">&#x27;l&#x27;</span>) &#123;<br>            two = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">while</span> (i &lt; len &amp;&amp; <span class="hljs-built_in">tolower</span>(s[i++]) == <span class="hljs-string">&#x27;i&#x27;</span>) &#123;<br>            three = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (one &amp;&amp; two &amp;&amp; three &amp;&amp; i == len) &#123;<br>            cout&lt;&lt;<span class="hljs-string">&quot;Yes&quot;</span>&lt;&lt;endl;<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            cout&lt;&lt;<span class="hljs-string">&quot;No&quot;</span>&lt;&lt;endl;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="题目-2">题目 2</h2>
 <h3 id="题目描述-1">题目描述</h3>
-<p>给定一个整数 x，请你构造一个仅由 'r' , 'e' , 'd'
-三种字符组成的字符串，其中回文子串的数量恰好为 x</p>
+<p>给你一个仅包含 01 的字符串，每次可以反转相邻的两位，将 0 反转成 1 ，1
+反转成 0 ，问最大化 1 的个数的最小次数。</p>
+<p>例如 <code>0101</code> 可以通过以下步骤完成：</p>
+<p><code>0101</code> - &gt; <code>0011</code> - &gt;
+<code>1111</code></p>
 <h3 id="解题方法-1">解题方法</h3>
-<p>数学题。对于一个长度为 k
-的字符串，如果其仅有一种字符组成，则该字符串的回文子串数量为 <span
-class="math inline">\(n(n + 1)/2\)</span>，贪心构造即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;<br>    cin&gt;&gt;x;<br>    <span class="hljs-keyword">while</span> (x != <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i*(i+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span> &lt;= x; i++) &#123;<br>            cout&lt;&lt;<span class="hljs-string">&quot;r&quot;</span>;<br>        &#125;<br>        i--;<br>        x -= i*(i+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i*(i+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span> &lt;= x; i++) &#123;<br>            cout&lt;&lt;<span class="hljs-string">&quot;e&quot;</span>;<br>        &#125;<br>        i--;<br>        x -= i*(i+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i*(i+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span> &lt;= x; i++) &#123;<br>            cout&lt;&lt;<span class="hljs-string">&quot;d&quot;</span>;<br>        &#125;<br>        i--;<br>        x -= i*(i+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span>;<br>    &#125;<br>    cout&lt;&lt;endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>思维题。通过尝试可以发现两个 0 是可以通过反转他们下标差的次数来变成 1
+的，如题目描述中那样。因此就可以统计出所有 0
+出现的下标，将其从左到右或者从右到左相互匹配转换成 1 ，当然对于奇数个 0
+最终还是会有一个无法完成转换。</p>
+<p>代码如下： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    string s;<br>    cin&gt;&gt;s;<br>    <span class="hljs-type">int</span> len = s.<span class="hljs-built_in">length</span>();<br>    vector&lt;<span class="hljs-type">int</span>&gt; pos;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>        <span class="hljs-keyword">if</span> (s[i] == <span class="hljs-string">&#x27;0&#x27;</span>) &#123;<br>            pos.<span class="hljs-built_in">emplace_back</span>(i);<br>        &#125;<br>    &#125;<br>    <span class="hljs-type">int</span> l_ans = <span class="hljs-number">0</span>, r_ans = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// 从左到右匹配</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; pos.<span class="hljs-built_in">size</span>(); i += <span class="hljs-number">2</span>) &#123;<br>        l_ans += pos[i] - pos[i - <span class="hljs-number">1</span>];<br>    &#125;<br>    <span class="hljs-comment">// 从右到左匹配</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = pos.<span class="hljs-built_in">size</span>() - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i -= <span class="hljs-number">2</span>) &#123;<br>        r_ans += pos[i + <span class="hljs-number">1</span>] - pos[i];<br>    &#125;<br>    cout&lt;&lt;<span class="hljs-built_in">min</span>(l_ans, r_ans)&lt;&lt;endl;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <h2 id="题目-3">题目 3</h2>
 <h3 id="题目描述-2">题目描述</h3>
-<p>小红拿到了一棵树，每个节点被染成了红色或者蓝色。</p>
-<p>小红定义每条边的权值为：删除这条边时，形成的两个子树的同色连通块数量之差的绝对值。</p>
-<p>小红想知道，所有边的权值之和是多少？</p>
-<h3 id="输入描述">输入描述</h3>
-<p>第一行输入一个正整数 n ,代表节点的数量。</p>
-<p>第二哈输入一个长度为 n 且仅由 R 和 B 两种字符组成的字符串。</p>
-<p>第 i 个字符为 R 代表 i 号节点被染成红色，为 B 则被染成蓝色。</p>
-<p>接下来的 n−1 行，每行输入两个正整数 u 和 v ，代表节点 u 和节点 v
-有一条边相连。</p>
-<p><span class="math inline">\(1 \le n \le 200000\)</span></p>
-<h3 id="输出描述">输出描述</h3>
-<p>一个正整数，代表所有节点的权值之和。</p>
-<h3 id="样例">样例</h3>
-<h4 id="输入">输入</h4>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">4<br>BBRR<br>1 2<br>3 2<br>4 1<br></code></pre></td></tr></table></figure>
-<h4 id="输出">输出</h4>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">2<br></code></pre></td></tr></table></figure>
+<p>//todo</p>
 <h3 id="解题方法-2">解题方法</h3>
-<p>这道题目在笔试中没有做出来，当时看到题目就知道是树形
-DP，前段时间做过一道类似的题目：<a
-target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-number-of-possible-root-nodes/">2581.
-统计可能的树根数目</a>，用到了<a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/348349531">换根DP</a>的思想。但是因为对于树形
-DP 的练习过少，错误地高估了这道题的难度（换根 DP
-似乎更不容易理解），短时间内也没有想到正解。</p>
-<p>赛后补了一下这道题和树形 DP，使用 <span
-class="math inline">\(dp[i]\)</span> 表示以第 <span
-class="math inline">\(i\)</span>
-个节点为根的连通块个数，初始时所有的节点连通块个数为 1，使用 dfs
-跑一遍树可以计算出所有 <span class="math inline">\(dp[i]\)</span>
-的值。</p>
-<p>随后再一次 dfs 尝试拆边，对于每一条边 <span class="math inline">\((l,
-r)\)</span> ：</p>
-<ul>
-<li>如果其左右节点颜色不同，则拆边不会影响连通块的个数，贡献为；<span
-class="math inline">\(abs((dp[0] - dp[r]) - dp[r])\)</span>；</li>
-<li>若左右节点颜色相同，则拆边会导致连通块个数加 1 ，贡献为：<span
-class="math inline">\(abs((dp[0] - dp[r] + 1) - dp[r])\)</span>。</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    string s;<br>    cin &gt;&gt; n &gt;&gt; s;<br>    vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">g</span>(n);<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n, <span class="hljs-number">1</span>)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++) &#123;<br>        <span class="hljs-type">int</span> l, r;<br>        cin &gt;&gt; l &gt;&gt; r;<br>        l--, r--;<br>        g[l].<span class="hljs-built_in">emplace_back</span>(r);<br>        g[r].<span class="hljs-built_in">emplace_back</span>(l);<br>    &#125;<br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> ans = <span class="hljs-number">0</span>;<br>    function&lt;<span class="hljs-type">void</span>(<span class="hljs-type">int</span>, <span class="hljs-type">int</span>)&gt; dfs = [&amp;] (<span class="hljs-type">int</span> cur, <span class="hljs-type">int</span> p) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;nx : g[cur]) &#123;<br>            <span class="hljs-keyword">if</span> (nx == p) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-built_in">dfs</span>(nx, cur);<br>            <span class="hljs-keyword">if</span> (s[cur] != s[nx]) &#123;<br>                dp[cur] += dp[nx];<br>            &#125;<br>            <span class="hljs-keyword">else</span> &#123;<br>                dp[cur] += dp[nx] - <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>    &#125;;<br>    function&lt;<span class="hljs-type">void</span>(<span class="hljs-type">int</span>, <span class="hljs-type">int</span>)&gt; solve = [&amp;] (<span class="hljs-type">int</span> cur, <span class="hljs-type">int</span> p) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;nx : g[cur]) &#123;<br>            <span class="hljs-keyword">if</span> (nx == p) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-built_in">solve</span>(nx, cur);<br>            <span class="hljs-keyword">if</span> (s[cur] == s[nx]) &#123;<br>                ans += ((dp[<span class="hljs-number">0</span>] - dp[nx] + <span class="hljs-number">1</span>) - dp[nx]);<br>            &#125;<br>            <span class="hljs-keyword">else</span> &#123;<br>                ans += ((dp[<span class="hljs-number">0</span>] - dp[nx]) - dp[nx]);<br>            &#125;<br>        &#125;<br>    &#125;;<br>    <span class="hljs-built_in">dfs</span>(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>);<br>    <span class="hljs-built_in">solve</span>(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>);<br>    cout &lt;&lt; ans &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>//todo</p>
 
                 
               </div>
@@ -393,7 +362,7 @@ class="math inline">\(abs((dp[0] - dp[r] + 1) - dp[r])\)</span>。</li>
   <div class="license-box my-3">
     <div class="license-title">
       <div>百度0313笔试总结</div>
-      <div>http://shijieq.github.io/2023/03/13/Algorithm/InternJob/Baidu0313/</div>
+      <div>http://shijieq.github.io/2023/03/22/Algorithm/InternJob/Alibaba0322Dev/</div>
     </div>
     <div class="license-meta">
       
@@ -405,7 +374,7 @@ class="math inline">\(abs((dp[0] - dp[r] + 1) - dp[r])\)</span>。</li>
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 13, 2023</div>
+          <div>March 22, 2023</div>
         </div>
       
       
@@ -437,9 +406,9 @@ class="math inline">\(abs((dp[0] - dp[r] + 1) - dp[r])\)</span>。</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/17/OpenSSL/%E4%BD%BF%E7%94%A8OpenSSL%E7%94%9F%E6%88%90TLS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="使用OpenSSL生成TLS配置文件">
+                      <a href="/2023/03/22/Algorithm/InternJob/Alibaba0322Alg/" title="百度0313笔试总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">使用OpenSSL生成TLS配置文件</span>
+                        <span class="hidden-mobile">百度0313笔试总结</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -447,8 +416,8 @@ class="math inline">\(abs((dp[0] - dp[r] + 1) - dp[r])\)</span>。</li>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/13/Algorithm/InternJob/PDD0312/" title="拼多多0312笔试总结">
-                        <span class="hidden-mobile">拼多多0312笔试总结</span>
+                      <a href="/2023/03/19/Algorithm/InternJob/Mihoyo0319/" title="米哈游0319笔试总结">
+                        <span class="hidden-mobile">米哈游0319笔试总结</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
