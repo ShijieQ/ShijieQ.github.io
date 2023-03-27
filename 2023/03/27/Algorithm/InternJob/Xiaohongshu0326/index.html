@@ -16,22 +16,23 @@
   <meta name="author" content="ShijieQ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文用于记录一些本人在面试过程中遇到的 Java 问题。">
+    <meta name="description" content="本篇文章记录小红书2023年03月22日技术类笔试的题目题解。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一些常见的 Java 面试问题">
-<meta property="og:url" content="http://shijieq.github.io/2023/03/23/Java/%E8%AE%B0%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="小红书0326开发岗笔试总结">
+<meta property="og:url" content="http://shijieq.github.io/2023/03/27/Algorithm/InternJob/Xiaohongshu0326/index.html">
 <meta property="og:site_name" content="ShijieQ&#39;s Blog">
-<meta property="og:description" content="本文用于记录一些本人在面试过程中遇到的 Java 问题。">
+<meta property="og:description" content="本篇文章记录小红书2023年03月22日技术类笔试的题目题解。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-23T01:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-26T05:45:15.538Z">
+<meta property="article:published_time" content="2023-03-27T03:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-27T05:06:43.271Z">
 <meta property="article:author" content="ShijieQ">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>记一些常见的 Java 面试问题 - ShijieQ&#39;s Blog</title>
+  <title>小红书0326开发岗笔试总结 - ShijieQ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="记一些常见的 Java 面试问题"></span>
+            <span id="subtitle" data-typed-text="小红书0326开发岗笔试总结"></span>
           
         </div>
 
@@ -208,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-23 09:00" pubdate>
-          March 23, 2023 am
+        <time datetime="2023-03-27 11:00" pubdate>
+          March 27, 2023 am
         </time>
       </span>
     
@@ -220,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k words
+          2.3k words
         
       </span>
     
@@ -231,7 +232,7 @@
         
         
         
-          26 mins
+          20 mins
         
       </span>
     
@@ -269,170 +270,62 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">记一些常见的 Java 面试问题</h1>
+            <h1 style="display: none">小红书0326开发岗笔试总结</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="语言本身">语言本身</h1>
-<h2 id="jdk-和-jre-有什么区别">JDK 和 JRE 有什么区别？</h2>
-<ul>
-<li>JDK 是整个 Java 的核心，包括 Java 运行环境（Java Runtime
-Envirnment，简称 JRE），Java 工具（比如 javac、java、javap 等等），以及
-Java 基础类库（比如 rt.jar）；
-<ul>
-<li>rt.jar 是 Java 的基础类库，包含 lang, util, math, time, awt,
-applet等基础包</li>
-</ul></li>
-<li>JRE 是 Java 程序的运行环境；</li>
-<li>JDK 包含了同版本的 JRE ，除此之外还有编译器和其他工具。</li>
-</ul>
-<h1 id="关于对象">关于对象</h1>
-<h2 id="object-类">Object 类</h2>
-<p>Object 类是一个特殊的类，是所有类的父类。它包含十一个方法：</p>
-<ul>
-<li>getclass：获取 Class 对象</li>
-<li>hashcode：获取 hashcode 值，配合散列容器使用，包括
-HashMap、hashTable、HashSet等</li>
-<li>equals</li>
-<li>clone：返回一个 clone 的对象</li>
-<li>toString</li>
-<li>notify：唤醒一个在此对象监视器上等待的线程</li>
-<li>notifyall：唤醒所有在此对象监视器上等待的线程</li>
-<li>wait：暂停线程执行，并且释放锁</li>
-<li>finalize：垃圾回收时触发，一般不用</li>
-</ul>
-<h2 id="unsafe-类">Unsafe 类</h2>
-<p>Unsafe
-用于执行一些低级别、不安全操作的方法，如直接访问系统内存资源、自主管理内存资源等。</p>
-<p>Unsafe 类中的方法都是依赖于本地方法实现的，Java
-只是声明头方法，具体实现交给本地代码。</p>
-<p>出于安全性考虑，Unsafe
-类只能由启动类加载器加载的类才能够调用其方法，可以借助反射来获取一个实例化完成的单例对象
-<code>theUnsafe</code> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Unsafe <span class="hljs-title function_">reflectGetUnsafe</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> Unsafe.class.getDeclaredField(<span class="hljs-string">&quot;theUnsafe&quot;</span>);<br>      field.setAccessible(<span class="hljs-literal">true</span>);<br>      <span class="hljs-keyword">return</span> (Unsafe) field.get(<span class="hljs-literal">null</span>);<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>      log.error(e.getMessage(), e);<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
-<h1 id="关于容器">关于容器</h1>
-<h2 id="hashmap-相关">Hashmap 相关</h2>
-<h3 id="hashmap-结构">Hashmap 结构</h3>
-<ul>
-<li>JDK 1.7 之前是数组 + 链表</li>
-<li>JDK 1.8 及之后是 数组 + 链表/红黑树
-<ul>
-<li>当数组大小 &lt; 64
-时，通过扩容来保证稀疏，加载因子默认0.75，每次扩容翻倍，初始容量 16</li>
-<li>当数组大小 &gt;= 64 且链表长度 &gt; 8 时，转为红黑树，链表长度 &lt;=
-6时退化回链表</li>
-</ul></li>
-</ul>
-<h3 id="hashmap-是线程安全的吗">Hashmap 是线程安全的吗？</h3>
-<p>Hashmap 并不是线程安全的，在并发环境下，Hashmap
-可能会出现以下问题：</p>
-<ul>
-<li>数据覆盖
-<ul>
-<li>多线程对同一个 Hashmap
-进行操作时，计算出来的索引相同可能会导致后面的线程把前一个线程数据覆盖</li>
-</ul></li>
-<li>读出为 null
-<ul>
-<li>当线程 1 进行 put 时发现需要扩容，需要 new 一个新的表，线程 2
-此时进行 get 就可能会读到空值</li>
-</ul></li>
-<li>死循环
-<ul>
-<li>JDK 1.7 中， Hashmap 的扩容使用的是头插法，可能会出现<a
-target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42396189/article/details/128830923">环形链表</a>，当请求一个不存在的
-key 时产生死循环。</li>
-<li>JDK 1.8及之后采用的是尾插法，不会导致死循环。</li>
-</ul></li>
-</ul>
-<h3 id="如何保证-hashmap-线程安全呢">如何保证 Hashmap 线程安全呢？</h3>
-<p>Java 提供了三种保证线程安全的哈希方法，分别是 HashTable
-、Collections.synchronizedMap 以及 ConcurrentHashMap。</p>
-<ul>
-<li>HashTable：通过给每一个方法加锁 (synchronized)
-来保证互斥，效果比较差，一般不推荐使用。</li>
-<li>Collections.synchronizedMap：通过 Collection 对已有的一个 Hashmap
-进行包装，内部使用一个 mutex 对象，使用 synchronized
-对其加锁保证互斥，和 HashTable 原理差不多，性能也比较差。
-<ul>
-<li><code>Map&lt;String, Object&gt; map = Collections.synchronizedMap(new HashMap&lt;String, Object&gt;());</code></li>
-</ul></li>
-<li>ConcurrentHashMap：推荐使用</li>
-</ul>
-<h4
-id="concurrenthashmap如何保证线程安全呢">ConcurrentHashMap如何保证线程安全呢？</h4>
-<ul>
-<li>JDK 1.7及其之前是 Segment数组 + HashEntry数组 + 链表，其中 Segment
-继承了 ReentrantLock，相当于对每个 Segment 加锁，每个 Segment 类似一个
-Hashmap 结构
-<ul>
-<li>扩容每次翻倍，但元素的新位置要么和之前相同，要么为
-<code>原idx + 原容量</code></li>
-<li>CAS 初始化 Segment</li>
-</ul></li>
-<li>JDK 1.8及其之后是 Node 数组 + 链表/红黑树
-<ul>
-<li>put 时定位到目标位置，如果为空 CAS 写入，反之 synchronized 写入</li>
-<li><strong>多线程</strong>扩容，put 时发现正在扩容，就和它一起扩容</li>
-</ul></li>
-</ul>
-<h1 id="一些工具">一些工具</h1>
-<h2 id="如何检查内存泄漏问题">如何检查内存泄漏问题</h2>
-<p>在 java 的 bin 文件夹下有个 jvisualvm.exe 工具，使用它可以检测到 java
-堆内存的变化情况，借此可以来检测使用 java 的程序是否存在内存泄漏问题。
-## 如何检查死锁问题 可以使用 Java 的 jstack 工具，它是 jdk
-自带的线程堆栈分析工具。查看线程的函数调用过程，多次对比结果，确认哪几个线程一直没有变化，且是因为在等待锁，那么大概率是由于死锁问题导致的。</p>
-<h1 id="操作系统">操作系统</h1>
-<h2 id="进程与线程">进程与线程</h2>
-<h3 id="线程的类型">线程的类型</h3>
-<ul>
-<li>用户线程
-<ul>
-<li>基于用户态的线程管理库来实现的，那么线程控制块（Thread Control
-Block, TCB） 也是在库里面来实现的，对于操作系统而言是看不到这个 TCB
-的，它只能看到整个进程的 PCB</li>
-</ul></li>
-<li>内核线程
-<ul>
-<li>由操作系统管理的，线程对应的 TCB
-自然是放在操作系统里的，这样线程的创建、终止和管理都是由操作系统负责。</li>
-</ul></li>
-<li>轻量级进程
-<ul>
-<li>内核支持的用户线程，一个进程可有一个或多个 LWP，每个 LWP
-是跟内核线程一对一映射的，也就是 LWP 都是由一个内核线程支持，而且 LWP
-是由内核管理并像普通进程一样被调度。</li>
-</ul></li>
-</ul>
-<h3 id="进程上下文切换保存了什么">进程上下文切换保存了什么？</h3>
-<p>在操作系统中，是用<strong>进程控制块</strong>（process control
-block，PCB）数据结构来描述进程的。</p>
-<p>PCB 主要包含以下信息：</p>
-<ul>
-<li>进程描述信息：进程标识符标识进程，用户标识符标识进程所属用户</li>
-<li>进程控制和管理信息：当前进程的状态（五态），进程的优先级</li>
-<li>资源清单：有关的内存地址空间或虚拟地址空间信息，打开的文件和使用的
-I/O 设备信息</li>
-<li>CPU相关：各个寄存器的值</li>
-</ul>
-<p><strong>当进程被切换时，CPU 的状态信息都会被保存在相应的 PCB
-中</strong>。</p>
-<p>进程的上下文切换不仅包含了虚拟内存、栈、全局变量等用户空间的资源，还包括了内核堆栈、寄存器等内核空间的资源。</p>
-<p>每个 PCB
-根据其对应进程的不同状态，通过链表的形式组织在一起，分别为就绪队列、阻塞队列等。</p>
-<h3 id="线程上下文切换保存了什么">线程上下文切换保存了什么？</h3>
-<p>当进程拥有多个线程时，这些线程会共享<strong>相同的虚拟内存</strong>和<strong>全局变量</strong>等资源，这些资源在上下文切换时是不需要修改的；</p>
-<p>除此之外，线程也有自己的私有数据，比如栈和寄存器等，这些在上下文切换时也是需要保存的。</p>
-<p>线程的上下文切换分两种情况： -
-当两个线程不是属于同一个进程，则切换的过程就跟进程上下文切换一样； -
-当两个线程是属于同一个进程，因为虚拟内存是共享的，所以在切换时，虚拟内存这些资源就保持不动，只需要切换线程的私有数据、寄存器等不共享的数据；</p>
-<h3 id="java-线程和底层操作系统线程是一一对应的吗">Java
-线程和底层操作系统线程是一一对应的吗？</h3>
-<p>首先，在 <strong>JDK 1.2 之前</strong>，Java
-线程是<strong>用户线程</strong>实现的；<strong>JDK 1.2
-及其之后</strong>，线程模型变为基于<strong>操作系统原生线程</strong>模型来实现。</p>
-<p>现在的JDK线程模型基于操作系统原生线程，所以模型依赖于操作系统对线程的支持，另外
-Windows 和 Linux 系统提供的线程模型就是一对一的。</p>
+                <blockquote>
+<p>写在前面：</p>
+<p>小红书的题目算是除拼多多之外比较简单的，就是想不明白为什么第三题可以暴力直接过。</p>
+<p>本篇文章仅分享本人解答代码做学习交流，若涉密或侵权可联系我删除。</p>
+</blockquote>
+<h2 id="题目-1">题目 1</h2>
+<h3 id="题目描述">题目描述</h3>
+<p>凯撒加密，已知密文和滚动长度 3 求明文。</p>
+<h3 id="解题方法">解题方法</h3>
+<p>水题。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    cin &gt;&gt; n;<br>    string s;<br>    cin &gt;&gt; s;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>        s[i] = <span class="hljs-string">&#x27;a&#x27;</span> + (s[i] - <span class="hljs-string">&#x27;a&#x27;</span> - <span class="hljs-number">3</span> + <span class="hljs-number">26</span>)%<span class="hljs-number">26</span>;<br>    &#125;<br>    cout &lt;&lt; s &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="题目-2">题目 2</h2>
+<h3 id="题目描述-1">题目描述</h3>
+<p>在算法中，有各种各样的排序算法，例如归并排序，冒泡排序，快速排序等等。本题中，我们会使用一种新的排序算法：K
+排序。</p>
+<p>K 排序算法描述如下：首先，算法需要按照某种规则选择该数列上至多 K
+个位置，将其对应的数抽出来，其他的数都往左对齐，之后这 K
+个数排好序之后依次放在原数列未尾。以上过程算作一次操作。</p>
+<p>例如，对于数列 [1, 3, 5, 4, 2]，当 K = 2 时可以选择数字 5 和 4
+，之后数列变成 [1, 3, 2, 4, 5]。</p>
+<p>你的任务是：对于给定的数列，你需要计算出最少需要多少次上述操作使得整个数列从小到大排好序?</p>
+<h3 id="解题方法-1">解题方法</h3>
+<p>思维题。首先我们可以明确的是：</p>
+<ol type="1">
+<li>每一次操作可排序的数为 K 个；</li>
+<li>对于未被抽出的数会向左对齐。</li>
+</ol>
+<p>因此我们可以得到以下过程：</p>
+<blockquote>
+<p>[1, 3, 5, 4, 2] -&gt; [1, #, #, #, 2] -&gt; [1, 2, #, #, #] -&gt; [1,
+2, 3, 4, 5]</p>
+</blockquote>
+<p>我们可以从 1 出发寻找一个上升序列，根据第 2
+点这个上升序列我们是不需要排序的，将其余的部分通过若干次排序即可。通过反证法可以得出从
+1 出发的必要性。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> t;<br>    cin &gt;&gt; t;<br>    <span class="hljs-keyword">while</span> (t--) &#123;<br>        <span class="hljs-type">int</span> n, k;<br>        cin &gt;&gt; n &gt;&gt; k;<br>        <span class="hljs-type">int</span> cnt = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>            <span class="hljs-type">int</span> tmp;<br>            cin &gt;&gt; tmp;<br>            <span class="hljs-keyword">if</span> (tmp == cnt) &#123;<br>                cnt++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> res = n - cnt + <span class="hljs-number">1</span>;<br>        cout &lt;&lt; res/k + (res%k != <span class="hljs-number">0</span>) &lt;&lt; endl;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="题目-3">题目 3</h2>
+<h3 id="题目描述-2">题目描述</h3>
+<p>给出一个数组。你需要求出按顺序对其进行一系列区间操作后最终所得的数组。</p>
+<p>操作有三种:</p>
+<ol type="1">
+<li>将下标在 L 到 R 之间的元素全部或上 X</li>
+<li>将下标在 L 到 R 之间的元素全部与上 X</li>
+<li>将下标在 L 到 R 之间的元素全部设为 X</li>
+</ol>
+<p>经过一系列操作后输出数组</p>
+<h3 id="解题方法-2">解题方法</h3>
+<p>在笔试过程中看到这道题以及数据范围的第一反应是线段树或者差分的方法，调了半天后没调出来，后来暴力过了
+82% 就很抽象。赛后看到牛客上基本上都是暴力解法，甚至还有暴力通过 100%
+的。先贴一个 82% 的暴力解法，后面等调出来线段树再分享一下。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 上个读写挂，试图加速</span><br>    ios::<span class="hljs-built_in">sync_with_stdio</span>(<span class="hljs-literal">false</span>);<br>    cin.<span class="hljs-built_in">tie</span>(<span class="hljs-number">0</span>);<br>    cout.<span class="hljs-built_in">tie</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-type">int</span> n;<br>    cin &gt;&gt; n;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nums</span><span class="hljs-params">(n)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>        cin &gt;&gt; nums[i];<br>    &#125;<br>    <span class="hljs-type">int</span> m;<br>    cin &gt;&gt; m;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ll</span><span class="hljs-params">(m)</span>, <span class="hljs-title">rr</span><span class="hljs-params">(m)</span>, <span class="hljs-title">xx</span><span class="hljs-params">(m)</span></span>;<br>    string sym;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++) &#123;<br>        cin &gt;&gt; ll[i];<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++) &#123;<br>        cin &gt;&gt; rr[i];<br>    &#125;<br>    cin &gt;&gt; sym;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++) &#123;<br>        cin &gt;&gt; xx[i];<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++) &#123;<br>        <span class="hljs-type">int</span> l = ll[i] - <span class="hljs-number">1</span>, r = rr[i] - <span class="hljs-number">1</span>, x = xx[i];<br>        <span class="hljs-type">char</span> ch = sym[i];<br>        <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;=&#x27;</span>) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = l; j &lt;= r; j++) &#123;<br>                nums[j] = x;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;|&#x27;</span>) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = l; j &lt;= r; j++) &#123;<br>                nums[j] = nums[j] | x;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = l; j &lt;= r; j++) &#123;<br>                nums[j] = nums[j] &amp; x;<br>            &#125;<br>        &#125;<br>    &#125;<br>    cout &lt;&lt; nums[<span class="hljs-number">0</span>];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; nums[i];<br>    &#125;<br>    cout &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -451,8 +344,15 @@ Windows 和 Linux 系统提供的线程模型就是一对一的。</p>
     
       <span class="category-chain">
         
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/Algorithm/InternJob/" class="category-chain-item">InternJob</a>
+  
+  
+
   
 
       </span>
@@ -466,7 +366,9 @@ Windows 和 Linux 系统提供的线程模型就是一对一的。</p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Java/">#Java</a>
+        <a href="/tags/Algorithm/">#Algorithm</a>
+      
+        <a href="/tags/C/">#C++</a>
       
     </div>
   
@@ -478,8 +380,8 @@ Windows 和 Linux 系统提供的线程模型就是一对一的。</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>记一些常见的 Java 面试问题</div>
-      <div>http://shijieq.github.io/2023/03/23/Java/记一些常见的面试问题/</div>
+      <div>小红书0326开发岗笔试总结</div>
+      <div>http://shijieq.github.io/2023/03/27/Algorithm/InternJob/Xiaohongshu0326/</div>
     </div>
     <div class="license-meta">
       
@@ -491,7 +393,7 @@ Windows 和 Linux 系统提供的线程模型就是一对一的。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 23, 2023</div>
+          <div>March 27, 2023</div>
         </div>
       
       
@@ -523,18 +425,12 @@ Windows 和 Linux 系统提供的线程模型就是一对一的。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/27/Algorithm/InternJob/Xiaohongshu0326/" title="小红书0326开发岗笔试总结">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">小红书0326开发岗笔试总结</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/22/Algorithm/InternJob/Alibaba0322Dev/" title="阿里巴巴0322开发岗笔试总结">
-                        <span class="hidden-mobile">阿里巴巴0322开发岗笔试总结</span>
+                      <a href="/2023/03/23/Java/%E8%AE%B0%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/" title="记一些常见的 Java 面试问题">
+                        <span class="hidden-mobile">记一些常见的 Java 面试问题</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
