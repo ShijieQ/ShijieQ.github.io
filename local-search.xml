@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>携程0329笔试总结</title>
+    <link href="/2023/03/29/Algorithm/InternJob/Ctrip0329/"/>
+    <url>/2023/03/29/Algorithm/InternJob/Ctrip0329/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>写在前面：</p><p>携程的题比较简单，但还是因为我知识点不够没有能在场上做出最后一题，春招好多厂都考树形DP</p><p>本篇文章仅分享本人解答代码做学习交流，若涉密或侵权可联系我删除。</p></blockquote><h2 id="题目-1">题目 1</h2><h3 id="题目描述">题目描述</h3><p>一个只有数字的字符串，统计其中 '0' 的个数，'0', '6', '9' 包含一个 '0'， '8' 包含两个。</p><h3 id="解题方法">解题方法</h3><p>水题。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    string s;<br>    cin &gt;&gt; s;<br>    <span class="hljs-type">int</span> ans = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;ch : s) &#123;<br>        <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;0&#x27;</span> || ch == <span class="hljs-string">&#x27;6&#x27;</span> || ch == <span class="hljs-string">&#x27;9&#x27;</span>) &#123;<br>            ans++;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;8&#x27;</span>) &#123;<br>            ans += <span class="hljs-number">2</span>;<br>        &#125;<br>    &#125;<br>    cout &lt;&lt; ans &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="题目-2">题目 2</h2><h3 id="题目描述-1">题目描述</h3><p>游游定义一个排列中，满足以下条件的为"好元素"：对于第公个元素a而言，a为前i个元素的最大值。例如，[3,1,5,2,4]中，第一个和第三个元素是好元素。游游希望你构造一个长度为n的排列，其中有k个好元素，且任意两个好元素都不相邻。你能帮帮她吗？</p><p>排列的定义：由1到九所有正整数组成的长度为n的数组，每个正整数出现恰好一次。</p><h4 id="输入">输入：</h4><p>两个正整数 n，k，用空格隔开。</p><h4 id="输出">输出：</h4><p>一行 n 个整数</p><h3 id="解题方法-1">解题方法</h3><p>可以将前 k 大的数字从头开始间隔摆放，剩下的数字按增序填充即可。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> n, k;<br>    cin &gt;&gt; n &gt;&gt; k;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ans</span><span class="hljs-params">(n, <span class="hljs-number">-1</span>)</span></span>;<br>    <span class="hljs-type">int</span> cur = n - k + <span class="hljs-number">1</span>, tmp = cur - <span class="hljs-number">1</span>;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (k--) &#123;<br>        ans[i] = cur++;<br>        i += <span class="hljs-number">2</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>        <span class="hljs-keyword">if</span> (ans[i] == <span class="hljs-number">-1</span>) &#123;<br>            ans[i] = tmp--;<br>        &#125;<br>    &#125;<br>    cout &lt;&lt; ans[<span class="hljs-number">0</span>];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; ans[i];<br>    &#125;<br>    cout &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="题目-3">题目 3</h2><h3 id="题目描述-2">题目描述</h3><p>游游拿到了一个正整数 n，她希望找到一对正整数 x, y 满足 |x!*y - y - n|最小，且 x,y 都不等于2，感叹号表示阶乘。你能帮帮她吗？</p><p>1 &lt;= n &lt;= 1e9</p><h3 id="解题方法-2">解题方法</h3><p>这个题其实比较好想，因为 20! 就已经超过 1e9 只需要枚举 x 然后计算 y，笔试结束才发现自己有个笔误，只能通过暴力骗了88.89%，实在是遗憾，以下是正解。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    cin &gt;&gt; n;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span>&gt; <span class="hljs-title">fac</span><span class="hljs-params">(<span class="hljs-number">20</span>)</span></span>;<br>    fac[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> result_x = <span class="hljs-number">-1</span>, result_y = <span class="hljs-number">-1</span>;<br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> min_val = LONG_MAX;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> x = <span class="hljs-number">1</span>; x &lt;= <span class="hljs-number">20</span>; x++) &#123;<br>        fac[x] = fac[x - <span class="hljs-number">1</span>]*x;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> x = <span class="hljs-number">1</span>; x &lt;= <span class="hljs-number">20</span>; x++) &#123;<br>        <span class="hljs-keyword">if</span> (x == <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> y = n/(fac[x] - <span class="hljs-number">1</span>);<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> y1 = y + <span class="hljs-number">1</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> y2 = y - <span class="hljs-number">1</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> val = <span class="hljs-built_in">abs</span>(<span class="hljs-number">1LL</span>*(fac[x] - <span class="hljs-number">1</span>)*y - n);<br>        <span class="hljs-keyword">if</span> (y != <span class="hljs-number">0</span> &amp;&amp; y != <span class="hljs-number">2</span> &amp;&amp; val &lt; min_val) &#123;<br>            min_val = val;<br>            result_x = x;<br>            result_y = y;<br>        &#125;<br>        val = <span class="hljs-built_in">abs</span>(<span class="hljs-number">1LL</span>*(fac[x] - <span class="hljs-number">1</span>)*y1 - n);<br>        <span class="hljs-keyword">if</span> (y1 != <span class="hljs-number">0</span> &amp;&amp; y1 != <span class="hljs-number">2</span> &amp;&amp; val &lt; min_val) &#123;<br>            min_val = val;<br>            result_x = x;<br>            result_y = y1;<br>        &#125;<br>        val = <span class="hljs-built_in">abs</span>(<span class="hljs-number">1LL</span>*(fac[x] - <span class="hljs-number">1</span>)*y2 - n);<br>        <span class="hljs-keyword">if</span> (y2 != <span class="hljs-number">0</span> &amp;&amp; y2 != <span class="hljs-number">2</span> &amp;&amp; val &lt; min_val) &#123;<br>            min_val = val;<br>            result_x = x;<br>            result_y = y2;<br>        &#125;<br>    &#125;<br>    cout &lt;&lt; result_x &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; result_y &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="题目-4">题目 4</h2><h3 id="题目描述-3">题目描述</h3><p>游游拿到了一棵树，树的每条边有边权。游游准备选择一些边染成红色，她希望不存在两条染红的边共用同一个点，且最终染红边的权值之和尽可能大。你能帮帮她吗？</p><p>注：所谓树，即不包含重边、自环和回路的无向连通图。</p><p>节点个数 n &lt;= 1e5, 边权 w &lt;= 1e9</p><h3 id="解题方法-3">解题方法</h3><p>吃了百度第三题的亏，赛后也没有认真去学树形 DP，拿到这道题的时候呆住了，看着像裸的树形 DP但就是不知道怎么设置状态，我还是太菜了！赛后看到牛客大佬的题解，瞬间就明白怎么做了，于是浅浅补一下题。</p><p>我们可以定义状态 <span class="math inline">\(dp[i][0]\)</span>表示节点 <span class="math inline">\(i\)</span>的出度边不染色的最大收益， <span class="math inline">\(dp[i][1]\)</span>表示节点 <span class="math inline">\(i\)</span> 的出度边染色：</p><ul><li>当节点 <span class="math inline">\(i\)</span>的出度边不染色时，也就意味着其所有子节点 <spanclass="math inline">\(nx\)</span> 的出度边可染可不染，此时收益为 <spanclass="math inline">\(\sum_{nx}^{(i, nx) \in E}max(dp[nx][0],dp[nx][1])\)</span>；</li><li>当节点 <span class="math inline">\(i\)</span>的出度边染色时，需要<strong>从其所有出度边中选择</strong>且<strong>只选择一条边</strong>，此时收益为<span class="math inline">\(max(dp[i][0] - max(dp[nx][0], dp[nx][1]) +dp[nx][0] + val), (i, nx) \in E\)</span>。</li></ul><p>代码如下（未测）： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    cin &gt;&gt; n;<br>    vector&lt;vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt;&gt; <span class="hljs-built_in">g</span>(n);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++) &#123;<br>        <span class="hljs-type">int</span> l, r, val;<br>        cin &gt;&gt; l &gt;&gt; r &gt;&gt; val;<br>        l--, r--;<br>        g[l].<span class="hljs-built_in">emplace_back</span>(<span class="hljs-built_in">make_pair</span>(r, val));<br>        g[r].<span class="hljs-built_in">emplace_back</span>(<span class="hljs-built_in">make_pair</span>(l, val));<br>    &#125;<br>    vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(n, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>));<br>    function&lt;<span class="hljs-type">void</span>(<span class="hljs-type">int</span>, <span class="hljs-type">int</span>)&gt; dfs = [&amp;](<span class="hljs-type">int</span> cur, <span class="hljs-type">int</span> p) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;[nx, val] : g[cur]) &#123;<br>            <span class="hljs-keyword">if</span> (nx == p) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-built_in">dfs</span>(nx, cur);<br>            dp[cur][<span class="hljs-number">0</span>] += <span class="hljs-built_in">max</span>(dp[nx][<span class="hljs-number">0</span>], dp[nx][<span class="hljs-number">1</span>]);<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;[nx, val] : g[cur]) &#123;<br>            <span class="hljs-keyword">if</span> (nx == p) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            dp[cur][<span class="hljs-number">1</span>] = <span class="hljs-built_in">max</span>(dp[cur][<span class="hljs-number">1</span>], dp[cur][<span class="hljs-number">0</span>] - <span class="hljs-built_in">max</span>(dp[nx][<span class="hljs-number">0</span>], dp[nx][<span class="hljs-number">1</span>]) + dp[nx][<span class="hljs-number">0</span>] + val);<br>        &#125;<br>    &#125;;<br>    <span class="hljs-built_in">dfs</span>(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>);<br>    cout &lt;&lt; <span class="hljs-built_in">max</span>(dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]);<br>&#125;<br></code></pre></td></tr></table></figure></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Algorithm</category>
+      
+      <category>InternJob</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>Algorithm</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>小红书0326开发岗笔试总结</title>
     <link href="/2023/03/27/Algorithm/InternJob/Xiaohongshu0326/"/>
     <url>/2023/03/27/Algorithm/InternJob/Xiaohongshu0326/</url>
@@ -22,9 +51,9 @@
     
     <tags>
       
-      <tag>Algorithm</tag>
-      
       <tag>C++</tag>
+      
+      <tag>Algorithm</tag>
       
     </tags>
     
@@ -76,9 +105,9 @@
     
     <tags>
       
-      <tag>Algorithm</tag>
-      
       <tag>C++</tag>
+      
+      <tag>Algorithm</tag>
       
     </tags>
     
@@ -105,9 +134,9 @@
     
     <tags>
       
-      <tag>Algorithm</tag>
-      
       <tag>C++</tag>
+      
+      <tag>Algorithm</tag>
       
     </tags>
     
@@ -192,9 +221,9 @@
     
     <tags>
       
-      <tag>Algorithm</tag>
-      
       <tag>C++</tag>
+      
+      <tag>Algorithm</tag>
       
     </tags>
     
@@ -221,9 +250,9 @@
     
     <tags>
       
-      <tag>Algorithm</tag>
-      
       <tag>C++</tag>
+      
+      <tag>Algorithm</tag>
       
     </tags>
     
@@ -232,7 +261,7 @@
   
   
   <entry>
-    <title>美团0313笔试总结</title>
+    <title>美团0311笔试总结</title>
     <link href="/2023/03/12/Algorithm/InternJob/Meituan0311/"/>
     <url>/2023/03/12/Algorithm/InternJob/Meituan0311/</url>
     
@@ -250,9 +279,9 @@
     
     <tags>
       
-      <tag>Algorithm</tag>
-      
       <tag>C++</tag>
+      
+      <tag>Algorithm</tag>
       
     </tags>
     
@@ -335,9 +364,9 @@
     
     <tags>
       
-      <tag>Algorithm</tag>
-      
       <tag>C++</tag>
+      
+      <tag>Algorithm</tag>
       
     </tags>
     
@@ -445,9 +474,9 @@
     
     <tags>
       
-      <tag>C++</tag>
-      
       <tag>OS</tag>
+      
+      <tag>C++</tag>
       
     </tags>
     
@@ -551,9 +580,9 @@
     
     <tags>
       
-      <tag>C++</tag>
-      
       <tag>OS</tag>
+      
+      <tag>C++</tag>
       
     </tags>
     
