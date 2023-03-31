@@ -24,7 +24,7 @@
 <meta property="og:description" content="本篇文章记录携程2023年03月29日后端开发岗笔试第二场的题目题解。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-29T14:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-29T16:12:21.324Z">
+<meta property="article:modified_time" content="2023-03-31T13:37:49.363Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="C++">
@@ -290,10 +290,13 @@ DP</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    string s;<br>    cin &gt;&gt; s;<br>    <span class="hljs-type">int</span> ans = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;ch : s) &#123;<br>        <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;0&#x27;</span> || ch == <span class="hljs-string">&#x27;6&#x27;</span> || ch == <span class="hljs-string">&#x27;9&#x27;</span>) &#123;<br>            ans++;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;8&#x27;</span>) &#123;<br>            ans += <span class="hljs-number">2</span>;<br>        &#125;<br>    &#125;<br>    cout &lt;&lt; ans &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="题目-2">题目 2</h2>
 <h3 id="题目描述-1">题目描述</h3>
-<p>游游定义一个排列中，满足以下条件的为"好元素"：对于第公个元素a而言，a为前
-i
-个元素的最大值。例如，[3,1,5,2,4]中，第一个和第三个元素是好元素。游游希望你构造一个长度为n的排列，其中有k个好元素，且任意两个好元素都不相邻。你能帮帮她吗？</p>
-<p>排列的定义：由1到九所有正整数组成的长度为n的数组，每个正整数出现恰好一次。</p>
+<p>游游定义一个排列中，满足以下条件的为"好元素"：对于第公个元素 a
+而言，a 为前 i
+个元素的最大值。例如，[3,1,5,2,4]中，第一个和第三个元素是好元素。游游希望你构造一个长度为
+n 的排列，其中有 k
+个好元素，且任意两个好元素都不相邻。你能帮帮她吗？</p>
+<p>排列的定义：由 1 到 n 所有正整数组成的长度为 n
+的数组，每个正整数出现恰好一次。</p>
 <h4 id="输入">输入：</h4>
 <p>两个正整数 n，k，用空格隔开。</p>
 <h4 id="输出">输出：</h4>

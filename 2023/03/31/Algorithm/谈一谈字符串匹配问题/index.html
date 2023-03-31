@@ -1,0 +1,761 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/hello.jpg">
+  <link rel="icon" href="/img/hello.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ShijieQ">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="字符串匹配问题是在算法比赛或者面试中常见的问题，从该问题出发延伸出了很多有意思的算法，比如 KMP 算法、AC 自动机等等。本篇文章记录一下字符串匹配的两大类常见算法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈一谈字符串匹配问题">
+<meta property="og:url" content="http://shijieq.github.io/2023/03/31/Algorithm/%E8%B0%88%E4%B8%80%E8%B0%88%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="ShijieQ&#39;s Blog">
+<meta property="og:description" content="字符串匹配问题是在算法比赛或者面试中常见的问题，从该问题出发延伸出了很多有意思的算法，比如 KMP 算法、AC 自动机等等。本篇文章记录一下字符串匹配的两大类常见算法。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-31T12:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-31T13:39:24.713Z">
+<meta property="article:author" content="ShijieQ">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>谈一谈字符串匹配问题 - ShijieQ&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"shijieq.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ShijieQ&#39; Page</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="谈一谈字符串匹配问题"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-31 20:00" pubdate>
+          March 31, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          37 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">谈一谈字符串匹配问题</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>一个最简单的<strong>字符串匹配</strong>问题可以理解为如下：</p>
+<blockquote>
+<p>给定一个长度为 n 的字符串 <span
+class="math inline">\(s\)</span>，检测长度为 m 的字符串 <span
+class="math inline">\(t\)</span> 在 <span
+class="math inline">\(s\)</span> 中出现的位置。</p>
+</blockquote>
+<p>最开始，我们可以使用一些比较朴素的做法，例如直接枚举 <span
+class="math inline">\(t\)</span> 在 <span
+class="math inline">\(s\)</span>
+中的位置，通过对每个位置进行比较进而得到答案，这样做的最差时间复杂度为
+<span
+class="math inline">\(O(n*m)\)</span>。当字符串长度较长时，时间代价过大。</p>
+<p>事实上我们可以思考，在每次匹配失败后朴素的做法是将字符串 <span
+class="math inline">\(t\)</span>
+向后移动一位继续重新匹配。是否存在一种方法可以减少重新匹配的次数呢？也就是说每次向后移动一位是否增加了很多不必要的匹配呢？</p>
+<p>最长公共真前后缀！每次匹配失败后并不是只移动一位，而是移动到当前子串的最长公共真前后缀的位置，这样就避免了一部分的重复匹配，<strong>KMP
+算法</strong>正是这样做的。它的基本思路是首先对字符串 <span
+class="math inline">\(t\)</span> 进行预处理数组 <span
+class="math inline">\(next\)</span>，计算出其前缀子串的最长公共真前后缀长度，这样就可以在匹配过程中进行转移。具体实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">prefix_function</span><span class="hljs-params">(string t)</span> </span>&#123;<br>    <span class="hljs-type">int</span> n = t.<span class="hljs-built_in">length</span>();<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">next</span><span class="hljs-params">(n)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>        <span class="hljs-type">int</span> j = next[i - <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">while</span> (j &gt; <span class="hljs-number">0</span> &amp;&amp; t[i] != t[j]) &#123;<br>            j = next[j - <span class="hljs-number">1</span>];<br>        &#125;<br>        <span class="hljs-keyword">if</span> (t[i] == t[j]) &#123;<br>            j++;<br>        &#125;<br>        next[i] = j;<br>    &#125;<br>    <span class="hljs-keyword">return</span> next;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>经过 <code>prefix_function</code> 我们就可以得到预期的 <span
+class="math inline">\(next\)</span>
+数组，那我们该怎么使用呢？一般只有在匹配失效时使用 <span
+class="math inline">\(next\)</span> 数组，这时只需要将字符串 <span
+class="math inline">\(t\)</span>
+的指针指向上一个匹配的公共真前后缀后的位置即可，具体实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++">vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">KMP</span>(string s, string t) &#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;<br>    vector&lt;<span class="hljs-type">int</span>&gt; next = <span class="hljs-built_in">prefix_function</span>(t);<br>    vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt; ans;<br>    <span class="hljs-keyword">while</span> (i &lt; s.<span class="hljs-built_in">length</span>()) &#123;<br>        <span class="hljs-keyword">if</span> (s[i] == t[j]) &#123;<br>            i++, j++;<br>            <span class="hljs-keyword">if</span> (j == t.<span class="hljs-built_in">length</span>()) &#123;<br>                ans.<span class="hljs-built_in">emplace_back</span>(<span class="hljs-built_in">make_pair</span>(i - j, i - <span class="hljs-number">1</span>));<br>                j = next[j - <span class="hljs-number">1</span>];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">if</span> (j &gt; <span class="hljs-number">0</span>) &#123;<br>                j = next[j - <span class="hljs-number">1</span>];<br>            &#125;<br>            <span class="hljs-keyword">else</span> &#123;<br>                i++;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> ans;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>以上代码返回的是所有在主串 <span class="math inline">\(s\)</span>
+中出现 <span class="math inline">\(t\)</span> 的开始结束下标。</p>
+<p>那么问题又来了，当我们想在一个字符串里寻找多个这样的 <span
+class="math inline">\(t\)</span> 时该怎么做呢？对每一个 <span
+class="math inline">\(t\)</span> 都构建 <span
+class="math inline">\(next\)</span>
+数组吗？这听起来是可行的，算了算时间复杂度也不过 <span
+class="math inline">\(O((n + m)*m)\)</span>，似乎是可以接受的。</p>
+<p>有没有更好的做法呢？这若干个字符串 <span
+class="math inline">\(t\)</span>
+会不会有联系？能不能只用线性时间复杂度完成这样的工作呢？</p>
+<p><strong>AC
+自动机</strong>正是为了这种解决这种<strong>多模式匹配</strong>问题而出现的，具体的思路是
+<strong>Trie tree + fail pointer</strong>。要明白的一点是字典树(Trie
+tree)本质上就是一个自动机，这个自动机只能接受且仅接受指定的字符串集合中的元素，而且是通过不同的字母形成的边进行转移。</p>
+<p>我们首先利用这些字符串 <span class="math inline">\(t\)</span>
+构建一棵字典树。显然光这样是不够的，当我们用主串去输入到这个字典树的时候，会有一些异常情况，比如有些字母不存在边对他们进行转移，这时候就需要加点东西：fail
+指针。</p>
+<p>fail
+指针的作用是当发现没有预期匹配的边后，尝试转移到其他相同的后缀子树中，听起来很熟悉，因为
+KMP 也是这样的思路，只不过 KMP 是借助一个辅助数组进行失配转移，而我们给
+AC 自动机中的每个点都加了一个 fail 指针。AC
+自动机中的根节点用来吸收所有预期之外的字母（指fail
+指针转移的终点）。</p>
+<p>AC 自动机的每个节点都是如下结构：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ACTree</span> &#123;<br>    ACTree *child[<span class="hljs-number">26</span>];<br>    ACTree *fail;<br>    vector&lt;<span class="hljs-type">int</span>&gt; exist; <span class="hljs-comment">// exist 数组存储的是以当前结尾的所有单词长度</span><br>    <span class="hljs-built_in">ACTree</span>() &#123;<br>        fail = <span class="hljs-literal">nullptr</span>; <span class="hljs-comment">// 初始化根节点的 fail 指向空</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++) &#123;<br>            child[i] = <span class="hljs-literal">nullptr</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>我们依然按照以下方式先往这棵树中添加单词，和传统字典树不同的是用
+exist 数组替代了 isEnd 标记，这允许我们能从每个节点获取更多信息：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">const</span> string &amp;s)</span> </span>&#123;<br>    ACTree *cur = <span class="hljs-keyword">this</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;ch : s) &#123;<br>        <span class="hljs-type">int</span> idx = ch - <span class="hljs-string">&#x27;a&#x27;</span>;<br>        <span class="hljs-keyword">if</span> (cur-&gt;child[idx] == <span class="hljs-literal">nullptr</span>) &#123;<br>            cur-&gt;child[idx] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ACTree</span>();<br>        &#125;<br>        cur = cur-&gt;child[idx];<br>    &#125;<br>    cur-&gt;exist.<span class="hljs-built_in">push_back</span>(s.<span class="hljs-built_in">length</span>());<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当 AC 自动机中的字典树构建完成后就开始进行最重要的 fail
+指针构建，<strong>fail
+指针指向的是所有模式串的前缀中匹配当前状态的最长后缀</strong>。我们采用层次遍历的方法去给每个节点生成
+fail 指针的指向，这借助了父节点的 fail 指针信息，具体实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-type">const</span> vector&lt;string&gt; &amp;s)</span> </span>&#123;<br>    <span class="hljs-type">int</span> n = s.<span class="hljs-built_in">size</span>();<br>    <span class="hljs-comment">// 将所有单词插入到当前的 AC 自动机中</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;word : s) &#123;<br>        <span class="hljs-built_in">insert</span>(word);<br>    &#125;<br>    queue&lt;ACTree*&gt; q;<br>    <span class="hljs-comment">// 首先处理与根节点直接相连的节点</span><br>    <span class="hljs-comment">// 这些节点的真后缀为空，所以 fail 指针指向根节点</span><br>    <span class="hljs-comment">// 同时根据层序遍历的逻辑将他们加入到队列中</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;child[i] != <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">this</span>-&gt;child[i]-&gt;fail = <span class="hljs-keyword">this</span>;<br>            q.<span class="hljs-built_in">push</span>(<span class="hljs-keyword">this</span>-&gt;child[i]);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>()) &#123;<br>        <span class="hljs-comment">// 处理当前节点的子节点</span><br>        ACTree *cur = q.<span class="hljs-built_in">front</span>();<br>        q.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++) &#123;<br>            <span class="hljs-comment">// 找到某个子节点，使用 nxt 指向它，</span><br>            <span class="hljs-comment">// 并使用 fafail 指向父节点的 fail 指针</span><br>            <span class="hljs-keyword">if</span> (cur-&gt;child[i] != <span class="hljs-literal">nullptr</span>) &#123;<br>                ACTree *nxt = cur-&gt;child[i], *fafail = cur-&gt;fail;<br>                <span class="hljs-comment">// 借助 fafail 指针遍历所有模式串的前缀中匹配当前状态的后缀</span><br>                <span class="hljs-comment">// 由于我们是层序遍历，所以每失败一次我们就会向上一层进行尝试</span><br>                <span class="hljs-keyword">while</span> (fafail != <span class="hljs-literal">nullptr</span> &amp;&amp; fafail-&gt;child[i] == <span class="hljs-literal">nullptr</span>) &#123;<br>                    fafail = fafail-&gt;fail;<br>                &#125;<br>                <span class="hljs-comment">// 当然如果找不到这样的后缀，最终会指向根节点</span><br>                <span class="hljs-keyword">if</span> (fafail == <span class="hljs-literal">nullptr</span>) &#123;<br>                    nxt-&gt;fail = <span class="hljs-keyword">this</span>;<br>                &#125;<br>                <span class="hljs-keyword">else</span> &#123;<br>                    nxt-&gt;fail = fafail-&gt;child[i];<br>                &#125;<br>                <span class="hljs-comment">// 记录 fail 指针所指向节点包含的单词</span><br>                <span class="hljs-keyword">if</span> (nxt-&gt;fail-&gt;exist.<span class="hljs-built_in">size</span>() != <span class="hljs-number">0</span>) &#123;<br>                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;it : nxt-&gt;fail-&gt;exist) &#123;<br>                        nxt-&gt;exist.<span class="hljs-built_in">push_back</span>(it);<br>                    &#125;<br>                &#125;<br>                q.<span class="hljs-built_in">push</span>(nxt);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>AC
+自动机构建完成后就可以进行主串的匹配，其原理和自动机逻辑相同，当遇到没有匹配的边后，通过
+fail 指针转移到其他子树，直到把整个字符串匹配完成，匹配过程如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 返回的是所有在 t 中出现的单词的左右下标</span><br>vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">query</span>(<span class="hljs-type">const</span> string &amp;t) &#123;<br>    ACTree *cur = <span class="hljs-keyword">this</span>;<br>    vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt; ans;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; t.<span class="hljs-built_in">length</span>(); i++) &#123;<br>        <span class="hljs-type">int</span> idx = t[i] - <span class="hljs-string">&#x27;a&#x27;</span>;<br>        <span class="hljs-comment">// 失配时通过 fail 指针转移</span><br>        <span class="hljs-keyword">while</span> (cur-&gt;child[idx] == <span class="hljs-literal">nullptr</span> &amp;&amp; cur-&gt;fail != <span class="hljs-literal">nullptr</span>) &#123;<br>            cur = cur-&gt;fail;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (cur-&gt;child[idx] != <span class="hljs-literal">nullptr</span>) &#123;<br>            cur = cur-&gt;child[idx];<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <span class="hljs-comment">// 记录中间遇到的单词</span><br>        <span class="hljs-keyword">if</span> (cur-&gt;exist.<span class="hljs-built_in">size</span>() != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;it : cur-&gt;exist) &#123;<br>                ans.<span class="hljs-built_in">emplace_back</span>(<span class="hljs-built_in">make_pair</span>(i - it + <span class="hljs-number">1</span>, i));<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> ans;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>完整代码可以通过本博客的另一篇文章《算法练习常用模板》查看。</p>
+<p>目前字符串匹配只见到了这两种：单字符串匹配和多模式串匹配，后续遇到后缀自动机再更新一下本文。本文主要帮助我自己记忆一些思路，可能形容不是很贴切，具体可以通过
+<a target="_blank" rel="noopener" href="https://oi-wiki.org/string/ac-automaton/">OI-WIKI</a>
+进行学习，BiliBili这个视频 <a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1uJ411Y7Eg/">轻松掌握ac自动机</a>
+讲的也很棒！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Algorithm/">#Algorithm</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>谈一谈字符串匹配问题</div>
+      <div>http://shijieq.github.io/2023/03/31/Algorithm/谈一谈字符串匹配问题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>ShijieQ</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>March 31, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/30/Algorithm/InternJob/Ant0330Alg/" title="蚂蚁0330算法岗笔试总结">
+                        <span class="hidden-mobile">蚂蚁0330算法岗笔试总结</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
