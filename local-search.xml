@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>一次项目数据恢复记录</title>
+    <link href="/2023/04/06/Misc/%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D/"/>
+    <url>/2023/04/06/Misc/%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>实验室的师兄师姐好几年前曾经开发了一个类似于在线靶场的项目，用于老板的本科生课程实践部分。这个老项目简单来说的逻辑就是：提供一个web界面，用户可以通过这个界面注册登录并加入课程，由课程助教每周发布对应的CTF 题目，题目由后端启动对应的 docker容器提供给学生交互，根据题目内容在对应的容器中获取 flag并提交完成作业。</p><p>这个项目大概在 2018年完成，而后在实验室物理服务器上运行了一段时间，并向本科生提供服务。中间经历过代码重构、网站被攻击、物理服务器宕机、实验室断电等一系列问题后，终于在2020年左右迁移到学院与华为云合作的云平台上。本以为在云端的加持下，项目可以平稳运行。没想到在2023 年 4 月 3 号还是出现了问题...</p><h2 id="问题发生">问题发生</h2><p>2023 年 4 月 3 日晚上，助教群突然反映服务器 IP没法正常访问，网站访问为白页，起初以为是正常的服务器抽风，于是在云平台重启云主机，但始终停留在CentOS 的开机页面。等到 4号上午助教反应依旧没法正常启动主机，当时就意识到问题的严重性。</p><blockquote><p>这里插一句，因为这个项目实际上没有人维护，之前维护的学姐也只给当时负责制作题目和课程助教的我扔了一个大概5 GB的压缩包，里面包含了从项目立项到我入学的所有历史代码和文档，是名副其实的“屎山”。因为是“屎山”加上实验室课题组之间跨度过大，因此没有一个正经的运维人员，数据备份也是随缘进行。</p></blockquote><p>当时让助教联系华为那边的工程师看看他们有什么办法，大概搞了一上午得到的结论是：没有办法。下午被老板一个微信叫到办公室，就开始加入到恢复项目的队伍中。</p><h2 id="确定问题">确定问题</h2><p>一开始是和助教进行一对一对线，助教负责在中间传递工程师和我的对话。那边的意思是只能恢复文件数据，主机肯定是开不了机了。同时将根目录下的数据全部挂载到另一台主机上，提供了一个ssh 连接。</p><p>仔细分析了一下，由于这个主机上主要保存了四大部分：后端代码、前端代码、数据库中间件、题目docker镜像。其中前后端代码在我当助教时因为对这种压缩包版本控制嗤之以鼻，已经git存在云端。当时刚入学时需要我们进行题目镜像的制作，因此有一台备用服务器上面有题目docker镜像。到目前为止，可以确定的是我们似乎只失去了数据库中的文件。</p><p>但是由于工程师将我们的数据进行了恢复，所以情况还是比较乐观的。</p><p>那么问题就简化为了：<strong>如何从Unix文件结构中找到我们需要的 MySQL的数据，并迁移到另一台可以运行 MySQL 的服务器上？</strong></p><h2 id="解决问题">解决问题</h2><p>等到确定最终问题已经下午六点了，通过云平台的克隆模式，将备用服务器克隆了一下准备进行尝试。</p><p>由于备用服务器使用的 MySQL版本和主服务器版本一致，这减轻了不少工作量。我的初步猜想是只要找到 MySQL存储数据的文件夹，直接将里面的内容替换为我们恢复的数据即可。通过查阅资料了解到MySQL 存储数据的位置在 <code>/var/lib/mysql</code> 目录下。因为仅仅使用MySQL 而没有分析过 MySQL 目录结构，一度担心 MySQL会根据不同的服务器对数据进行加密。后来也没细想，直接使用<code>scp</code> 从工程师提供的 IP中复制已宕机的服务器中对应的数据，直接进行了替换。</p><p>替换后启动 MySQL 一直报错，启动 systemctl start mysqld 提示 Error: 13(权限不够)，想了半天才想到直接梭哈：</p><blockquote><p>chmod 777 /var/lib/mysql</p></blockquote><p>或者可以直接</p><blockquote><p>chown -R mysql /var/lib/mysql</p></blockquote><p>没想到运行起来之后还真的就正常提供服务了。（后面查阅资料后，才感谢备用服务器的MySQL 表结构和主服务器一致）</p><p>将前后端部署到新服务器上后，web端恢复正常运行，可以正常访问网站。</p><h2 id="后记">后记</h2><p>半夜助教又反馈：访问倒是能访问了，但是学生找到 flag后提交一直显示答案错误。后来第二天我又一次打开那坨文档，排查错误点，还是没什么不对的地方。算了干脆去查日志，找到了一个没有被任何文档提及的配置，修改后部署，答案正确。</p><h2 id="后后记">后后记</h2><p>又过了一天，助教反映：忘记密码模块有问题，学生收不到重置密码的邮件。。。。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Misc</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Lab</tag>
+      
+      <tag>Misc</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>网络编程常见问题</title>
+    <link href="/2023/04/02/Java/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
+    <url>/2023/04/02/Java/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h2 id="inetsocketaddress">InetSocketAddress</h2><p>前段时间在使用 Netty开发服务器时想在通信建立时加一个日志，用于打印连接过来的客户端信息（IP和 Port），但是发现建立连接的过程很慢，于是有了下面的代码：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">channelActive</span><span class="hljs-params">(ChannelHandlerContext ctx)</span> &#123;<br>    <span class="hljs-type">InetSocketAddress</span> <span class="hljs-variable">socketAddress</span> <span class="hljs-operator">=</span> (InetSocketAddress) ctx.channel().remoteAddress();<br>    <span class="hljs-type">long</span> <span class="hljs-variable">startTime</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().getTime();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">hostName</span> <span class="hljs-operator">=</span> socketAddress.getHostName();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> String.valueOf(socketAddress.getPort());<br>    <span class="hljs-type">long</span> <span class="hljs-variable">endTime</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().getTime();<br>    log.info(<span class="hljs-string">&quot;客户端通道已经建立完成, 客户端 IP: &#123;&#125;，Port: &#123;&#125;, 用时 &#123;&#125; ms&quot;</span>, hostName, port, endTime - startTime);<br>&#125;<br></code></pre></td></tr></table></figure><p>查看控制台发现获取信息竟然用了 7000+ ms。</p><blockquote><p>2023-04-02 19:52:44.300 INFO 96712 --- [ntLoopGroup-3-1]o.l.xxx.netty.handler.ServerMsgHandler : 客户端通道已经建立完成, 客户端IP: xxx.xxx.xxx.xxx，Port: xxxxx, 用时 7518 ms</p></blockquote><p>去查了一下才了解到 InetSocketAddress 的 getHostName()方法进行一个反向主机名查找，这个方法调用的性能取决于 JVM和目标主机的域名服务器之间的网络性能，也就是说这个方法引发了一个系统调用执行反向查找。如果仅仅是想获取客户端的IP 可以通过以下方法获取：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 获取远程 IP</span><br><span class="hljs-type">String</span> <span class="hljs-variable">hostName</span> <span class="hljs-operator">=</span> socketAddress.getAddress().getHostAddress();<br><span class="hljs-comment">// 获取远程 Port</span><br><span class="hljs-type">String</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> String.valueOf(socketAddress.getPort());<br></code></pre></td></tr></table></figure><h2 id="netty-的-lengthfieldbasedframedecoder-使用">Netty 的LengthFieldBasedFrameDecoder 使用</h2><p>LengthFieldBasedFrameDecoder 是 netty解决拆包粘包问题的一个重要的类，主要结构就是 header + body结构。我们只需要传入正确的参数就可以发送和接收正确的数据。下面我们就具体了解一下这几个参数的意义。先来看一下LengthFieldBasedFrameDecoder主要的构造方法：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">LengthFieldBasedFrameDecoder</span><span class="hljs-params">(</span><br><span class="hljs-params">            <span class="hljs-type">int</span> maxFrameLength,</span><br><span class="hljs-params">            <span class="hljs-type">int</span> lengthFieldOffset, <span class="hljs-type">int</span> lengthFieldLength,</span><br><span class="hljs-params">            <span class="hljs-type">int</span> lengthAdjustment, <span class="hljs-type">int</span> initialBytesToStrip)</span><br></code></pre></td></tr></table></figure><p>参数含义如下：</p><ul><li>maxFrameLength：最大帧长度。也就是可以接收的数据的最大长度。如果超过，此次数据会被丢弃；</li><li>lengthFieldOffset：长度域偏移。就是说数据开始的几个字节可能不是表示数据长度，需要后移几个字节才是长度域；</li><li>lengthFieldLength：长度域字节数。用几个字节来表示数据长度；</li><li>lengthAdjustment：数据长度修正。因为长度域指定的长度可以是 header +body 的整个长度，也可以只是 body 的长度。如果表示 header + body的整个长度，那么我们需要修正数据长度；<ul><li>默认值为 0</li></ul></li><li>initialBytesToStrip：跳过的字节数。如果你需要接收 header + body的所有数据，此值就是 0 ，如果你只想接收 body 数据，那么需要跳过 header所占用的字节数。<ul><li>可以通过这个字段来只传递数据段</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>Netty</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>谈一谈字符串匹配问题</title>
     <link href="/2023/03/31/Algorithm/%E8%B0%88%E4%B8%80%E8%B0%88%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E9%97%AE%E9%A2%98/"/>
     <url>/2023/03/31/Algorithm/%E8%B0%88%E4%B8%80%E8%B0%88%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E9%97%AE%E9%A2%98/</url>
