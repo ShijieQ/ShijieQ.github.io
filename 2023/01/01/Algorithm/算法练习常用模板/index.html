@@ -24,7 +24,7 @@
 <meta property="og:description" content="本篇文章收录了大部分本人在算法练习过程中出现过的模板。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-01T06:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-31T13:35:50.652Z">
+<meta property="article:modified_time" content="2023-05-05T09:51:50.519Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="Algorithm">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.8k words
+          10k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          74 mins
+          88 mins
         
       </span>
     
@@ -300,6 +300,62 @@
 <h3 id="dijkstra-算法">Dijkstra 算法</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dijkstra</span><span class="hljs-params">(vector&lt;vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt;&gt; &amp;graph, <span class="hljs-type">int</span> start)</span> </span>&#123;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dist</span><span class="hljs-params">(graph.size(), MAX_VALUE)</span></span>;<br>    dist[start] = <span class="hljs-number">0</span>;<br>    priority_queue&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;, vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt;, greater&lt;&gt;&gt; pq;<br>    pq.<span class="hljs-built_in">push</span>(&#123;<span class="hljs-number">0</span>, start&#125;);<br>    <span class="hljs-keyword">while</span> (!pq.<span class="hljs-built_in">empty</span>()) &#123;<br>        <span class="hljs-keyword">auto</span> [d, x] = pq.<span class="hljs-built_in">top</span>();<br>        pq.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">if</span> (d &gt; dist[x]) &#123;<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> [to, val] : graph[x]) &#123;<br>            <span class="hljs-type">int</span> cur_d = dist[x] + val;<br>            <span class="hljs-keyword">if</span> (cur_d &lt; dist[to]) &#123;<br>                dist[to] = cur_d;<br>                pq.<span class="hljs-built_in">push</span>(&#123;cur_d, to&#125;);<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dist;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="数据处理">数据处理</h2>
+<h3 id="前缀和">前缀和</h3>
+<p>设数组 <span class="math inline">\(\operatorname{nums}\)</span>
+的前缀和为 <span
+class="math inline">\(\operatorname{pre\_sum}\)</span>，其中</p>
+<p><span class="math display">\[
+\operatorname{pre\_sum}[i]=\sum_{j=0}^{i-1} \operatorname{nums}[j]
+\]</span></p>
+<p>因此区间 <span class="math inline">\([L, R]\)</span> 的前缀和表示为
+<span class="math inline">\(\operatorname{pre\_sum}[R + 1] -
+\operatorname{pre\_sum}[L]\)</span></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">pre_sum</span><span class="hljs-params">(n + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)</span></span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>    pre_sum[i] = pre_sum[i - <span class="hljs-number">1</span>] + nums[i - <span class="hljs-number">1</span>];<br>&#125;<br><br><span class="hljs-keyword">auto</span> calc = [&amp;](<span class="hljs-type">int</span> L, <span class="hljs-type">int</span> R) &#123;<br>    <span class="hljs-keyword">return</span> pre_sum[R + <span class="hljs-number">1</span>] - pre_sum[L];<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="前缀和的前缀和">前缀和的前缀和</h3>
+<p>设数组 <span class="math inline">\(\operatorname{nums}\)</span>
+的前缀和的前缀和为 <span
+class="math inline">\(\operatorname{pre\_sum\_sum}\)</span>，其中</p>
+<p><span class="math display">\[
+\operatorname{pre\_sum\_sum}[i]=\sum_{j=0}^{i-1}
+\operatorname{pre\_sum}[j]
+\]</span></p>
+<p>因此区间 <span class="math inline">\([L, R]\)</span>
+的前缀和的前缀和表示为 <span
+class="math inline">\(\operatorname{pre\_sum\_sum}[R + 1] -
+\operatorname{pre\_sum\_sum}[L]\)</span></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">pre_pre_sum</span><span class="hljs-params">(n + <span class="hljs-number">2</span>, <span class="hljs-number">0</span>)</span></span>;<br><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> pre_sum = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>    pre_sum += nums[i - <span class="hljs-number">1</span>];<br>    pre_pre_sum[i + <span class="hljs-number">1</span>] = pre_pre_sum[i] + pre_sum;<br>&#125;<br><br><span class="hljs-keyword">auto</span> calc = [&amp;](<span class="hljs-type">int</span> L, <span class="hljs-type">int</span> R) &#123;<br>    <span class="hljs-keyword">return</span> pre_pre_sum[R + <span class="hljs-number">1</span>] - pre_pre_sum[L];<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="应用">应用</h4>
+<blockquote>
+<p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/sum-of-total-strength-of-wizards/">2281.
+巫师的总力量和</a></p>
+</blockquote>
+<p>在范围内含下标 i 的所有子数组的元素和的和可以表示为</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \sum_{r=i+1}^{R+1}
+\sum_{l=L}^i(\operatorname{pre\_sum}[r]-\operatorname{pre\_sum}[l]) \\
+= &amp; \left(\sum_{r=i+1}^{R+1} \sum_{l=L}^i
+\operatorname{pre\_sum}[r]\right)-\left(\sum_{r=i+1}^{R+1} \sum_{l=L}^i
+\operatorname{pre\_sum}[l]\right) \\
+= &amp; (i-L+1) \cdot \sum_{r=i+1}^{R+1}
+\operatorname{pre\_sum}[r]-(R-i+1) \cdot \sum_{l=L}^i
+\operatorname{pre\_sum}[l]
+\end{aligned}
+\]</span></p>
+<p>因此我们还需要计算出前缀和 <span
+class="math inline">\(\operatorname{pre\_sum}\)</span> 的前缀和 <span
+class="math inline">\(\operatorname{pre\_sum\_sum}\)</span> ，其中</p>
+<p><span class="math display">\[
+\operatorname{pre\_sum\_sum}[i]=\sum_{j=0}^{i-1}
+\operatorname{pre\_sum}[j]
+\]</span></p>
+<p>综上，区间 [L, R] 中含下标 i 的所有子数组的元素和的和可以表示为:</p>
+<p><span class="math display">\[
+(i-L+1) \cdot (\operatorname{pre\_sum\_sum}[R+2] -
+\operatorname{pre\_sum\_sum}[i+1])-(R-i+1) \cdot
+(\operatorname{pre\_sum\_sum}[i+1]-\operatorname{pre\_sum\_sum}[L])
+\]</span></p>
 <h3 id="离散化">离散化</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">arrayRankTransform</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;<br>    vector&lt;<span class="hljs-type">int</span>&gt; tmp = arr;<br>    <span class="hljs-built_in">sort</span>(tmp.<span class="hljs-built_in">begin</span>(), tmp.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-comment">// 去重</span><br>    tmp.<span class="hljs-built_in">erase</span>(<span class="hljs-built_in">unique</span>(tmp.<span class="hljs-built_in">begin</span>(), tmp.<span class="hljs-built_in">end</span>()), tmp.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;x : arr) &#123;<br>        x = <span class="hljs-built_in">upper_bound</span>(tmp.<span class="hljs-built_in">begin</span>(), tmp.<span class="hljs-built_in">end</span>(), x) - tmp.<span class="hljs-built_in">begin</span>();<br>    &#125;<br>    <span class="hljs-keyword">return</span> arr;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="数位-dp">数位 DP</h3>

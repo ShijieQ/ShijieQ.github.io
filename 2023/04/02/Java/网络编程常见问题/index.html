@@ -24,7 +24,7 @@
 <meta property="og:description" content="本篇是在学习和利用网络编程进行开发工作的时候一些比较琐碎但是个人认为比较重要的问题总结。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-02T12:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-08T08:12:03.352Z">
+<meta property="article:modified_time" content="2023-05-05T07:22:42.973Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Netty">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k words
+          2.8k words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          14 mins
+          24 mins
         
       </span>
     
@@ -315,6 +315,26 @@ body 的整个长度，也可以只是 body 的长度。如果表示 header + bo
 <li>可以通过这个字段来只传递数据段</li>
 </ul></li>
 </ul>
+<h2 id="netty-中-channelhandler-并发安全分析">Netty 中 ChannelHandler
+并发安全分析</h2>
+<p>如果 ChannelHandler
+是非共享的，则它就是线程安全的，原因：当链路完成初始化会创建
+ChannelPipeline ，每个 channel 对应一个 ChannelPipeline 实例，业务的
+ChannelHandler 会被实例化并加入 ChannelPipeline 中执行，由于某个 Channel
+只能被特定的 NioEventLoop 线程执行，因此 ChannelHandler
+不会被并发调用，不用考虑线程安全问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">.handler(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ChannelInitializer</span>&lt;SocketChannel&gt;()&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initChannel</span><span class="hljs-params">(SocketChannel ch)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        ch.pipeline().addLast(<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">NoThreadSecurityClientHandler</span>()<br>    );<br>  &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>如果只初始化一次业务 ChannelHandler ，然后加到多个 Channel 的
+ChannelPipeline ，由于不同的 Channel 可能绑定不同的 NioEventLoop
+线程，这样 ChannelHandler 就可能被多个 I/O
+线程访问，存在并发访问风险了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">ChannelHandler</span> <span class="hljs-variable">clientHandler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DemoHandler</span>();<br>b.group(group)<br>    .channel(NioSocketChannel.class)<br>    .option(ChannelOption.TCP_NODELAY, <span class="hljs-literal">true</span>)<br>    .handler(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ChannelInitializer</span>&lt;SocketChannel&gt;() &#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initChannel</span><span class="hljs-params">(SocketChannel ch)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>            ch.pipeline().addLast(clientHandler);<br>        &#125;<br>    &#125;);<br></code></pre></td></tr></table></figure>
+<p>如果某个 ChannelHandler 需要全局共享，则通过 Sharable
+注解就可以被添加到多个 ChannelPipeline 。</p>
+<p>当 ChannelHandler 被添加到多个 ChannelPipeline
+，就会面临多线程并发访问问题，需要 ChannelHandler
+保证自身的线程安全，例如通过原子类、读写锁等方式对数据做并发保护。如果加锁，可能会阻塞
+NioEventLoop 线程，所以 Sharable 注解的 ChannelHandler 要慎用。</p>
 
                 
               </div>

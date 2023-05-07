@@ -16,15 +16,15 @@
   <meta name="author" content="ShijieQ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文用于记载不同注册中心之间的差异。">
+    <meta name="description" content="目前主流的微服务架构 SpringCloud 被应用于各个企业和组织。作为 Java 后端学习的一部分，本文记录一些关于 SpringCloud 的相关知识点和技巧。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="不同注册中心之间的差异">
-<meta property="og:url" content="http://shijieq.github.io/2023/03/07/DistributedSystem/MicroService/%E4%B8%8D%E5%90%8C%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82/index.html">
+<meta property="og:title" content="SpringCloud 学习笔记">
+<meta property="og:url" content="http://shijieq.github.io/2023/04/10/DistributedSystem/MicroService/Nacos%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/index.html">
 <meta property="og:site_name" content="ShijieQ&#39;s Blog">
-<meta property="og:description" content="本文用于记载不同注册中心之间的差异。">
+<meta property="og:description" content="目前主流的微服务架构 SpringCloud 被应用于各个企业和组织。作为 Java 后端学习的一部分，本文记录一些关于 SpringCloud 的相关知识点和技巧。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-07T01:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-12T07:00:07.104Z">
+<meta property="article:published_time" content="2023-04-10T01:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-13T12:47:38.289Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="DistributedSystem">
 <meta property="article:tag" content="MicroService">
@@ -32,7 +32,7 @@
   
   
   
-  <title>不同注册中心之间的差异 - ShijieQ&#39;s Blog</title>
+  <title>SpringCloud 学习笔记 - ShijieQ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="不同注册中心之间的差异"></span>
+            <span id="subtitle" data-typed-text="SpringCloud 学习笔记"></span>
           
         </div>
 
@@ -209,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-07 09:00" pubdate>
-          March 7, 2023 am
+        <time datetime="2023-04-10 09:00" pubdate>
+          April 10, 2023 am
         </time>
       </span>
     
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          567 words
+          848 words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          5 mins
+          8 mins
         
       </span>
     
@@ -270,34 +270,57 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">不同注册中心之间的差异</h1>
+            <h1 style="display: none">SpringCloud 学习笔记</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="nacos-eureka-zookeeper">Nacos &amp; Eureka &amp; Zookeeper</h2>
-<p>Nacos、Eureka 和 Zookeeper
-都可以实现<strong>分布式注册中心框架</strong>。</p>
-<p>Eureka 与 Nacos 底层通过 Raft 协议实现集群产生领导角色。</p>
-<h3 id="差异">差异</h3>
-<p>Zookeeper 采用 CP 保证数据的一致性的问题，原理是采用 ZAB
-原子广播协议。当我们 ZK
-领导者宕机或出现了故障，会自动重新实现选举新的领导角色，整个选举的过程中为了保证数据一致性的问题，整个微服务无法实现通讯（本地有缓存除外）。还有可运行的节点必须满足过半机制，整个
-ZK 才可以使用，要不然会奔溃。</p>
-<p>Eureka 采用 AP
-设计理念架构注册中心，相互注册（你中有我，我中有你），完全去中心化，也就是没有主从之分，只要有一台
-Eureka 节点存在整个微服务就可以实现通讯。</p>
-<p>Nacos 从 1.0 版本选择 AP 和 CP 混合形式实现注册中心，默认情况下采用
-AP 保证服务可用性，CP 形式底层采用 Raft
-协议保证数据的一致性问题。如果选择为 AP
-模式，注册服务的实例仅支持临时模式，在网络分区的的情况允许注册服务实例。选择
-CP
-模式可以支持注册服务的实例为持久模式，在网络分区的产生了抖动情况下不允许注册服务实例。</p>
+                <h1 id="nacos">Nacos</h1>
+<p>Nacos 组件可以用于服务注册中心、配置中心。</p>
+<h2 id="临时实例与非临时实例">临时实例与非临时实例</h2>
+<p>由于 Nacos 支持集群管理，因此底层使用 Raft 协议来完成分布式功能。在
+Nacos 集群默认采用 AP 方式，当集群中存在非临时实例时，采用 CP 模式。</p>
+<p>对于非临时实例，Nacos
+采用主动检测模式，当非临时实例心跳不正常时不会被剔除。同时对于非临时实例的变更，Nacos
+采用主动消息推送，服务列表更新更加及时。</p>
+<h3
+id="如何将一个实例声明为非临时实例">如何将一个实例声明为非临时实例？</h3>
+<p>通过在所要声明的非临时实例配置文件中加入以下配置即可：</p>
+<blockquote>
+<p>spring.cloud.nacos.discovery.ephemeral=false</p>
+</blockquote>
+<p>当值为 false 时表示为非临时实例，默认为 true。</p>
+<h2 id="配置文件">配置文件</h2>
+<h3 id="配置文件优先级">配置文件优先级</h3>
+<blockquote>
+<p>服务名-profile.yaml &gt; 服务名.yaml &gt; 本地配置</p>
+</blockquote>
+<p>其中 profile 代表环境名</p>
+<h1 id="feign">Feign</h1>
+<p>Nacos 组件可以用于服务之间的远程调用，是 Spring Cloud
+Netflix组件中的一个轻量级 Restful 的 HTTP 服务客户端。Feign
+有以下功能：</p>
 <ul>
-<li>也就是说 Nacos 集群默认采用 AP 方式，当集群中存在非临时实例时，采用
-CP 模式。</li>
-<li>Nacos 同时支持服务列表变更的消息推送模式，服务列表更新更加及时</li>
+<li>封装了 Ribbon 实现负载均衡；</li>
+<li>封装了 RestTemplate 实现 HTTP 请求的发起，以实现远程服务调用。</li>
 </ul>
+<h1 id="spring-cloud-gateway">Spring Cloud Gateway</h1>
+<p>SpringCloud Gateway 基于 Spring 5.0，Spring Boot 2.0 和 Project
+Reactor 等技术开发的网关，它旨在为微服务架构提供一种简单有效的统一的 API
+路由管理方式，目标是替代 <strong>Zuul</strong>。</p>
+<p>SpringCloud Gateway 是基于 WebFlux 框架实现的，而 WebFlux
+框架底层则使用了高性能的 Reactor 模式通信框架 Netty，同时基于 Filter
+链的方式提供了网关基本的功能，例如：安全，监控/指标，和限流。</p>
+<h2 id="filter">Filter</h2>
+<p>Filter 过滤器功能如下：</p>
+<ul>
+<li>负责对路由的请求或响应做加工处理，比如添加消息头；</li>
+<li>配置在路由下的过滤器只对当前路由的请求生效；
+<ul>
+<li>也可以通过 defaultFilters 添加默认过滤器</li>
+</ul></li>
+</ul>
+<h3 id="全局过滤器-globalfilter">全局过滤器 GlobalFilter</h3>
 
                 
               </div>
@@ -323,6 +346,13 @@ CP 模式。</li>
     
   <a href="/categories/DistributedSystem/MicroService/" class="category-chain-item">MicroService</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/DistributedSystem/MicroService/Java/" class="category-chain-item">Java</a>
+  
+  
+
   
 
   
@@ -352,8 +382,8 @@ CP 模式。</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>不同注册中心之间的差异</div>
-      <div>http://shijieq.github.io/2023/03/07/DistributedSystem/MicroService/不同注册中心之间的差异/</div>
+      <div>SpringCloud 学习笔记</div>
+      <div>http://shijieq.github.io/2023/04/10/DistributedSystem/MicroService/Nacos使用小记/</div>
     </div>
     <div class="license-meta">
       
@@ -365,7 +395,7 @@ CP 模式。</li>
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 7, 2023</div>
+          <div>April 10, 2023</div>
         </div>
       
       
@@ -397,9 +427,9 @@ CP 模式。</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/12/Algorithm/InternJob/Meituan0311/" title="美团0311笔试总结">
+                      <a href="/2023/05/06/FrontEnd/%E4%B8%80%E4%BA%9B%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" title="一些前端知识">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">美团0311笔试总结</span>
+                        <span class="hidden-mobile">一些前端知识</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -407,8 +437,8 @@ CP 模式。</li>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/05/DistributedSystem/MicroService/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6/" title="常见中间件">
-                        <span class="hidden-mobile">常见中间件</span>
+                      <a href="/2023/04/06/Misc/%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D/" title="一次项目数据恢复记录">
+                        <span class="hidden-mobile">一次项目数据恢复记录</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

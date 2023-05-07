@@ -16,23 +16,23 @@
   <meta name="author" content="ShijieQ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文用于记载不同注册中心之间的差异。">
+    <meta name="description" content="最近在写一些后台管理的前端界面，正好借助这个机会复习一下很久没用到的前端知识，主要是 Vue 相关。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="不同注册中心之间的差异">
-<meta property="og:url" content="http://shijieq.github.io/2023/03/07/DistributedSystem/MicroService/%E4%B8%8D%E5%90%8C%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82/index.html">
+<meta property="og:title" content="一些前端知识">
+<meta property="og:url" content="http://shijieq.github.io/2023/05/06/FrontEnd/%E4%B8%80%E4%BA%9B%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/index.html">
 <meta property="og:site_name" content="ShijieQ&#39;s Blog">
-<meta property="og:description" content="本文用于记载不同注册中心之间的差异。">
+<meta property="og:description" content="最近在写一些后台管理的前端界面，正好借助这个机会复习一下很久没用到的前端知识，主要是 Vue 相关。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-07T01:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-12T07:00:07.104Z">
+<meta property="article:published_time" content="2023-05-06T01:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-07T10:44:54.991Z">
 <meta property="article:author" content="ShijieQ">
-<meta property="article:tag" content="DistributedSystem">
-<meta property="article:tag" content="MicroService">
+<meta property="article:tag" content="FrontEnd">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>不同注册中心之间的差异 - ShijieQ&#39;s Blog</title>
+  <title>一些前端知识 - ShijieQ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="不同注册中心之间的差异"></span>
+            <span id="subtitle" data-typed-text="一些前端知识"></span>
           
         </div>
 
@@ -209,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-07 09:00" pubdate>
-          March 7, 2023 am
+        <time datetime="2023-05-06 09:00" pubdate>
+          May 6, 2023 am
         </time>
       </span>
     
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          567 words
+          1.3k words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          5 mins
+          12 mins
         
       </span>
     
@@ -270,34 +270,33 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">不同注册中心之间的差异</h1>
+            <h1 style="display: none">一些前端知识</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="nacos-eureka-zookeeper">Nacos &amp; Eureka &amp; Zookeeper</h2>
-<p>Nacos、Eureka 和 Zookeeper
-都可以实现<strong>分布式注册中心框架</strong>。</p>
-<p>Eureka 与 Nacos 底层通过 Raft 协议实现集群产生领导角色。</p>
-<h3 id="差异">差异</h3>
-<p>Zookeeper 采用 CP 保证数据的一致性的问题，原理是采用 ZAB
-原子广播协议。当我们 ZK
-领导者宕机或出现了故障，会自动重新实现选举新的领导角色，整个选举的过程中为了保证数据一致性的问题，整个微服务无法实现通讯（本地有缓存除外）。还有可运行的节点必须满足过半机制，整个
-ZK 才可以使用，要不然会奔溃。</p>
-<p>Eureka 采用 AP
-设计理念架构注册中心，相互注册（你中有我，我中有你），完全去中心化，也就是没有主从之分，只要有一台
-Eureka 节点存在整个微服务就可以实现通讯。</p>
-<p>Nacos 从 1.0 版本选择 AP 和 CP 混合形式实现注册中心，默认情况下采用
-AP 保证服务可用性，CP 形式底层采用 Raft
-协议保证数据的一致性问题。如果选择为 AP
-模式，注册服务的实例仅支持临时模式，在网络分区的的情况允许注册服务实例。选择
-CP
-模式可以支持注册服务的实例为持久模式，在网络分区的产生了抖动情况下不允许注册服务实例。</p>
-<ul>
-<li>也就是说 Nacos 集群默认采用 AP 方式，当集群中存在非临时实例时，采用
-CP 模式。</li>
-<li>Nacos 同时支持服务列表变更的消息推送模式，服务列表更新更加及时</li>
-</ul>
+                <h2 id="vue">Vue</h2>
+<p>Vue 借鉴了 AngulaJS 的模块化开发和 React 的虚拟 Dom ，所谓虚拟 Dom
+就是把 Dom 操作放到内存中执行</p>
+<h3 id="基础知识">基础知识</h3>
+<p>SoC 关注度分离原则</p>
+<h3 id="自定义事件分发">自定义事件分发</h3>
+<blockquote>
+<p>this.$emit('事件名', [参数])</p>
+</blockquote>
+<h3 id="计算属性">计算属性</h3>
+<p>计算属性的主要特性就是为了将不经常变化的计算结果进行缓存，以节约系统开销。</p>
+<h3 id="双向绑定">双向绑定</h3>
+<h4 id="下拉框的特殊处理">下拉框的特殊处理</h4>
+<p>针对 iOS 用户，需要加一个“请选择”的默认选项</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;div id=<span class="hljs-string">&quot;vue&quot;</span>&gt;<br>    下拉框:<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;selected&quot;</span> &gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">disabled</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>请选择<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>B<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>选中的值: &#123;&#123; selected &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br>&lt;/div&gt;<br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-attr">el</span>:<span class="hljs-string">&#x27;#vue&#x27;</span>，</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-attr">data</span>: &#123;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-attr">selected</span>: <span class="hljs-string">&#x27;&#x27;</span></span></span><br><span class="language-javascript"><span class="language-xml">        &#125;</span></span><br><span class="language-javascript"><span class="language-xml">    &#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<h4 id="模板传参绑定">模板传参绑定</h4>
+<p>模板 qinjiang 绑定了 #app 的 items 字段，同时使用 for
+循环去读取每一个 item 的值，并将这个值传递给模板 qinjiang 的 props 中的
+qin 字段，并在列表中显示出来。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;div id=<span class="hljs-string">&quot;app&quot;</span>&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">qinjiang</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in items&quot;</span> <span class="hljs-attr">v-bind:qin</span>=<span class="hljs-string">&quot;item&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">qinjiang</span>&gt;</span></span><br>&lt;/div&gt;<br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn,jsdelivr,net/npm/vue@2.5.21/dist/vue.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">component</span>(<span class="hljs-string">&quot;qinjiang&quot;</span>, &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-attr">props</span>: [<span class="hljs-string">&#x27;qin&#x27;</span>],</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;&lt;li&gt;(&#123;qin&#125;&#125;&lt;/li&gt;&#x27;</span></span></span><br><span class="language-javascript"><span class="language-xml">    &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-attr">el</span>: <span class="hljs-string">&quot;#app&quot;</span>, </span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-attr">data</span>: &#123;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-attr">items</span>: [<span class="hljs-string">&quot;Java&quot;</span>,<span class="hljs-string">&quot;Linux&quot;</span>,<span class="hljs-string">&quot;前端&quot;</span>]</span></span><br><span class="language-javascript"><span class="language-xml">        &#125;</span></span><br><span class="language-javascript"><span class="language-xml">    &#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<h3 id="rimraf">rimraf</h3>
+<p>npm install rimraf -g rimraf</p>
 
                 
               </div>
@@ -316,15 +315,8 @@ CP 模式。</li>
     
       <span class="category-chain">
         
-  <a href="/categories/DistributedSystem/" class="category-chain-item">DistributedSystem</a>
+  <a href="/categories/FrontEnd/" class="category-chain-item">FrontEnd</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/DistributedSystem/MicroService/" class="category-chain-item">MicroService</a>
-  
-  
-
   
 
       </span>
@@ -338,9 +330,9 @@ CP 模式。</li>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/DistributedSystem/">#DistributedSystem</a>
+        <a href="/tags/FrontEnd/">#FrontEnd</a>
       
-        <a href="/tags/MicroService/">#MicroService</a>
+        <a href="/tags/Vue/">#Vue</a>
       
     </div>
   
@@ -352,8 +344,8 @@ CP 模式。</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>不同注册中心之间的差异</div>
-      <div>http://shijieq.github.io/2023/03/07/DistributedSystem/MicroService/不同注册中心之间的差异/</div>
+      <div>一些前端知识</div>
+      <div>http://shijieq.github.io/2023/05/06/FrontEnd/一些前端知识/</div>
     </div>
     <div class="license-meta">
       
@@ -365,7 +357,7 @@ CP 模式。</li>
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 7, 2023</div>
+          <div>May 6, 2023</div>
         </div>
       
       
@@ -397,18 +389,12 @@ CP 模式。</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/12/Algorithm/InternJob/Meituan0311/" title="美团0311笔试总结">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">美团0311笔试总结</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/05/DistributedSystem/MicroService/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6/" title="常见中间件">
-                        <span class="hidden-mobile">常见中间件</span>
+                      <a href="/2023/04/10/DistributedSystem/MicroService/Nacos%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0/" title="SpringCloud 学习笔记">
+                        <span class="hidden-mobile">SpringCloud 学习笔记</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
