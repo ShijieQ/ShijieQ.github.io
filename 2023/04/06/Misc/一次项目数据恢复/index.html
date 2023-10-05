@@ -24,7 +24,7 @@
 <meta property="og:description" content="最近一个运行了很久的项目突然出现云服务器崩溃无法开机，即使服务器提供商开启救援模式也没有办法恢复正常运行。通过这篇文章记录一下恢复的方法。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-06T12:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-07T12:58:57.040Z">
+<meta property="article:modified_time" content="2023-10-05T09:21:54.657Z">
 <meta property="article:author" content="ShijieQ">
 <meta property="article:tag" content="Lab">
 <meta property="article:tag" content="Misc">
@@ -309,8 +309,8 @@ git
 docker
 镜像。到目前为止，可以确定的是我们似乎只失去了数据库中的文件。</p>
 <p>但是由于工程师将我们的数据进行了恢复，所以情况还是比较乐观的。</p>
-<p>那么问题就简化为了：<strong>如何从Unix文件结构中找到我们需要的 MySQL
-的数据，并迁移到另一台可以运行 MySQL 的服务器上？</strong></p>
+<p>那么问题就简化为了：<strong>如何从 Unix 文件结构中找到我们需要的
+MySQL 的数据，并迁移到另一台可以运行 MySQL 的服务器上？</strong></p>
 <h2 id="解决问题">解决问题</h2>
 <p>等到确定最终问题已经下午六点了，通过云平台的克隆模式，将备用服务器克隆了一下准备进行尝试。</p>
 <p>由于备用服务器使用的 MySQL
